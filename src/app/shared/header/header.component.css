@@ -1,0 +1,58 @@
+.header-content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo-text {
+  font: icon;
+  @apply
+    tw-text-[16px]
+    tw-relative
+    tw-text-white
+    tw-top-[1px]
+    tw-whitespace-pre-wrap
+    tw-leading-[1]
+    tw-opacity-0
+}
+
+.header-logo-text.show-logo {
+  @apply
+    tw-opacity-[1]
+}
+
+.user-pict {
+  @apply
+    tw-w-[40px]
+    tw-rounded-[50%]
+}
+
+.user-dropdown-menu {
+  @apply
+    tw-absolute
+    tw-right-[12px]
+    tw-mt-2
+    tw-py-2
+    tw-w-48
+    tw-rounded-md
+    tw-shadow-xl
+    tw-z-20
+    tw-bg-[#1e1e2d]
+}
+
+.user-dropdown-item {
+  @apply
+    tw-block
+    tw-px-4
+    tw-py-2
+    tw-text-sm
+    tw-capitalize
+    tw-text-gray-300
+    tw-no-underline
+}
+
+.user-dropdown-item:hover {
+  @apply
+    tw-text-[#a2e0ff]
+}

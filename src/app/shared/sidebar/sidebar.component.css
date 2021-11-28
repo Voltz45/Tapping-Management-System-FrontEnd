@@ -40,6 +40,31 @@
   tw-leading-[1]
 }
 
+.hide-button {
+  position: absolute;
+  right: -12px;
+  z-index: var(--hide-button-index);
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0;
+
+  @apply
+  tw-bg-gray-200
+}
+
+.sidebar-container:hover .hide-button {
+  opacity: 1;
+}
+
+.collapsed .hide-button-arrow {
+  transform: rotate(180deg);
+}
+
 .sidebar-menu {
   height: calc(100vh - var(--header-height) - 20px);
   @apply

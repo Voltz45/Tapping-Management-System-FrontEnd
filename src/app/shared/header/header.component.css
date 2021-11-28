@@ -64,21 +64,29 @@
 }
 
 .user-dropdown-menu {
-  display: none;
   padding: 0;
   margin: 0;
   position: absolute;
   width: 150px;
+  max-height: 200px;
   background-color: white;
   border-radius: 5px;
   top: 50px;
   right: 12px;
   cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-2em);
+  z-index: -1;
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
 }
 
 .user-dropdown-menu.show-dropdown {
-  animation: show-dropdown .5s forwards;
-  display: block;
+  visibility: visible;
+  opacity: 1;
+  z-index: 1;
+  transform: translateY(5%);
+  transition-delay: 0s, 0s, 0.3s;
 }
 
 .user-dropdown-list {
@@ -104,21 +112,7 @@
 a {
   text-decoration: none;
   color: black;
-  margin-left: 5px;
+  margin-left: 10px;
   font-weight: 400;
   font-size: 14px;
-}
-
-@keyframes show-dropdown {
-  from {
-    max-height: 0;
-    display: none;
-    opacity: 0;
-  }
-
-  to {
-    max-height: 160px;
-    display: block;
-    opacity: 1;
-  }
 }

@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~boxicons/css/boxicons.css";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: var(--full-screen-height);
+  min-width: var(--full-screen-width);
+}
+
+*, ::before, ::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border: 1px solid #aaa;
+  background-color: white;
+}

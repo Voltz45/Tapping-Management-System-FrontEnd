@@ -5,11 +5,9 @@ import { Observable } from "rxjs";
 import { User } from "../model/user";
 import { JwtHelperService } from "@auth0/angular-jwt";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private host: string = environment.apiUrl;
+  public host: string = environment.apiUrl;
   private token: string = '';
   private loggedInUsername: string = '';
   private jwtHelper= new JwtHelperService();

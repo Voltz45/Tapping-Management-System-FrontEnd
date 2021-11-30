@@ -4,8 +4,9 @@ import {HttpClient, HttpErrorResponse, HttpEvent} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../model/user";
 import {publish} from "rxjs/operators";
+import {CustomHttpResponse} from "../model/custom-http-response";
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class UserService {
   private host = environment.apiUrl;
 
@@ -24,8 +25,8 @@ export class UserService {
     return this.http.post<User>(`${this.host}/user/update`, formData);
   }
 
-  public resetPassword(email: string): Observable<any | HttpErrorResponse> {
-    return this.http.get(`${this.host}/user/resetpassword/${email}`);
+  public resetPassword(email: string): Observable<CustomHttpResponse | HttpErrorResponse> {
+    return this.http.get<CustomHttpResponse>(`${this.host}/user/resetpassword/${email}`);
   }
 
   public updateProfileImage(formData: FormData): Observable<HttpEvent<User> | HttpErrorResponse> {
@@ -36,8 +37,8 @@ export class UserService {
       });
   }
 
-  public deleteUser(userId: number): Observable<any | HttpErrorResponse> {
-    return this.http.delete<any>(`${this.host}/user/delete/${userId}`);
+  public deleteUser(userId: number): Observable<CustomHttpResponse | HttpErrorResponse> {
+    return this.http.delete<CustomHttpResponse>(`${this.host}/user/delete/${userId}`);
   }
 
   public addUsersToLocalCache(users: User[]): void {
@@ -49,5 +50,19 @@ export class UserService {
         return JSON.parse(localStorage.getItem('users') || '');
     }
     return null;
+  }
+
+  public createUserFormData(loggedInUsername: string, user: User, profileImage: File): FormData{
+    const formData = new FormData();
+      formData.append('currentUsername', loggedInUsername);
+      formData.append('firstName', user.firstName);
+      formData.append('lastName',user.lastName);
+      formData.append('username', user.username);
+      formData.append('email',user.email);
+      formData.append('role', user.role);
+      formData.append('profileImage', profileImage);
+      formData.append('isActive', JSON.stringify(user.active));
+      formData.append('isNonLocked',JSON.stringify(user.notLocked));
+      return formData;
   }
 }

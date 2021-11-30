@@ -8,6 +8,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import {AuthenticationService} from "./service/authentication.service";
 import {UserService} from "./service/user.service";
 import {AuthInterceptor} from "./inteceptor/auth.interceptor";
+import {AuthenticationGuard} from "./guard/authentication.guard";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import {AuthInterceptor} from "./inteceptor/auth.interceptor";
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthenticationService, UserService,
+  providers: [AuthenticationService, UserService,AuthenticationGuard,
     {provide : HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })

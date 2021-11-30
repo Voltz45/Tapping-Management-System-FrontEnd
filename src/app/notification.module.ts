@@ -1,5 +1,6 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {NotifierModule, NotifierOptions} from "angular-notifier";
-import {NgModule} from "@angular/core";
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -46,4 +47,4 @@ const notifierCustomOptions: NotifierOptions = {
   imports: [NotifierModule.withConfig(notifierCustomOptions)],
   exports: [NotifierModule]
 })
-export class NotificationModule{}
+export class NotificationModule { }

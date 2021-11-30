@@ -13,6 +13,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import {NotificationService} from "./service/notification.service";
+import {NotificationModule} from "./notification.module";
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -20,12 +23,15 @@ import {NotificationService} from "./service/notification.service";
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
-    UserComponent
+    UserComponent,
+    DashboardComponent
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NotificationModule
   ],
   providers: [NotificationService, AuthenticationService, UserService,AuthenticationGuard,
     {provide : HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],

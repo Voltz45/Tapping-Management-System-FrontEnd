@@ -5,9 +5,7 @@ import {Observable} from "rxjs";
 import {User} from "../model/user";
 import {publish} from "rxjs/operators";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class UserService {
   private host = environment.apiUrl;
 
@@ -44,5 +42,12 @@ export class UserService {
 
   public addUsersToLocalCache(users: User[]): void {
     localStorage.setItem('users', JSON.stringify(users));
+  }
+
+  public getUsersFromLocalCache(): User[] | null {
+    if (localStorage.getItem('users')){
+        return JSON.parse(localStorage.getItem('users') || '');
+    }
+    return null;
   }
 }

@@ -16,6 +16,7 @@ import {NotificationService} from "./service/notification.service";
 import {NotificationModule} from "./notification.module";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {RouterModule} from "@angular/router";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {RouterModule} from "@angular/router";
   imports: [
     RouterModule,
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     NotificationModule

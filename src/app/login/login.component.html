@@ -1,1 +1,47 @@
-<p>login works!</p>
+<div class="container">
+  <div class="forms-container">
+    <div class="sign-in">
+      <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)" class="sign-in-form">
+        <h2 class="title">LOGIN</h2>
+        <div class="input-field">
+          <i class="bx bx-user"></i>
+          <input type="text" name="username" placeholder="Username" ngModel #usernameInput="ngModel" required>
+          <span class="text-username" *ngIf="usernameInput.invalid && usernameInput.touched">Please enter your username!</span>
+        </div>
+        <div class="input-field">
+          <i class="bx bx-lock"></i>
+          <input type="password" name="password" placeholder="password" ngModel #passwordInput="ngModel" required>
+          <span class="text-pasword" *ngIf="passwordInput.invalid && passwordInput.touched">Please enter your password!</span>
+        </div>
+        <a>
+          <!-- <input type="submit" value="Login" class="btn solid"> -->
+          <button type="submit" [disabled]="loginForm.invalid || showLoading" name="button" class="btn solid">
+            <i class="bx bx-spin"></i>&nbsp;&nbsp;
+             <span *ngIf="showLoading">Loading </span>
+            <span *ngIf="!showLoading">Login</span>
+            <i *ngIf="showLoading" class="bx bx-loader bx-spin"></i>
+          </button>
+        </a>
+        <!-- <p class="social-text">Or Sign in with social platforms</p>
+        <div class="social-media">
+            <a href="#" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon">
+                <i class="fab fa-google"></i>
+            </a>
+        </div> -->
+      </form>
+    </div>
+
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>Good Day!</h3>
+          <p>Sheild Your Transactions, Monitoring Your Devices, Save Your Performances!</p>
+        </div>
+        <img src="../assets/monitoringWhite.svg" class="image" alt="">
+      </div>
+    </div>
+  </div>
+</div>

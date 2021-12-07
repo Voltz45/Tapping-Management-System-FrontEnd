@@ -108,6 +108,7 @@
 .second-submenu-container,
 .first-submenu-container {
   background-color: var(--sub-color);
+  z-index: var(--submenu-index);
 
   -webkit-box-shadow: 2px 2px 8px -1px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 2px 2px 8px -1px rgba(0, 0, 0, 0.75);
@@ -250,14 +251,17 @@
   tw-flex tw-items-center tw-justify-center
 }
 
-#dashboard-container,
-#transaction-container {
-  @apply tw-hidden
+.sidebar-menu-item:hover .first-submenu-container.not-child {
+  @apply
+  tw-opacity-[0]
+  tw-hidden
 }
 
-.collapsed #dashboard-container,
-.collapsed #transaction-container {
-  @apply tw-block
+.collapsed .sidebar-menu-item:hover .first-submenu-container.not-child {
+  animation: fade-in .5s forwards;
+  @apply
+  tw-opacity-[1]
+  tw-block
 }
 
 .sidebar-menu-item:hover .first-submenu-container,

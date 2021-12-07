@@ -1,0 +1,40 @@
+.transaction-success,
+.transaction-declined,
+.transaction-pending,
+.transaction-timeout {
+  @apply
+  tw-flex tw-flex-col tw-h-full tw-w-full tw-justify-center
+}
+
+.header-icon {
+  @apply
+  tw-text-white tw-ml-[5px] tw-text-[50px]
+}
+
+.transaction-success > .header,
+.transaction-declined > .header,
+.transaction-pending > .header,
+.transaction-timeout > .header {
+  @apply
+  tw-flex tw-flex-row tw-w-full tw-items-center tw-text-white tw-pl-[10px]
+}
+
+.header > .status-name {
+  @apply
+  tw-flex tw-items-center tw-w-full
+}
+
+.header > .status-result {
+  @apply
+  tw-relative tw-right-[10px]
+}
+
+.status-result-text {
+  @apply
+  tw-m-0 tw-p-0
+}
+
+.update-status {
+  @apply
+  tw-text-white tw-pl-[10px]
+}

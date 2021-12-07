@@ -109,6 +109,11 @@
   font-weight: 600;
 }
 
+.user-dropdown-item:hover .user-dropdown-logout-text {
+  color: red;
+  font-weight: 600;
+}
+
 a {
   text-decoration: none;
   color: black;

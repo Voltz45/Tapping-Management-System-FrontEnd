@@ -1,0 +1,67 @@
+<div *ngIf="status == 'success'" class="transaction-success">
+  <div class="header-icon">
+    <span class="bx bx-check-circle"></span>
+  </div>
+  <div class="header">
+    <div class="status-name">
+      <span class="status-name-text">Transaction Success</span>
+    </div>
+    <div class="status-result">
+      <h1 class="status-result-text">7</h1>
+    </div>
+  </div>
+  <div class="update-status">
+    <span class="last-update-status-text">Updated: </span>
+  </div>
+</div>
+
+<div *ngIf="status == 'declined'" class="transaction-pending">
+  <div class="header-icon">
+    <span class="bx bx-error-circle"></span>
+  </div>
+  <div class="header">
+    <div class="status-name">
+      <span class="status-name-text">Transaction Pending</span>
+    </div>
+    <div class="status-result">
+      <h1 class="status-result-text">11</h1>
+    </div>
+  </div>
+  <div class="update-status">
+    <span class="last-update-status-text">Updated: </span>
+  </div>
+</div>
+
+<div *ngIf="status == 'pending'" class="transaction-timeout">
+  <div class="header-icon">
+    <span class="bx bx-alarm-exclamation"></span>
+  </div>
+  <div class="header">
+    <div class="status-name">
+      <span class="status-name-text">Transaction Timeout</span>
+    </div>
+    <div class="status-result">
+      <h1 class="status-result-text">20</h1>
+    </div>
+  </div>
+  <div class="update-status">
+    <span class="last-update-status-text">Updated: </span>
+  </div>
+</div>
+
+<div *ngIf="status == 'timeout'" class="transaction-declined">
+  <div class="header-icon">
+    <span class="bx bx-block"></span>
+  </div>
+  <div class="header">
+    <div class="status-name">
+      <span class="status-name-text">Transaction Declined</span>
+    </div>
+    <div class="status-result">
+      <h1 class="status-result-text">50</h1>
+    </div>
+  </div>
+  <div class="update-status">
+    <span class="last-update-status-text">Updated: </span>
+  </div>
+</div>

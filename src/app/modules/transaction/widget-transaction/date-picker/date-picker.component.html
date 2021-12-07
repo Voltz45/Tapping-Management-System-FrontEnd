@@ -1,0 +1,16 @@
+<div [formGroup]="form">
+  <mat-form-field style="font-size: 12px; width: 150px; margin-right: 15px">
+    <input matInput [ngxMatDatetimePicker]="$any(pickerFrom)" placeholder="Date From" formControlName="dateFrom"
+           autocomplete="off">
+    <mat-datepicker-toggle matSuffix [for]="$any(pickerFrom)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #pickerFrom [showSeconds]="showSeconds" [color]="color"
+                             [defaultTime]="defaultTime"></ngx-mat-datetime-picker>
+  </mat-form-field>
+
+  <mat-form-field style="font-size: 12px; width: 150px">
+    <input matInput [ngxMatDatetimePicker]="$any(pickerTo)" placeholder="Date To" formControlName="dateTo"
+           autocomplete="off">
+    <mat-datepicker-toggle matSuffix [for]="$any(pickerTo)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #pickerTo [showSeconds]="showSeconds" [color]="color"></ngx-mat-datetime-picker>
+  </mat-form-field>
+</div>

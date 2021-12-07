@@ -1,0 +1,73 @@
+<div class="transaction-container" style="padding: 20px">
+  <div class="transaction-header" style="padding-bottom: 15px">
+    <mat-card class="test-card">
+      <div style="padding: 0 10px">
+        <div>
+          <div style="display: flex; flex-direction: row;">
+            <app-date-picker [form]="form"></app-date-picker>
+          </div>
+          <div class="transaction-expand-button">
+            <span class="transaction-expand-button-arrow bx bx-arrow-from-top" (click)="testButton()"></span>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div style="display: flex; flex-direction: row; padding-bottom: 15px">
+    <button class="search-button" mat-raised-button color="primary" (click)="searchButton()">Search</button>
+    <button class="clear-button" mat-raised-button color="warn" (click)="clearButton()" style="margin-left: 10px">
+      Clear
+    </button>
+  </div>
+  <div class="transaction-table">
+    <mat-card>
+      <div [formGroup]="columnOption" style="margin-bottom: 15px; display: flex; justify-content: space-between;">
+        <button mat-raised-button color="primary" (click)="onExport()" class="export-button">
+          <span style="margin-right: 5px">Export Data as XLSX</span>
+          <span class="bx bx-export" style="font-size: 18px; margin-bottom: 3px"></span>
+        </button>
+        <button #selectButton class="column-button" type="button" mat-raised-button>
+          <span style="margin-right: 5px">Columns</span>
+          <span class="bx bx-collection" style="font-size: 18px"></span>
+          <mat-select class="transaction-column-option" formControlName="column"
+                      (selectionChange)="selectChange($event)" panelClass="transaction-column-option-list" multiple>
+            <mat-option *ngFor="let column of sortColumnList" [value]="column.value">
+              {{ column.viewValue }}
+            </mat-option>
+          </mat-select>
+        </button>
+      </div>
+      <div>
+        <ag-grid-angular
+          style="width: 100%; height: auto;"
+          class="ag-theme-alpine"
+          [pagination]="true"
+          domLayout="autoHeight"
+          rowSelection="single"
+          enableCellTextSelection
+          [rowHeight]="40"
+          [paginationPageSize]="paginationSize"
+          [defaultColDef]="defaultColDef"
+          [rowData]="rowData"
+          [columnDefs]="columnDefs"
+          (rowClicked)="onCellClicked($event)"
+          (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
+        <div class="example-header">
+          Page Size:
+          <select (change)="onPageSizeChanged()" id="page-size">
+            <option value="5" selected="">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="500">500</option>
+          </select>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div class="transaction-footer"></div>
+</div>

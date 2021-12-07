@@ -9,14 +9,14 @@
 
   <div class="sidebar-menu">
     <ul class="sidebar-menu-list">
-      <li class="sidebar-menu-item have-child">
+      <li class="sidebar-menu-item have-child" routerLink="dashboard">
         <div class="sidebar-item-container tw-w-full">
           <span class="sidebar-item-icon bx bxs-dashboard"></span>
           <span class="sidebar-item-text">Dashboard</span>
         </div>
-        <div class="first-submenu-container" id="dashboard-container">
+        <div class="first-submenu-container not-child" id="dashboard-container">
           <ul class="first-submenu-list">
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="dashboard">
               <span class="first-submenu-item-text">Dashboard</span>
             </li>
           </ul>
@@ -33,7 +33,7 @@
             <span class="first-submenu-text">Investigation</span>
           </div>
           <ul class="first-submenu-list">
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="investigation/alert-analysis">
               <span class="first-submenu-item-icon bx bx-error"></span>
               <span class="first-submenu-item-text">Alert Analysis</span>
             </li>
@@ -51,11 +51,11 @@
             <span class="first-submenu-text">Acquirer</span>
           </div>
           <ul class="first-submenu-list">
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="acquirer/terminal-list">
               <span class="first-submenu-item-icon bx bx-desktop"></span>
               <span class="first-submenu-item-text">Terminal List</span>
             </li>
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="acquirer/alert">
               <span class="first-submenu-item-icon bx bx-error"></span>
               <span class="first-submenu-item-text">Alert</span>
             </li>
@@ -73,11 +73,11 @@
             <span class="first-submenu-text">Issuer</span>
           </div>
           <ul class="first-submenu-list">
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="issuer/terminal-list">
               <span class="first-submenu-item-icon bx bx-desktop"></span>
               <span class="first-submenu-item-text">Terminal List</span>
             </li>
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="issuer/alert">
               <span class="first-submenu-item-icon bx bx-error"></span>
               <span class="first-submenu-item-text">Alert</span>
             </li>
@@ -95,23 +95,23 @@
             <span class="first-submenu-text">External Interfaces</span>
           </div>
           <ul class="first-submenu-list">
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="external-interfaces/iso8583-configuration">
               <span class="first-submenu-item-icon bx bx-layer"></span>
               <span class="first-submenu-item-text">ISO8583 Configuration</span>
             </li>
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="external-interfaces/iso20022">
               <span class="first-submenu-item-icon bx bx-layer"></span>
               <span class="first-submenu-item-text">ISO20022</span>
             </li>
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="external-interfaces/json-configuration">
               <span class="first-submenu-item-icon bx bx-code-curly"></span>
               <span class="first-submenu-item-text">JSON Configuration</span>
             </li>
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="external-interfaces/NDC">
               <span class="first-submenu-item-icon bx bx-cube"></span>
               <span class="first-submenu-item-text">NDC</span>
             </li>
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="external-interfaces/xml-configuration">
               <span class="first-submenu-item-icon bx bx-code"></span>
               <span class="first-submenu-item-text">XML Configuration</span>
             </li>
@@ -129,7 +129,7 @@
             <span class="first-submenu-text">Terminal Configuration</span>
           </div>
           <ul class="first-submenu-list">
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="terminal-configuration/terminal">
               <span class="first-submenu-item-icon bx bx-server"></span>
               <span class="first-submenu-item-text">Terminal</span>
             </li>
@@ -137,13 +137,13 @@
         </div>
       </li>
       <li class="sidebar-menu-item have-child">
-        <div class="sidebar-item-container">
+        <div class="sidebar-item-container" routerLink="transaction">
           <span class="sidebar-item-icon bx bx-transfer"></span>
           <span class="sidebar-item-text">Transaction</span>
         </div>
-        <div class="first-submenu-container" id="transaction-container">
+        <div class="first-submenu-container not-child" id="transaction-container">
           <ul class="first-submenu-list">
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="transaction">
               <span class="first-submenu-item-text">Transaction</span>
             </li>
           </ul>
@@ -160,15 +160,15 @@
             <span class="first-submenu-text">User Management</span>
           </div>
           <ul class="first-submenu-list">
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="user-management/private-scheme">
               <span class="first-submenu-item-icon bx bx-code-alt"></span>
               <span class="first-submenu-item-text">Private Schemes</span>
             </li>
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="user-management/roles">
               <span class="first-submenu-item-icon bx bx-layer"></span>
               <span class="first-submenu-item-text">Roles</span>
             </li>
-            <li class="first-submenu-item">
+            <li class="first-submenu-item" routerLink="user-management/user">
               <span class="first-submenu-item-icon bx bxs-user-rectangle"></span>
               <span class="first-submenu-item-text">Users</span>
             </li>
@@ -193,7 +193,7 @@
               <span class='chevron-icon bx bx-chevron-down'></span>
               <div class="second-submenu-container" id="app-container" style="border-bottom-left-radius: 5px;">
                 <ul class="second-submenu-list">
-                  <li class="second-submenu-item">
+                  <li class="second-submenu-item" routerLink="system/application-parameters/ARP">
                     <span class="second-submenu-item-icon bx bx-code-curly"></span>
                     <span class="second-submenu-item-text">ARP</span>
                   </li>

@@ -5,6 +5,10 @@
 @import 'tailwindcss/utilities';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+/*ag-grid-community*/
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
+
 body {
   margin: 0;
   padding: 0;
@@ -20,6 +24,7 @@ body {
 
 ::-webkit-scrollbar {
   width: 5px;
+  height: 8px;
   background-color: transparent;
 }
 
@@ -32,4 +37,13 @@ body {
   border-radius: 10px;
   border: 1px solid #aaa;
   background-color: white;
+}
+
+/*ag-grid*/
+.rag-red {
+  color: red;
+}
+
+.ag-center-cols-clipper {
+  min-height: unset !important;
 }

@@ -5,6 +5,7 @@ import {SidebarComponent} from "./sidebar/sidebar.component";
 import {FooterComponent} from "./footer/footer.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatDividerModule} from "@angular/material/divider";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -20,8 +21,9 @@ import {MatDividerModule} from "@angular/material/divider";
   ],
   imports: [
     CommonModule,
+    RouterModule,
     BrowserAnimationsModule,
-    MatDividerModule
+    MatDividerModule,
   ]
 })
 export class SharedModule {

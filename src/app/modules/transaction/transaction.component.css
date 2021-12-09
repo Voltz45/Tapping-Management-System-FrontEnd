@@ -179,6 +179,27 @@
   @apply tw-bg-gray-200
 }
 
+::ng-deep .ag-header-cell,
+::ng-deep .ag-theme-alpine .ag-ltr .ag-cell {
+  border-right: 2px solid #dde2eb;
+}
+
+::ng-deep .ag-header-cell-resize {
+  width: 0;
+}
+
+::ng-deep .ag-center-cols-viewport::-webkit-scrollbar {
+  background-color: transparent;
+  height: 0;
+}
+
+::ng-deep .ag-body-horizontal-scroll,
+::ng-deep .ag-body-horizontal-scroll-viewport,
+::ng-deep .ag-body-horizontal-scroll-container {
+  height: 15px !important;
+  min-height: 15px !important;
+  max-height: 15px !important;
+}
 
 /*Bootstrap styles*/
 .nav-link {

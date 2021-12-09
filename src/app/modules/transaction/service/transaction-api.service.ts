@@ -15,7 +15,7 @@ export class TransactionApiService {
       currencyCode: 3601,
       destAccount: 70701,
       HPAN: 123456,
-      merchantId: 1231,
+      merchantId: 12311111111111111,
       merchantType: 12321,
       MTI: 121,
       networkDate: 1231,

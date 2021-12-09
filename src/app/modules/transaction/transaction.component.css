@@ -1,25 +1,67 @@
-table {
-  width: 100%;
+.transaction-container {
+  @apply tw-p-[20px]
 }
 
-.test-card {
-  height: 80px;
-  transition: .5s height ease-in-out;
+.transaction-header {
+
+}
+
+.transaction-header-card {
+  @apply
+  tw-h-[80px]
+  tw-transition tw-transition-height tw-duration-500 tw-ease-in-out
+}
+
+.transaction-header-content {
+  @apply
+  tw-px-[10px]
+}
+
+.transaction-content-date-filter {
+  @apply
+  tw-flex tw-flex-row
+}
+
+.transaction-field-filter-container {
+  @apply
+  tw-flex tw-flex-row tw-justify-between
+}
+
+.transaction-field-filter {
+  @apply
+  tw-hidden tw-opacity-0 tw-w-full
+  tw-flex tw-flex-col
+}
+
+.transaction-field {
+  @apply
+  tw-text-[12px]
+  tw-w-[315px]
+  tw-mr-[15px]
+}
+
+.search-input-field {
+
 }
 
 .transaction-expand-button {
-  position: absolute;
   border-radius: 50%;
-  right: 12px;
-  bottom: -10px;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  opacity: 0;
-  background-color: var(--hover-color);
+  background-color: var(--header-color);
+
+  @apply
+  tw-absolute
+  tw-text-white
+  tw-right-[12px]
+  tw-bottom-[-10px]
+  tw-w-[25px] tw-h-[25px]
+  tw-flex tw-items-center tw-justify-center
+  tw-cursor-pointer
+  tw-opacity-0
+}
+
+.transaction-button-group {
+  @apply
+  tw-flex tw-flex-row tw-my-[15px]
 }
 
 .search-button,
@@ -27,44 +69,84 @@ table {
 .column-button,
 .export-button {
   line-height: 28px;
-  font-size: 12px;
-  min-width: 50px;
+  @apply
+  tw-text-[12px]
+  tw-min-w-[50px]
+}
+
+.clear-button {
+  @apply
+  tw-ml-[10px]
 }
 
 .column-button,
 .export-button {
-  position: relative;
   background-color: var(--header-color);
-  color: white;
-  display: flex;
+  @apply
+  tw-relative
+  tw-text-white
+  tw-flex
+}
+
+.transaction-table-container {
+  @apply
+  tw-mb-[15px]
+  tw-flex
+  tw-justify-between
+}
+
+.export-text {
+  @apply
+  tw-mr-[5px]
+}
+
+.export-icon {
+  @apply
+  tw-text-[18px] tw-mb-[3px]
 }
 
 .column-button .transaction-column-option {
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
+  @apply
+  tw-w-full tw-h-full
+  tw-opacity-0
+  tw-absolute
+  tw-top-0
+  tw-left-0
 }
 
-.test-card:hover .transaction-expand-button {
-  opacity: 1;
+.column-text {
+  @apply tw-mr-[5px]
 }
 
-.test-card.test-height {
-  height: 200px;
+.column-icon {
+  @apply tw-text-[18px]
 }
 
-.test-height .transaction-expand-button {
+/*Transition / Animation*/
+.transaction-header-card:hover .transaction-expand-button {
+  @apply
+  tw-opacity-[1]
+}
+
+.transaction-header-card.expanded {
+  @apply tw-h-[440px]
+}
+
+.expanded .transaction-expand-button {
   transform: rotate(180deg);
 }
 
+.expanded .transaction-field-filter {
+  @apply tw-block tw-opacity-[1]
+}
+
 /*Deep styles*/
+::ng-deep .ag-center-cols-clipper {
+  min-height: unset !important;
+}
+
 ::ng-deep .transaction-column-option-list {
-  margin-top: 35px;
-  position: relative;
-  right: 35px;
+  @apply tw-mt-[35px] tw-relative tw-right-[35px]
 }
 
 ::ng-deep .mat-pseudo-checkbox-checked {
@@ -74,7 +156,7 @@ table {
 ::ng-deep .mat-datepicker-content .mat-calendar {
   width: unset !important;
   height: unset !important;
-  font-size: 12px;
+  @apply tw-text-[12px]
 }
 
 ::ng-deep .transaction-header-color {
@@ -82,18 +164,28 @@ table {
 }
 
 ::ng-deep .ag-header-cell-label {
-  justify-content: center;
-  color: white;
+  @apply tw-justify-center tw-text-white
 }
 
 ::ng-deep .ag-cell-wrapper {
-  justify-content: center;
+  @apply tw-justify-center
 }
 
 ::ng-deep .ag-theme-alpine .ag-header-icon {
-  color: white !important;
+  @apply tw-text-white
 }
 
 ::ng-deep .ag-theme-alpine .ag-paging-panel {
   @apply tw-bg-gray-200
+}
+
+
+/*Bootstrap styles*/
+.nav-link {
+  @apply tw-text-black
+}
+
+.nav-link.active {
+  color: white;
+  background-color: var(--header-color);
 }

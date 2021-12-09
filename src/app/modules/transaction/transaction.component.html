@@ -1,73 +1,166 @@
-<div class="transaction-container" style="padding: 20px">
-  <div class="transaction-header" style="padding-bottom: 15px">
-    <mat-card class="test-card">
-      <div style="padding: 0 10px">
-        <div>
-          <div style="display: flex; flex-direction: row;">
-            <app-date-picker [form]="form"></app-date-picker>
+<div class="transaction-container">
+  <div class="transaction-header">
+    <mat-card class="transaction-header-card">
+      <div class="transaction-header-content">
+        <div class="transaction-content-date-filter">
+          <app-date-picker [form]="searchFilterForm"></app-date-picker>
+        </div>
+        <div class="transaction-field-filter-container" [formGroup]="searchFilterForm">
+          <div class="transaction-field-filter">
+            <mat-form-field class="transaction-field">
+              <mat-label>MTI</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="MTI">
+              <mat-hint *ngIf="searchFilterForm.controls['MTI'].hasError('pattern')" style="color: red">Number Only
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>HPAN</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="HPAN">
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>Terminal Id</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="terminalId">
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>Merchant Id</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="merchantId">
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>Merchant Type</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="merchantType">
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>Currency Code</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="currencyCode">
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>Amount</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="amount">
+            </mat-form-field>
           </div>
-          <div class="transaction-expand-button">
-            <span class="transaction-expand-button-arrow bx bx-arrow-from-top" (click)="testButton()"></span>
+
+          <div class="transaction-field-filter">
+            <mat-form-field class="transaction-field">
+              <mat-label>Response Code</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="responseCode">
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>Transaction Id</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="transactionId">
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>Network Id</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="networkId">
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>RRN</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="RRN">
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>Source Account</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="srcAccount">
+            </mat-form-field>
+            <mat-form-field class="transaction-field">
+              <mat-label>Destination Account</mat-label>
+              <input class="search-input-field" matInput autocomplete="off" formControlName="destAccount">
+            </mat-form-field>
           </div>
+        </div>
+        <div class="transaction-expand-button">
+          <span class="bx bx-arrow-from-top" (click)="expandButton()"></span>
         </div>
       </div>
     </mat-card>
   </div>
-  <div style="display: flex; flex-direction: row; padding-bottom: 15px">
+
+  <div class="transaction-button-group">
     <button class="search-button" mat-raised-button color="primary" (click)="searchButton()">Search</button>
-    <button class="clear-button" mat-raised-button color="warn" (click)="clearButton()" style="margin-left: 10px">
-      Clear
-    </button>
+    <button class="clear-button" mat-raised-button color="warn" (click)="clearButton()">Clear</button>
   </div>
-  <div class="transaction-table">
-    <mat-card>
-      <div [formGroup]="columnOption" style="margin-bottom: 15px; display: flex; justify-content: space-between;">
-        <button mat-raised-button color="primary" (click)="onExport()" class="export-button">
-          <span style="margin-right: 5px">Export Data as XLSX</span>
-          <span class="bx bx-export" style="font-size: 18px; margin-bottom: 3px"></span>
-        </button>
-        <button #selectButton class="column-button" type="button" mat-raised-button>
-          <span style="margin-right: 5px">Columns</span>
-          <span class="bx bx-collection" style="font-size: 18px"></span>
-          <mat-select class="transaction-column-option" formControlName="column"
-                      (selectionChange)="selectChange($event)" panelClass="transaction-column-option-list" multiple>
-            <mat-option *ngFor="let column of sortColumnList" [value]="column.value">
-              {{ column.viewValue }}
-            </mat-option>
-          </mat-select>
-        </button>
+
+  <mat-card class="transaction-table">
+    <div class="transaction-table-container" [formGroup]="columnOption">
+      <button mat-raised-button color="primary" (click)="onExport()" class="export-button">
+        <span class="export-text">Export Data as XLSX</span>
+        <span class="export-icon bx bx-export"></span>
+      </button>
+
+      <button class="column-button" type="button" mat-raised-button>
+        <span class="column-text">Columns</span>
+        <span class="column-icon bx bx-collection"></span>
+        <mat-select class="transaction-column-option" formControlName="column"
+                    (selectionChange)="selectChange($event)" panelClass="transaction-column-option-list" multiple>
+          <mat-option *ngFor="let column of transactionTableService.sortColumnList" [value]="column.value">
+            {{ column.viewValue }}
+          </mat-option>
+        </mat-select>
+      </button>
+    </div>
+
+    <div>
+      <transaction-table
+        [headerColHeight]="transactionTableService.headerColHeight"
+        [paginationSize]="transactionTableService.paginationSize"
+        [defaultColDef]="transactionTableService.defaultColDef"
+        [rowData]="transactionApiService.rowData"
+        [columnDefs]="transactionTableService.columnDefs"></transaction-table>
+
+      <div class="page-size-container">
+        Page Size:
+        <select (change)="onPageSizeChanged()" id="page-size">
+          <option value="5" selected="">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="500">500</option>
+        </select>
       </div>
-      <div>
-        <ag-grid-angular
-          style="width: 100%; height: auto;"
-          class="ag-theme-alpine"
-          [pagination]="true"
-          domLayout="autoHeight"
-          rowSelection="single"
-          enableCellTextSelection
-          [rowHeight]="40"
-          [paginationPageSize]="paginationSize"
-          [defaultColDef]="defaultColDef"
-          [rowData]="rowData"
-          [columnDefs]="columnDefs"
-          (rowClicked)="onCellClicked($event)"
-          (gridReady)="onGridReady($event)">
-        </ag-grid-angular>
-        <div class="example-header">
-          Page Size:
-          <select (change)="onPageSizeChanged()" id="page-size">
-            <option value="5" selected="">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="500">500</option>
-          </select>
+    </div>
+
+    <div style="margin-top: 20px; height: 400px; border: solid 1px #babfc7;">
+      <ul class="tw-bg-gray-200 nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="additional-info-tab" data-bs-toggle="tab"
+                  data-bs-target="#additional-info" type="button" role="tab" aria-controls="additional-info"
+                  aria-selected="true">
+            Additional Info
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="test1-tab" data-bs-toggle="tab" data-bs-target="#test1" type="button"
+                  role="tab" aria-controls="profile" aria-selected="false">
+            Test1
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="test2-tab" data-bs-toggle="tab" data-bs-target="#test2" type="button"
+                  role="tab" aria-controls="test2" aria-selected="false">
+            Test2
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="additional-info" role="tabpanel"
+             aria-labelledby="additional-info-tab">
+          <div style="margin: 12px">
+            <div style="width: 50%">
+              <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
+                <span class="form-label">Transaction Date</span>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="test1" role="tabpanel" aria-labelledby="test1-tab">
+          test1
+        </div>
+        <div class="tab-pane fade" id="test2" role="tabpanel" aria-labelledby="test2-tab">
+          test2
         </div>
       </div>
-    </mat-card>
-  </div>
-  <div class="transaction-footer"></div>
+    </div>
+  </mat-card>
 </div>

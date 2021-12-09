@@ -39,6 +39,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {DatePickerComponent} from './transaction/widget-transaction/date-picker/date-picker.component';
 import {MatSelectModule} from "@angular/material/select";
 import {AgGridModule} from 'ag-grid-angular';
+import {TransactionApiService} from "./transaction/service/transaction-api.service";
+import {TransactionTableService} from "./transaction/service/transaction-table.service";
+import {TableComponent} from './transaction/widget-transaction/table/table.component';
 
 
 @NgModule({
@@ -61,6 +64,7 @@ import {AgGridModule} from 'ag-grid-angular';
     TransactionrateWidgetChartComponent,
     TransactionStatusComponent,
     DatePickerComponent,
+    TableComponent,
   ],
   imports: [
     NgxEchartsModule.forRoot({
@@ -85,7 +89,9 @@ import {AgGridModule} from 'ag-grid-angular';
   ],
   providers: [
     WebsocketService,
-    TransactionRateChartService
+    TransactionRateChartService,
+    TransactionApiService,
+    TransactionTableService
   ]
 })
 export class FeatureModule {

@@ -1,0 +1,17 @@
+<ag-grid-angular
+  style="width: 100%; height: auto;"
+  class="ag-theme-alpine"
+  [pagination]="true"
+  [animateRows]="true"
+  domLayout="autoHeight"
+  rowSelection="single"
+  enableCellTextSelection
+  [rowHeight]="40"
+  [headerHeight]="this.headerColHeight"
+  [paginationPageSize]="this.paginationSize"
+  [defaultColDef]="this.defaultColDef"
+  [rowData]="this.rowData"
+  [columnDefs]="this.columnDefs"
+  (rowClicked)="onCellClicked($event)"
+  (gridReady)="onGridReady($event)">
+</ag-grid-angular>

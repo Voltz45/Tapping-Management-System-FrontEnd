@@ -10,6 +10,10 @@
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
 
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;

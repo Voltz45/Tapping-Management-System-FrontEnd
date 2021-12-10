@@ -46,7 +46,7 @@
 
 .transaction-expand-button {
   border-radius: 50%;
-  background-color: var(--header-color);
+  background-color: #173B5E;
 
   @apply
   tw-absolute
@@ -81,7 +81,7 @@
 
 .column-button,
 .export-button {
-  background-color: var(--header-color);
+  background-color: #173B5E;
   @apply
   tw-relative
   tw-text-white
@@ -160,7 +160,7 @@
 }
 
 ::ng-deep .transaction-header-color {
-  background-color: var(--header-color);
+  background-color: #173B5E;
 }
 
 ::ng-deep .ag-header-cell-label {
@@ -208,5 +208,5 @@
 
 .nav-link.active {
   color: white;
-  background-color: var(--header-color);
+  background-color: #173B5E;
 }

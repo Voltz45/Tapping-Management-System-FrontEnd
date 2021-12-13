@@ -1,0 +1,90 @@
+.transaction-success,
+.transaction-declined,
+.transaction-pending,
+.transaction-timeout {
+  @apply
+  tw-flex tw-flex-col tw-h-full tw-w-full tw-justify-center
+}
+
+.header {
+  @apply
+  tw-text-[#919aa3] tw-p-[16px]
+  tw-flex tw-flex-col tw-flex-nowrap
+}
+
+.status-icon {
+  @apply tw-text-[45px]
+}
+
+.status-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-result {
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.transaction-success > .header > .status-container > .status-result,
+.transaction-success > .header > .status-container > .status-icon {
+  color: #00c689;
+}
+
+.transaction-declined > .header > .status-container > .status-result,
+.transaction-declined > .header > .status-container > .status-icon {
+  color: #3ea5f4;
+}
+
+.transaction-pending > .header > .status-container > .status-result,
+.transaction-pending > .header > .status-container > .status-icon {
+  color: #f1526e;
+}
+
+.transaction-timeout > .header > .status-container > .status-result,
+.transaction-timeout > .header > .status-container > .status-icon {
+  color: #fda005;
+}
+
+.header-name-text {
+  font-size: 16px;
+  margin: 0;
+}
+
+.transaction-success > .header-status,
+.transaction-declined > .header-status,
+.transaction-pending > .header-status,
+.transaction-timeout > .header-status {
+  height: 30px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.transaction-success > .header-status {
+  background-color: #00c689;
+}
+
+.transaction-declined > .header-status {
+  background-color: #3ea5f4;
+}
+
+.transaction-pending > .header-status {
+  background-color: #f1526e;
+}
+
+.transaction-timeout > .header-status {
+  background-color: #fda005;
+}
+
+.update-status {
+  @apply
+  tw-text-white tw-pl-[16px]
+}
+
+.last-update-status-text {
+  font-size: 14px;
+}

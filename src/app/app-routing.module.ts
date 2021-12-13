@@ -1,25 +1,28 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DefaultComponent} from "./layout/default/default.component";
-import {DashboardComponent} from "./modules/dashboard/dashboard.component";
-import {AlertAnalysisComponent} from "./modules/investigation/alert-analysis/alert-analysis.component";
-import {TerminalListComponent} from "./modules/Acquirer/terminal-list/terminal-list.component";
-import {AlertComponent} from "./modules/Acquirer/alert/alert.component";
+import {DashboardComponent} from "./modules/module/dashboard/dashboard.component";
+import {AlertAnalysisComponent} from "./modules/module/investigation/alert-analysis/alert-analysis.component";
+import {TerminalListComponent} from "./modules/module/acquirer/terminal-list/terminal-list.component";
+import {AlertComponent} from "./modules/module/acquirer/alert/alert.component";
 import {
   Iso8583configurationComponent
-} from "./modules/External-interfaces/iso8583configuration/iso8583configuration.component";
-import {Iso20022Component} from "./modules/External-interfaces/iso20022/iso20022.component";
+} from "./modules/module/external-interfaces/iso8583configuration/iso8583configuration.component";
+import {Iso20022Component} from "./modules/module/external-interfaces/iso20022/iso20022.component";
 import {
   JsonConfigurationComponent
-} from "./modules/External-interfaces/json-configuration/json-configuration.component";
-import {NDCComponent} from "./modules/External-interfaces/ndc/ndc.component";
-import {XmlConfigurationComponent} from "./modules/External-interfaces/xml-configuration/xml-configuration.component";
-import {TerminalComponent} from "./modules/terminalConfiguration/terminal/terminal.component";
-import {TransactionComponent} from "./modules/transaction/transaction.component";
-import {PrivateSchemeComponent} from "./modules/userManagement/private-scheme/private-scheme.component";
-import {RolesComponent} from "./modules/userManagement/roles/roles.component";
-import {UserComponent} from "./modules/userManagement/user/user.component";
-import {ARPComponent} from "./modules/system/applicationParameters/arp/arp.component";
+} from "./modules/module/external-interfaces/json-configuration/json-configuration.component";
+import {NDCComponent} from "./modules/module/external-interfaces/ndc/ndc.component";
+import {
+  XmlConfigurationComponent
+} from "./modules/module/external-interfaces/xml-configuration/xml-configuration.component";
+import {TerminalComponent} from "./modules/module/terminalConfiguration/terminal/terminal.component";
+import {TransactionComponent} from "./modules/module/transaction/transaction.component";
+import {PrivateSchemeComponent} from "./modules/module/userManagement/private-scheme/private-scheme.component";
+import {RolesComponent} from "./modules/module/userManagement/roles/roles.component";
+import {UserComponent} from "./modules/module/userManagement/user/user.component";
+import {ARPComponent} from "./modules/module/system/applicationParameters/arp/arp.component";
+import {SystemParametersComponent} from "./modules/module/system/system-parameters/system-parameters.component";
 
 const routes: Routes = [
   {
@@ -129,6 +132,10 @@ const routes: Routes = [
                 component: ARPComponent
               }
             ]
+          },
+          {
+            path: 'system-parameters',
+            component: SystemParametersComponent
           }
         ]
       }

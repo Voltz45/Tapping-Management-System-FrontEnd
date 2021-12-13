@@ -211,7 +211,7 @@
 }
 
 .sidebar-menu-item:hover .sidebar-item-container .chevron-icon,
-.first-submenu-container:hover .chevron-icon {
+.first-submenu-item:hover .chevron-icon {
   transform: rotate(-90deg);
 }
 
@@ -265,7 +265,7 @@
 }
 
 .sidebar-menu-item:hover .first-submenu-container,
-.first-submenu-container:hover .second-submenu-container {
+.first-submenu-item:hover .second-submenu-container {
   animation: fade-in .5s forwards;
   @apply
   tw-opacity-[1]

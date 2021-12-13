@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as echarts from 'echarts';
-import {WebsocketService} from "../websocket.service";
+import {WebsocketService} from "../websocket-service/websocket.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class TransactionRateChartService {
   constructor(private websocketService: WebsocketService) {
   }
 
+  interval: any;
   public _updateOptions: any;
 
   private timeStamps = (function () {
@@ -47,7 +48,8 @@ export class TransactionRateChartService {
       bottom: 30
     },
     title: {
-      text: 'Transaction Rate'
+      text: 'Transaction Rate',
+      show: false
     },
     tooltip: {
       trigger: 'axis',
@@ -105,7 +107,7 @@ export class TransactionRateChartService {
   };
 
   public chartRateTimer() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       let axisData = new Date().toLocaleTimeString().replace(/^\D*/, '');
 
       this.data.shift();

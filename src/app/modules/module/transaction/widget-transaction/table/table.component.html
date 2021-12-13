@@ -1,0 +1,17 @@
+<ag-grid-angular
+  style="width: 100%;"
+  class="ag-theme-alpine transaction-ag-table"
+  [pagination]="true"
+  [animateRows]="true"
+  rowSelection="single"
+  enableCellTextSelection
+  [overlayLoadingTemplate]="overlayLoadingTemplate"
+  [rowHeight]="40"
+  [headerHeight]="this.headerColHeight"
+  [paginationPageSize]="this.paginationSize"
+  [defaultColDef]="this.defaultColDef"
+  [rowData]="this.rowData"
+  [columnDefs]="this.columnDefs"
+  (rowClicked)="onCellClicked($event)"
+  (gridReady)="onGridReady($event)">
+</ag-grid-angular>

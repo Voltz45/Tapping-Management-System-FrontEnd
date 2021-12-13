@@ -11,7 +11,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      'display': ['Poppins','sans-serif'],
+      'Poppins': ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji'],
     },
     screens: {
       'sm': {'max': '550px'}

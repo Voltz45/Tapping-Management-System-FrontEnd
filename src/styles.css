@@ -3,25 +3,33 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+
+/*ag-grid-community*/
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
   padding: 0;
+  min-height: var(--full-screen-height);
+  min-width: var(--full-screen-width);
 }
 
-body {
-  min-height: 100vh;
-  min-width: 100vw;
-}
-
-*,::before, ::after {
+*, ::before, ::after {
   box-sizing: border-box;
   border-width: 0;
-  border-style: solid
+  border-style: solid;
 }
 
 ::-webkit-scrollbar {
   width: 5px;
+  height: 15px;
   background-color: transparent;
 }
 
@@ -35,3 +43,8 @@ body {
   border: 1px solid #aaa;
   background-color: white;
 }
+/*ag-grid color*/
+.rag-red {
+  color: red;
+}
+

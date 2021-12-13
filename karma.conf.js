@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/learnTailwind'),
+      dir: require('path').join(__dirname, './coverage/TMS-Apps-Ui'),
       subdir: '.',
       reporters: [
         { type: 'html' },

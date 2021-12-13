@@ -1,3 +1,18 @@
+
+.header-container {
+  min-height: var(--header-height);
+  z-index: var(--header-index);
+  background-color: var(--header-color);
+
+  -webkit-box-shadow: 2px 2px 8px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 8px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 2px 8px -1px rgba(0, 0, 0, 0.75);
+
+  @apply
+  tw-relative
+  tw-px-[15px] tw-py-[5.1px]
+}
+
 .header-content {
   display: flex;
   flex-flow: row wrap;
@@ -8,51 +23,102 @@
 .header-logo-text {
   font: icon;
   @apply
-    tw-text-[16px]
-    tw-relative
-    tw-text-white
-    tw-top-[1px]
-    tw-whitespace-pre-wrap
-    tw-leading-[1]
-    tw-opacity-0
+  tw-text-[16px]
+  tw-relative
+  tw-text-white
+  tw-top-[1px]
+  tw-whitespace-pre-wrap
+  tw-leading-[1]
+  tw-opacity-0
 }
 
 .header-logo-text.show-logo {
   @apply
-    tw-opacity-[1]
+  tw-opacity-[1]
+}
+
+.user-details {
+  @apply
+  tw-flex
+  tw-flex-row
+}
+
+.user-data {
+  @apply
+  tw-flex tw-flex-col
+  tw-text-gray-300
+  tw-pr-[10px]
+  tw-min-w-[50px]
+  tw-opacity-[1]
+}
+
+.user-data > .user-role {
+  @apply
+  tw-text-[10px]
 }
 
 .user-pict {
   @apply
-    tw-w-[40px]
-    tw-rounded-[50%]
+  tw-w-[40px]
+  tw-rounded-[50%]
+  tw-cursor-pointer
 }
 
 .user-dropdown-menu {
-  @apply
-    tw-absolute
-    tw-right-[12px]
-    tw-mt-2
-    tw-py-2
-    tw-w-48
-    tw-rounded-md
-    tw-shadow-xl
-    tw-z-20
-    tw-bg-[#1e1e2d]
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  width: 150px;
+  max-height: 200px;
+  background-color: white;
+  border-radius: 5px;
+  top: 50px;
+  right: 12px;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-2em);
+  z-index: -1;
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
 }
 
-.user-dropdown-item {
-  @apply
-    tw-block
-    tw-px-4
-    tw-py-2
-    tw-text-sm
-    tw-capitalize
-    tw-text-gray-300
-    tw-no-underline
+.user-dropdown-menu.show-dropdown {
+  visibility: visible;
+  opacity: 1;
+  z-index: 1;
+  transform: translateY(5%);
+  transition-delay: 0s, 0s, 0.3s;
+}
+
+.user-dropdown-list {
+  padding: 5px 10px;
+}
+
+.user-dropdown-item,
+.divider {
+  padding: 5px 0;
 }
 
 .user-dropdown-item:hover {
-  @apply
-    tw-text-[#a2e0ff]
+  background-color: #aaaaaa;
+  border-radius: 5px;
+  color: var(--hover-color);
+}
+
+.user-dropdown-item:hover a {
+  color: white;
+  font-weight: 600;
+}
+
+.user-dropdown-item:hover .user-dropdown-logout-text {
+  color: red;
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  margin-left: 10px;
+  font-weight: 400;
+  font-size: 14px;
 }

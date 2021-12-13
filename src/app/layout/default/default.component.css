@@ -1,0 +1,55 @@
+/*Variables CSS*/
+:host {
+
+  /*Size*/
+  --full-screen-height: 100vh;
+  --full-screen-width: 100vw;
+  --header-height: 55px;
+  --sidebar-width: 260px;
+  --sub-width: 210px;
+
+  /*Index*/
+  --header-index: 4;
+  --hide-button-index: 5;
+  --submenu-index: 11;
+
+  /*Color*/
+  --header-color: #001529;
+  --sub-color: #1e1e2d;
+  --hover-color: #a2e0ff;
+}
+
+.default-container {
+  @apply
+  tw-font-Poppins
+  tw-w-screen
+  tw-h-screen
+  tw-p-0 tw-m-0
+  tw-top-0 tw-bottom-0 tw-left-0 tw-right-0
+}
+
+.partial-container {
+  @apply
+  tw-flex
+  tw-h-full
+  tw-w-full
+}
+
+.left-container {
+  @apply
+  tw-h-screen
+}
+
+.right-container {
+  @apply
+  tw-h-screen
+  tw-w-full
+  tw-overflow-x-hidden
+}
+
+.right-container > .content-container {
+  height: calc(100vh - var(--header-height));
+  overflow: auto;
+  @apply
+  tw-bg-gray-200
+}

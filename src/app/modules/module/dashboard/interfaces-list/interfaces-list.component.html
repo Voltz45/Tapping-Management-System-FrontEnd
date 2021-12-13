@@ -1,0 +1,38 @@
+<div class="mat-elevation-z3">
+  <div *ngIf="interfaceList.length == 0" style="font-weight: 600;line-height: 3rem; text-align: center">No Record
+    Found.
+  </div>
+  <table mat-table [dataSource]="dataSource" style="width: 100%" matSort *ngIf="interfaceList.length > 0">
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+      <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.columnDef">
+        {{column.header}}
+      </th>
+      <td mat-cell *matCellDef="let row; let index = index">
+        {{column.cell(row)}}
+        <a *ngIf="column.columnDef == 'star'">
+          <button mat-button (click)="openDialog(interfacesDialog)">
+            <mat-icon style="color: black">more_vert</mat-icon>
+          </button>
+          <ng-template #interfacesDialog>
+            <div *ngFor="let title of interfaceDialogTitle">
+              <div
+                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
+                <span style="white-space: nowrap; width: 220px; font-size: 14px">{{title}}</span>
+                <input
+                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] focus:tw-outline-none"
+                  type="text" [value]="dialogInterfaceValue(title, index)" readonly>
+              </div>
+            </div>
+            <mat-dialog-actions align="end">
+              <button mat-raised-button [mat-dialog-close]="interfacesDialog" color="warn">Close</button>
+            </mat-dialog-actions>
+          </ng-template>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>

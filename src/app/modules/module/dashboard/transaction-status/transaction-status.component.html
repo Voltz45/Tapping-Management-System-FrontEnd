@@ -1,0 +1,60 @@
+<div *ngIf="status == 'success'" class="transaction-success">
+  <div class="header">
+    <div class="status-container">
+      <h3 class="status-result">500</h3>
+      <span class="status-icon bx bx-check-circle"></span>
+    </div>
+    <h6 class="header-name-text">Transaction Success</h6>
+  </div>
+  <div class="header-status">
+    <div class="update-status">
+      <span class="last-update-status-text">Updated: {{updateDate}}</span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="status == 'declined'" class="transaction-pending">
+  <div class="header">
+    <div class="status-container">
+      <h3 class="status-result">15</h3>
+      <span class="status-icon bx bx-error-circle"></span>
+    </div>
+    <h6 class="header-name-text">Transaction Pending</h6>
+  </div>
+  <div class="header-status">
+    <div class="update-status">
+      <span class="last-update-status-text">Updated: {{updateDate}}</span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="status == 'pending'" class="transaction-timeout">
+  <div class="header">
+    <div class="status-container">
+      <h3 class="status-result">50</h3>
+      <span class="status-icon bx bx-alarm-exclamation"></span>
+    </div>
+    <h6 class="header-name-text">Transaction Timeout</h6>
+  </div>
+  <div class="header-status">
+    <div class="update-status">
+      <span class="last-update-status-text">Updated: {{updateDate}}</span>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="status == 'timeout'" class="transaction-declined">
+  <div class="header">
+    <div class="status-container">
+      <h3 class="status-result">100</h3>
+      <span class="status-icon bx bx-block"></span>
+    </div>
+    <h6 class="header-name-text">Transaction Declined</h6>
+  </div>
+  <div class="header-status">
+    <div class="update-status">
+      <span class="last-update-status-text">Updated: {{updateDate}}</span>
+    </div>
+  </div>
+</div>

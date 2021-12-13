@@ -1,0 +1,229 @@
+.transaction-container {
+  @apply tw-p-[20px]
+}
+
+.transaction-header {
+
+}
+
+.transaction-header-card {
+  @apply
+  tw-h-[80px]
+  tw-transition tw-transition-height tw-duration-500 tw-ease-in-out
+}
+
+.transaction-header-content {
+  @apply
+  tw-px-[10px]
+}
+
+.transaction-content-date-filter {
+  @apply
+  tw-flex tw-flex-row
+}
+
+.transaction-field-filter-container {
+  @apply
+  tw-flex tw-flex-row tw-justify-between
+}
+
+.transaction-field-filter {
+  @apply
+  tw-hidden tw-opacity-0 tw-w-full
+  tw-flex tw-flex-col
+}
+
+.transaction-field {
+  @apply
+  tw-text-[12px]
+  tw-w-[315px]
+  tw-mr-[15px]
+}
+
+.search-input-field {
+
+}
+
+.transaction-expand-button {
+  border-radius: 50%;
+  background-color: #173B5E;
+
+  @apply
+  tw-absolute
+  tw-text-white
+  tw-right-[12px]
+  tw-bottom-[-10px]
+  tw-w-[25px] tw-h-[25px]
+  tw-flex tw-items-center tw-justify-center
+  tw-cursor-pointer
+  tw-opacity-0
+}
+
+.transaction-button-group {
+  @apply
+  tw-flex tw-flex-row tw-my-[15px]
+}
+
+.search-button,
+.clear-button,
+.column-button,
+.export-button {
+  line-height: 28px;
+  @apply
+  tw-text-[12px]
+  tw-min-w-[50px]
+}
+
+.clear-button {
+  @apply
+  tw-ml-[10px]
+}
+
+.column-button,
+.export-button {
+  background-color: #173B5E;
+  @apply
+  tw-relative
+  tw-text-white
+  tw-flex
+}
+
+.transaction-table-container {
+  @apply
+  tw-mb-[15px]
+  tw-flex
+  tw-justify-between
+}
+
+.export-text {
+  @apply
+  tw-mr-[5px]
+}
+
+.export-icon {
+  @apply
+  tw-text-[18px] tw-mb-[3px]
+}
+
+.column-button .transaction-column-option {
+  @apply
+  tw-w-full tw-h-full
+  tw-opacity-0
+  tw-absolute
+  tw-top-0
+  tw-left-0
+}
+
+.column-text {
+  @apply tw-mr-[5px]
+}
+
+.column-icon {
+  @apply tw-text-[18px]
+}
+
+/*Transition / Animation*/
+.transaction-header-card:hover .transaction-expand-button {
+  @apply
+  tw-opacity-[1]
+}
+
+.transaction-header-card.expanded {
+  @apply tw-h-[440px]
+}
+
+.expanded .transaction-expand-button {
+  transform: rotate(180deg);
+}
+
+.expanded .transaction-field-filter {
+  @apply tw-block tw-opacity-[1]
+}
+
+/*Deep styles*/
+:host ::ng-deep .ag-center-cols-clipper {
+  min-height: unset !important;
+}
+
+::ng-deep .transaction-column-option-list {
+  @apply tw-mt-[35px] tw-relative tw-right-[35px]
+}
+
+::ng-deep .mat-pseudo-checkbox-checked {
+  background: #3f51b5 !important;
+}
+
+::ng-deep .mat-datepicker-content .mat-calendar {
+  width: unset !important;
+  height: unset !important;
+  @apply tw-text-[12px]
+}
+
+:host ::ng-deep .transaction-header-color {
+  background-color: #173B5E;
+}
+
+:host ::ng-deep .ag-header-cell-label {
+  @apply tw-justify-center tw-text-white
+}
+
+:host ::ng-deep .ag-cell-wrapper {
+  @apply tw-justify-center
+}
+
+:host ::ng-deep .ag-theme-alpine .ag-header-icon {
+  @apply tw-text-white
+}
+
+:host ::ng-deep .ag-theme-alpine .ag-paging-panel {
+  @apply tw-bg-gray-200
+}
+
+:host ::ng-deep .ag-header-cell,
+:host ::ng-deep .ag-theme-alpine .ag-ltr .ag-cell {
+  border-right: 2px solid #dde2eb;
+}
+
+:host ::ng-deep .ag-header-cell-resize {
+  width: 10px;
+}
+
+:host ::ng-deep .ag-header-cell-resize:after {
+  background-color: transparent;
+}
+
+:host ::ng-deep .ag-center-cols-viewport::-webkit-scrollbar {
+  background-color: transparent;
+  height: 0;
+}
+
+:host ::ng-deep .ag-body-horizontal-scroll,
+:host ::ng-deep .ag-body-horizontal-scroll-viewport,
+:host ::ng-deep .ag-body-horizontal-scroll-container {
+  height: 15px !important;
+  min-height: 15px !important;
+  max-height: 15px !important;
+}
+
+:host ::ng-deep .ag-theme-alpine .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+  border: 1px solid #dde2eb;
+}
+
+/*Bootstrap styles*/
+.nav-link {
+  @apply tw-text-black tw-text-[15px] tw-px-[1rem] tw-py-[0.2rem]
+}
+
+.nav-tabs .nav-link {
+  @apply tw-mb-[-1px]
+}
+
+.nav-link.active {
+  color: white;
+  background-color: #173B5E;
+  font-weight: 600;
+}
+
+/*.left {*/
+/*  @apply tw-animate-pulse*/
+/*}*/

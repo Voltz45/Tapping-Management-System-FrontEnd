@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "b4dd9169-28fc-46cf-b74f-18ec09f8c131"
+    "analytics": "3713abf2-5f62-40c6-8f6b-16af0e6f6016"
   },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "learnTailwind": {
+    "TMS-Apps-Ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -20,7 +20,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/learnTailwind",
+            "allowedCommonJsDependencies": [
+              "sockjs-client",
+              "xlsx"
+            ],
+            "outputPath": "dist/TMS-Apps-Ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -32,7 +36,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -71,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "learnTailwind:build:production"
+              "browserTarget": "TMS-Apps-Ui:build:production"
             },
             "development": {
-              "browserTarget": "learnTailwind:build:development"
+              "browserTarget": "TMS-Apps-Ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "learnTailwind:build"
+            "browserTarget": "TMS-Apps-Ui:build"
           }
         },
         "test": {
@@ -105,5 +111,5 @@
       }
     }
   },
-  "defaultProject": "learnTailwind"
+  "defaultProject": "TMS-Apps-Ui"
 }

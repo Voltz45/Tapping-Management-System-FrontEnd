@@ -246,21 +246,8 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     this.transactionTableService.gridApi.setRowData(transactionMessageData);
 
     if (
-      (this.searchFilterForm.controls['MTI'].value == null || this.searchFilterForm.controls['MTI'].value != '') &&
-      (this.searchFilterForm.controls['HPAN'].value == null || this.searchFilterForm.controls['HPAN'].value != '') &&
-      (this.searchFilterForm.controls['terminalId'].value == null || this.searchFilterForm.controls['terminalId'].value != '') &&
-      (this.searchFilterForm.controls['merchantId'].value == null || this.searchFilterForm.controls['merchantId'].value != '') &&
-      (this.searchFilterForm.controls['merchantType'].value == null || this.searchFilterForm.controls['merchantType'].value != '') &&
-      (this.searchFilterForm.controls['currencyCode'].value == null || this.searchFilterForm.controls['currencyCode'].value != '') &&
-      (this.searchFilterForm.controls['amount'].value == null || this.searchFilterForm.controls['amount'].value != '') &&
-      (this.searchFilterForm.controls['responseCode'].value == null || this.searchFilterForm.controls['responseCode'].value != '') &&
-      (this.searchFilterForm.controls['transactionId'].value == null || this.searchFilterForm.controls['transactionId'].value != '') &&
-      (this.searchFilterForm.controls['networkId'].value == null || this.searchFilterForm.controls['networkId'].value != '') &&
-      (this.searchFilterForm.controls['RRN'].value == null || this.searchFilterForm.controls['RRN'].value != '') &&
-      (this.searchFilterForm.controls['srcAccount'].value == null || this.searchFilterForm.controls['srcAccount'].value != '') &&
-      (this.searchFilterForm.controls['destAccount'].value == null || this.searchFilterForm.controls['destAccount'].value != '')
-    ) {
-      // console.log('test')
+      (this.searchFilterForm.controls['MTI'].value == null || this.searchFilterForm.controls['MTI'].value != '')) {
+      console.log('test')
       // this.transactionApiService.getAllTransactionMessage().subscribe({
       //   next: this.responseHandler.bind(this),
       //   error: this.errorHandler.bind(this)

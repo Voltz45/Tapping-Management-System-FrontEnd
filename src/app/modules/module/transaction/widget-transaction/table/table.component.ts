@@ -1,22 +1,30 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {RowClickedEvent} from "ag-grid-community";
-import {TransactionTableService} from "../../../../services/transaction-service/transaction-table.service";
+import {maskHPAN, TransactionTableService} from "../../../../services/transaction-service/transaction-table.service";
 import {TransactionMessageModel} from "../../../../model/TransactionMessageModel";
 import {TransactionMessage} from "../../interface/transaction-message";
 import {TransactionApiService} from "../../../../services/transaction-service/transaction-api.service";
+import {HpanDialogComponent} from "../hpan-dialog/hpan-dialog.component";
 
 @Component({
   selector: 'transaction-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() headerColHeight: any;
   @Input() paginationSize: any;
   @Input() defaultColDef: any;
-  @Input() rowData: any;
   @Input() columnDefs: any;
   @Input() autoHeight: string = '';
+  rowData: TransactionMessage[] = [];
+  frameworkComponents: any;
+  sortModel = [
+    {
+      colId: 'transactionDate',
+      sort: 'desc'
+    }
+  ]
 
   overlayLoadingTemplate = '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>';
 
@@ -26,22 +34,27 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.frameworkComponents = {
+      medalCellRenderer: HpanDialogComponent,
+    };
   }
 
   onCellClicked(data: RowClickedEvent) {
     this.transactionTableService.additionalData = data.data;
-    console.log(this.transactionTableService.additionalData)
   }
 
   onGridReady(params: any) {
     this.transactionTableService.gridApi = params.api;
     this.transactionTableService.gridColumnApi = params.columnApi;
     this.transactionTableService.gridApi.showLoadingOverlay();
-    if (this.rowData == []) {
-      this.transactionApiService.getAllTransactionMessage().subscribe({
-        next: this.responseHandler.bind(this),
-        error: this.errorHandler.bind(this)
-      })
+
+    if (this.rowData.length == 0) {
+      setTimeout(() => {
+        this.transactionApiService.getAllTransactionMessage().subscribe({
+          next: this.responseHandler.bind(this),
+          error: this.errorHandler.bind(this)
+        });
+      }, 500)
     }
   }
 
@@ -53,22 +66,26 @@ export class TableComponent implements OnInit {
       responseData.push({
         amount: x.amount,
         currencyCode: x.countryCode,
-        destAccount: 0,
-        HPAN: x.hpan,
+        destAccount: '',
+        HPAN: maskHPAN(x.hpan, '*', 6, 4),
+        clearHPAN: x.hpan,
         merchantId: x.merchantId,
-        merchantType: '',
+        merchantType: x.merchantType,
         MTI: x.mti,
         networkDate: x.TrxDate,
         networkId: x.networkID,
         responseCode: x.responseCode,
         RRN: x.rrn,
-        srcAccount: 0,
-        terminalId: 0,
+        srcAccount: '',
+        terminalId: x.terminalId,
         transactionDate: x.TrxDate,
-        transactionId: x.transactionId
+        transactionId: x.transactionId,
+        transType: x.transType
       });
       this.rowData = responseData;
       transactionTable.style.height = 'auto';
+      this.transactionTableService.gridColumnApi.applyColumnState({state: this.sortModel});
+      this.transactionTableService.gridApi.onSortChanged();
       this.transactionTableService.gridApi.setDomLayout('autoHeight');
       this.transactionTableService.gridApi.hideOverlay();
     })
@@ -76,6 +93,14 @@ export class TableComponent implements OnInit {
 
   errorHandler(error: any) {
     this.transactionTableService.gridApi.showNoRowsOverlay();
+  }
+
+  ngAfterViewInit(): void {
+
+  }
+
+  ngOnDestroy(): void {
+    this.transactionTableService.gridApi.destroy();
   }
 }
 

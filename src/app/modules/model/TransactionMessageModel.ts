@@ -5,7 +5,7 @@ export interface TransactionMessageModel {
   hpan: string;
   id: number;
   location: string;
-  merchantId: string;
+  merchantType: string;
   msg_ASCII: string;
   msg_HEXA: string;
   mti: string;
@@ -17,4 +17,6 @@ export interface TransactionMessageModel {
   transType: string;
   transactionId: string;
   trxDate: string;
+  terminalId: string;
+  merchantId: string;
 }

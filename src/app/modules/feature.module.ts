@@ -54,10 +54,15 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {SystemParametersComponent} from './module/system/system-parameters/system-parameters.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {SystemParametersService} from "./services/systemParameters-service/system-parameters.service";
+import {TerminalService} from "./services/terminal-service/terminal.service";
 import {
   CreateUpdateDialogComponent
 } from './module/system/system-parameters/create-update-dialog/create-update-dialog.component';
+import {HpanDialogComponent} from './module/transaction/widget-transaction/hpan-dialog/hpan-dialog.component';
+import {
+  ActionButtonGroupComponent
+} from './module/terminalConfiguration/terminal/widget/action-button-group/action-button-group.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 
 @NgModule({
@@ -84,6 +89,8 @@ import {
     InterfacesListComponent,
     SystemParametersComponent,
     CreateUpdateDialogComponent,
+    HpanDialogComponent,
+    ActionButtonGroupComponent,
   ],
   imports: [
     NgxEchartsModule.forRoot({
@@ -111,7 +118,8 @@ import {
     MatSortModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
   ],
   providers: [
     WebsocketService,
@@ -119,7 +127,7 @@ import {
     TransactionApiService,
     TransactionTableService,
     DashboardService,
-    SystemParametersService
+    TerminalService
   ]
 })
 export class FeatureModule {

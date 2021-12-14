@@ -13,7 +13,7 @@ export class DashboardService {
   }
 
   getListInterfaces() {
-    return this.http.get<any>(`${this.apiUrl}/interfaceslist`).pipe(map((response) => {
+    return this.http.get<any>(`${this.apiUrl}/apps/interfaceslist`).pipe(map((response) => {
       return response;
     }));
   }

@@ -11,7 +11,7 @@ export class TransactionTableService {
   constructor() {
   }
 
-  additionalData!: TransactionMessage;
+  additionalData: TransactionMessage | undefined;
   gridApi!: GridApi;
   gridColumnApi!: ColumnApi;
   headerColHeight: number = 30;
@@ -23,12 +23,26 @@ export class TransactionTableService {
     resizable: true,
   };
   columnDefs: ColDef[] = [
-    {field: 'transactionDate', sortable: true, minWidth: 250, maxWidth: 300, headerClass: 'transaction-header-color'},
-    {field: 'networkDate', sortable: true, minWidth: 250, maxWidth: 300, headerClass: 'transaction-header-color'},
+    {
+      field: 'transactionDate',
+      sortable: true,
+      sort: 'desc',
+      minWidth: 200,
+      maxWidth: 300,
+      headerClass: 'transaction-header-color'
+    },
+    {field: 'networkDate', sortable: true, minWidth: 200, maxWidth: 300, headerClass: 'transaction-header-color'},
     {field: 'MTI', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'transaction-header-color'},
-    {field: 'HPAN', sortable: true, minWidth: 170, maxWidth: 200, headerClass: 'transaction-header-color'},
+    {
+      field: 'HPAN',
+      sortable: true,
+      minWidth: 170,
+      maxWidth: 200,
+      headerClass: 'transaction-header-color',
+      cellRenderer: 'medalCellRenderer'
+    },
     {field: 'terminalId', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'transaction-header-color'},
-    {field: 'merchantId', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'transaction-header-color'},
+    {field: 'merchantId', sortable: true, minWidth: 200, maxWidth: 230, headerClass: 'transaction-header-color'},
     {field: 'merchantType', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'transaction-header-color'},
     {field: 'currencyCode', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'transaction-header-color'},
     {field: 'amount', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'transaction-header-color'},
@@ -78,4 +92,10 @@ export function numberParser(params: any) {
     valueAsNumber = parseFloat(params.newValue);
   }
   return valueAsNumber;
+}
+
+//Masking HPAN
+export function maskHPAN(HPAN: string, mask: string, start: number, end: number) {
+  return ('' + HPAN).slice(0, start) + ('' + HPAN).slice(start, -end).replace(/./g, mask) +
+    ('' + HPAN).slice(-end);
 }

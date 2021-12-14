@@ -102,7 +102,6 @@
         [headerColHeight]="transactionTableService.headerColHeight"
         [paginationSize]="transactionTableService.paginationSize"
         [defaultColDef]="transactionTableService.defaultColDef"
-        [rowData]="rowData"
         [columnDefs]="transactionTableService.columnDefs"></transaction-table>
 
       <div class="page-size-container">
@@ -202,7 +201,7 @@
                 <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Type</span>
                 <input
                   class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
-                  type="text" value="" readonly>
+                  type="text" [value]="this.transactionTableService.additionalData?.transType" readonly>
               </div>
               <div
                 style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">

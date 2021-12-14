@@ -5,12 +5,13 @@
   [animateRows]="true"
   rowSelection="single"
   enableCellTextSelection
+  [frameworkComponents]="frameworkComponents"
   [overlayLoadingTemplate]="overlayLoadingTemplate"
   [rowHeight]="40"
   [headerHeight]="this.headerColHeight"
   [paginationPageSize]="this.paginationSize"
   [defaultColDef]="this.defaultColDef"
-  [rowData]="this.rowData"
+  [rowData]="rowData"
   [columnDefs]="this.columnDefs"
   (rowClicked)="onCellClicked($event)"
   (gridReady)="onGridReady($event)">

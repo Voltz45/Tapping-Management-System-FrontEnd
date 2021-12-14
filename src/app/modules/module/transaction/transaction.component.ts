@@ -4,7 +4,7 @@ import {MatSelectChange} from "@angular/material/select";
 import {Papa} from 'ngx-papaparse';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import {TransactionTableService} from "../../services/transaction-service/transaction-table.service";
+import {maskHPAN, TransactionTableService} from "../../services/transaction-service/transaction-table.service";
 import {TransactionApiService} from "../../services/transaction-service/transaction-api.service";
 import {TransactionMessage} from "./interface/transaction-message";
 import {TransactionMessageModel} from "../../model/TransactionMessageModel";
@@ -16,7 +16,7 @@ import {additionalData} from "./widget-transaction/table/table.component";
   styleUrls: ['./transaction.component.css'],
 })
 
-export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TransactionComponent implements OnInit, AfterViewInit {
   searchFilterForm!: FormGroup;
   columnOption!: FormGroup;
   columnOptionValue: string[] = [];
@@ -31,21 +31,21 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchFilterForm = this.dataFb.group({
-      dateFrom: [''],
-      dateTo: [''],
-      MTI: [''],
-      HPAN: ['', Validators.pattern('[0-9]*')],
-      terminalId: ['', Validators.pattern('[0-9]*')],
-      merchantId: ['', Validators.pattern('[0-9]*')],
-      merchantType: ['', Validators.pattern('[0-9]*')],
-      currencyCode: ['', Validators.pattern('[0-9]*')],
-      amount: ['', Validators.pattern('[0-9]*')],
-      responseCode: ['', Validators.pattern('[0-9]*')],
-      transactionId: ['', Validators.pattern('[0-9]*')],
-      networkId: ['', Validators.pattern('[0-9]*')],
-      RRN: ['', Validators.pattern('[0-9]*')],
-      srcAccount: ['', Validators.pattern('[0-9]*')],
-      destAccount: ['', Validators.pattern('[0-9]*')],
+      dateFrom: [null],
+      dateTo: [null],
+      MTI: [null],
+      HPAN: [null],
+      terminalId: [null],
+      merchantId: [null],
+      merchantType: [null],
+      currencyCode: [null],
+      amount: [null],
+      responseCode: [null],
+      transactionId: [null],
+      networkId: [null],
+      RRN: [null],
+      srcAccount: [null],
+      destAccount: [null],
     });
 
     this.columnOption = this.dataFb.group({
@@ -59,41 +59,39 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.stylingAgFooter();
-    this.transactionApiService.getAllTransactionMessage().subscribe({
-      next: this.responseHandler.bind(this),
-      error: this.errorHandler.bind(this)
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.transactionTableService.gridApi.destroy();
+    setTimeout(() => {
+      this.transactionApiService.getAllTransactionMessage().subscribe({
+        next: this.responseHandler.bind(this),
+        error: this.errorHandler.bind(this)
+      });
+    }, 500)
   }
 
   //Api
   responseHandler(response: TransactionMessageModel[]) {
-    const transactionTable = document.querySelector('.ag-theme-alpine') as HTMLElement;
     let responseData: TransactionMessage[] = [];
     response.forEach(x => {
       responseData.push({
         amount: x.amount,
         currencyCode: x.countryCode,
-        destAccount: 0,
-        HPAN: x.hpan,
+        destAccount: '',
+        HPAN: maskHPAN(x.hpan, '*', 6, 4),
+        clearHPAN: x.hpan,
         merchantId: x.merchantId,
-        merchantType: '',
+        merchantType: x.merchantType,
         MTI: x.mti,
         networkDate: x.TrxDate,
         networkId: x.networkID,
         responseCode: x.responseCode,
         RRN: x.rrn,
-        srcAccount: 0,
-        terminalId: 0,
+        srcAccount: '',
+        terminalId: x.terminalId,
         transactionDate: x.TrxDate,
-        transactionId: x.transactionId
+        transactionId: x.transactionId,
+        transType: x.transType
       });
       this.rowData = responseData;
-      transactionTable.style.height = 'auto';
-      this.transactionTableService.gridApi.setDomLayout('autoHeight');
+      this.transactionTableService.gridApi.setRowData(responseData);
       this.transactionTableService.gridApi.hideOverlay();
     })
   }
@@ -125,44 +123,45 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
     let transactionMessageData = this.rowData;
     const valueMTI = String(this.searchFilterForm.controls['MTI'].value);
     const valueHPAN = String(this.searchFilterForm.controls['HPAN'].value);
-    const valueTerminalId = Number(this.searchFilterForm.controls['terminalId'].value);
+    const valueTerminalId = String(this.searchFilterForm.controls['terminalId'].value);
     const valueMerchantId = String(this.searchFilterForm.controls['merchantId'].value);
-    const valueMerchantType = Number(this.searchFilterForm.controls['merchantType'].value);
+    const valueMerchantType = String(this.searchFilterForm.controls['merchantType'].value);
     const valueCurrencyCode = String(this.searchFilterForm.controls['currencyCode'].value);
     const valueAmount = String(this.searchFilterForm.controls['amount'].value);
     const valueResponseCode = String(this.searchFilterForm.controls['responseCode'].value);
     const valueTransactionId = String(this.searchFilterForm.controls['transactionId'].value);
     const valueNetworkId = String(this.searchFilterForm.controls['networkId'].value);
     const valueRRN = String(this.searchFilterForm.controls['RRN'].value);
-    const valueSrcAccount = Number(this.searchFilterForm.controls['srcAccount'].value);
-    const valueDestAccount = Number(this.searchFilterForm.controls['destAccount'].value);
+    const valueSrcAccount = String(this.searchFilterForm.controls['srcAccount'].value);
+    const valueDestAccount = String(this.searchFilterForm.controls['destAccount'].value);
 
-    if (this.searchFilterForm.controls['MTI'].value != '') {
+    this.transactionTableService.gridApi.showLoadingOverlay();
+
+    if (this.searchFilterForm.controls['MTI'].value != null && this.searchFilterForm.controls['MTI'].value != '') {
       transactionMessageData = transactionMessageData.filter(
         value => {
-          console.log(value.MTI)
           return value.MTI == valueMTI
         }
       )
     }
 
-    if (this.searchFilterForm.controls['HPAN'].value != '') {
+    if (this.searchFilterForm.controls['HPAN'].value != null && this.searchFilterForm.controls['HPAN'].value != '') {
       transactionMessageData = transactionMessageData.filter(
         value => {
-          return value.HPAN == valueHPAN
+          return value.clearHPAN == valueHPAN
         }
       )
     }
 
-    // if (this.searchFilterForm.controls['terminalId'].value != '') {
-    //   transactionMessageData = transactionMessageData.filter(
-    //     value => {
-    //       return value.terminalId == valueTerminalId
-    //     }
-    //   )
-    // }
+    if (this.searchFilterForm.controls['terminalId'].value != null && this.searchFilterForm.controls['terminalId'].value != '') {
+      transactionMessageData = transactionMessageData.filter(
+        value => {
+          return value.terminalId == valueTerminalId
+        }
+      )
+    }
 
-    if (this.searchFilterForm.controls['merchantId'].value != '') {
+    if (this.searchFilterForm.controls['merchantId'].value != null && this.searchFilterForm.controls['merchantId'].value != '') {
       transactionMessageData = transactionMessageData.filter(
         value => {
           return value.merchantId == valueMerchantId
@@ -170,15 +169,15 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       )
     }
 
-    // if (this.searchFilterForm.controls['merchantType'].value != '') {
-    //   transactionMessageData = transactionMessageData.filter(
-    //     value => {
-    //       return value.merchantType == valueMerchantType
-    //     }
-    //   )
-    // }
+    if (this.searchFilterForm.controls['merchantType'].value != null && this.searchFilterForm.controls['merchantType'].value != '') {
+      transactionMessageData = transactionMessageData.filter(
+        value => {
+          return value.merchantType == valueMerchantType
+        }
+      )
+    }
 
-    if (this.searchFilterForm.controls['currencyCode'].value != '') {
+    if (this.searchFilterForm.controls['currencyCode'].value != null && this.searchFilterForm.controls['currencyCode'].value != '') {
       transactionMessageData = transactionMessageData.filter(
         value => {
           return value.currencyCode == valueCurrencyCode
@@ -186,7 +185,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       )
     }
 
-    if (this.searchFilterForm.controls['amount'].value != '') {
+    if (this.searchFilterForm.controls['amount'].value != null && this.searchFilterForm.controls['amount'].value != '') {
       transactionMessageData = transactionMessageData.filter(
         value => {
           return value.amount == valueAmount
@@ -194,7 +193,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       )
     }
 
-    if (this.searchFilterForm.controls['responseCode'].value != '') {
+    if (this.searchFilterForm.controls['responseCode'].value != null && this.searchFilterForm.controls['responseCode'].value != '') {
       transactionMessageData = transactionMessageData.filter(
         value => {
           return value.responseCode == valueResponseCode
@@ -202,7 +201,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       )
     }
 
-    if (this.searchFilterForm.controls['transactionId'].value != '') {
+    if (this.searchFilterForm.controls['transactionId'].value != null && this.searchFilterForm.controls['transactionId'].value != '') {
       transactionMessageData = transactionMessageData.filter(
         value => {
           return value.transactionId == valueTransactionId
@@ -210,7 +209,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       )
     }
 
-    if (this.searchFilterForm.controls['networkId'].value != '') {
+    if (this.searchFilterForm.controls['networkId'].value != null && this.searchFilterForm.controls['networkId'].value != '') {
       transactionMessageData = transactionMessageData.filter(
         value => {
           return value.networkId == valueNetworkId
@@ -218,7 +217,7 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       )
     }
 
-    if (this.searchFilterForm.controls['RRN'].value != '') {
+    if (this.searchFilterForm.controls['RRN'].value != null && this.searchFilterForm.controls['RRN'].value != '') {
       transactionMessageData = transactionMessageData.filter(
         value => {
           return value.RRN == valueRRN
@@ -226,39 +225,65 @@ export class TransactionComponent implements OnInit, AfterViewInit, OnDestroy {
       )
     }
 
-    // if (this.searchFilterForm.controls['srcAccount'].value != '') {
-    //   transactionMessageData = transactionMessageData.filter(
-    //     value => {
-    //       return value.srcAccount == valueSrcAccount
-    //     }
-    //   )
-    // }
-    //
-    // if (this.searchFilterForm.controls['destAccount'].value != '') {
-    //   transactionMessageData = transactionMessageData.filter(
-    //     value => {
-    //       return value.destAccount == valueDestAccount
-    //     }
-    //   )
-    // }
+    if (this.searchFilterForm.controls['srcAccount'].value != null && this.searchFilterForm.controls['srcAccount'].value != '') {
+      transactionMessageData = transactionMessageData.filter(
+        value => {
+          return value.srcAccount == valueSrcAccount
+        }
+      )
+    }
+
+    if (this.searchFilterForm.controls['destAccount'].value != null && this.searchFilterForm.controls['destAccount'].value != '') {
+      transactionMessageData = transactionMessageData.filter(
+        value => {
+          return value.destAccount == valueDestAccount
+        }
+      )
+    }
 
     //Update data Table by filter
-    this.transactionTableService.gridApi.setRowData(transactionMessageData);
+    if (this.rowData.length != transactionMessageData.length) {
+      this.transactionTableService.additionalData = undefined;
+      setTimeout(() => {
+        this.transactionTableService.gridApi.setRowData(transactionMessageData);
+        this.transactionTableService.gridApi.hideOverlay();
+      }, 700)
+    }
 
     if (
-      (this.searchFilterForm.controls['MTI'].value == null || this.searchFilterForm.controls['MTI'].value != '')) {
-      console.log('test')
-      // this.transactionApiService.getAllTransactionMessage().subscribe({
-      //   next: this.responseHandler.bind(this),
-      //   error: this.errorHandler.bind(this)
-      // })
-      this.transactionTableService.gridApi.setRowData(this.rowData);
+      (this.searchFilterForm.controls['MTI'].value == null || this.searchFilterForm.controls['MTI'].value == '') &&
+      (this.searchFilterForm.controls['HPAN'].value == null || this.searchFilterForm.controls['HPAN'].value == '') &&
+      (this.searchFilterForm.controls['terminalId'].value == null || this.searchFilterForm.controls['terminalId'].value == '') &&
+      (this.searchFilterForm.controls['merchantId'].value == null || this.searchFilterForm.controls['merchantId'].value == '') &&
+      (this.searchFilterForm.controls['merchantType'].value == null || this.searchFilterForm.controls['merchantType'].value == '') &&
+      (this.searchFilterForm.controls['currencyCode'].value == null || this.searchFilterForm.controls['currencyCode'].value == '') &&
+      (this.searchFilterForm.controls['amount'].value == null || this.searchFilterForm.controls['amount'].value == '') &&
+      (this.searchFilterForm.controls['responseCode'].value == null || this.searchFilterForm.controls['responseCode'].value == '') &&
+      (this.searchFilterForm.controls['transactionId'].value == null || this.searchFilterForm.controls['transactionId'].value == '') &&
+      (this.searchFilterForm.controls['networkId'].value == null || this.searchFilterForm.controls['networkId'].value == '') &&
+      (this.searchFilterForm.controls['RRN'].value == null || this.searchFilterForm.controls['RRN'].value == '') &&
+      (this.searchFilterForm.controls['srcAccount'].value == null || this.searchFilterForm.controls['srcAccount'].value == '') &&
+      (this.searchFilterForm.controls['destAccount'].value == null || this.searchFilterForm.controls['destAccount'].value == '')
+    ) {
+      this.transactionTableService.additionalData = undefined;
+      setTimeout(() => {
+        this.transactionApiService.getAllTransactionMessage().subscribe({
+          next: this.responseHandler.bind(this),
+          error: this.errorHandler.bind(this)
+        });
+      }, 500)
     }
   }
 
   clearButton() {
     this.searchFilterForm.reset();
-    this.transactionTableService.gridApi.setRowData(this.rowData);
+    this.transactionTableService.gridApi.showLoadingOverlay();
+    this.transactionTableService.additionalData = undefined;
+    if (this.rowData.length != 0) {
+      setTimeout(() => {
+        this.transactionTableService.gridApi.setRowData(this.rowData);
+      }, 700)
+    }
   }
 
   //Export excel button

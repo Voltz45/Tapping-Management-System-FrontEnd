@@ -209,6 +209,10 @@
   border: 1px solid #dde2eb;
 }
 
+:host ::ng-deep .ag-theme-alpine .ag-cell {
+  line-height: normal;
+}
+
 /*Bootstrap styles*/
 .nav-link {
   @apply tw-text-black tw-text-[15px] tw-px-[1rem] tw-py-[0.2rem]

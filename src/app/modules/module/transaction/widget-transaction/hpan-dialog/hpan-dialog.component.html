@@ -1,0 +1,13 @@
+<span>
+      <a (click)="buttonClicked(hpanDialog)"
+         style="text-decoration: underline; color: black;font-weight: 600; cursor: pointer;">{{cellValue}}</a>
+</span>
+<ng-template #hpanDialog>
+  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
+    <span style="white-space: nowrap; font-size: 14px; margin-bottom: 0.5rem">Clear HPAN</span>
+    <input
+      class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] focus:tw-outline-none"
+      style="text-align: center"
+      type="text" [value]="clearHpan" readonly>
+  </div>
+</ng-template>

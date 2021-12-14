@@ -7,7 +7,7 @@ import {TerminalModel} from "../../model/TerminalModel";
 @Injectable({
   providedIn: 'root'
 })
-export class SystemParametersService {
+export class TerminalService {
   apiUrl = environment.core236;
 
   constructor(private http: HttpClient) {

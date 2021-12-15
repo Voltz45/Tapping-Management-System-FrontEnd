@@ -1,4 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
+import {AuthenticationService} from "../../layout/service/authentication.service";
+import {Route, Router} from "@angular/router";
 
 @Component({
   host: {
@@ -11,7 +13,10 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 export class HeaderComponent implements OnInit {
   $event!: PointerEvent;
 
-  constructor(private _er: ElementRef) {
+  constructor(
+    private _er: ElementRef,
+    private router: Router,
+    private authenticationService: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -31,5 +36,10 @@ export class HeaderComponent implements OnInit {
     if (!this._er.nativeElement.contains($event.target)) {
       userDropdownMenu.classList.remove('show-dropdown')
     }
+  }
+
+  public onLogOut(): void {
+    this.authenticationService.logout();
+    this.router.navigate(['/TMS/login']);
   }
 }

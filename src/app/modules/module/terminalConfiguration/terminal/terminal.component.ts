@@ -53,7 +53,7 @@ export class TerminalComponent implements OnInit, OnDestroy {
     this.systemParametersService.getAllTerminal().subscribe((response) => {
       param.api.setRowData(response);
       this.gridApi.hideOverlay();
-    })
+    }, (error => console.log(error)))
   }
 
   onGridReady(params: GridReadyEvent) {

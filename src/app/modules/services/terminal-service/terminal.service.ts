@@ -14,7 +14,7 @@ export class TerminalService {
   }
 
   getAllTerminal() {
-    return this.http.get<TerminalModel[]>(`${this.apiUrl}/terminal/list`).pipe(map((response) => {
+    return this.http.get<TerminalModel[]>(`${this.apiUrl}/channel/list`).pipe(map((response) => {
       return response;
     }))
   }

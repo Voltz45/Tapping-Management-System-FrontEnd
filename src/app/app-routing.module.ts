@@ -23,11 +23,18 @@ import {RolesComponent} from "./modules/module/userManagement/roles/roles.compon
 import {UserComponent} from "./modules/module/userManagement/user/user.component";
 import {ARPComponent} from "./modules/module/system/applicationParameters/arp/arp.component";
 import {SystemParametersComponent} from "./modules/module/system/system-parameters/system-parameters.component";
+import {LoginComponent} from "./layout/login/login.component";
+import {AuthenticationGuard} from "./layout/guard/authentication.guard";
 
 const routes: Routes = [
   {
+    path: 'TMS/login',
+    component: LoginComponent
+  },
+  {
     path: 'TMS-Home',
     component: DefaultComponent,
+    canActivate: [AuthenticationGuard],
     children: [
       {
         path: 'dashboard',
@@ -143,7 +150,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'TMS-Home/dashboard',
+    redirectTo: 'TMS/login',
     pathMatch: 'full'
   }
 ];

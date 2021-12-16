@@ -7,7 +7,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {UserService} from "../service/user.service";
 import {AuthInterceptor} from "../interceptor/auth.interceptor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-
+import {NotificationService} from "../service/notification.service";
 
 @NgModule({
   declarations: [

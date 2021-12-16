@@ -28,8 +28,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.notificationService.notify(NotificationTypeEnum.ERROR, 'test');
-
     const sign_in_btn = document.querySelector('#sign-in-btn');
     const sign_up_btn = document.querySelector('#sign-up-btn');
     const container = document.querySelector('.login-container');

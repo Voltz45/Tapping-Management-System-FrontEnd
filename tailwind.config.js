@@ -1,14 +1,10 @@
 module.exports = {
   mode: 'jit',
   prefix: 'tw-',
-  corePlugins: {
-    preflight: false,
-  },
   purge: {
     enabled: true,
+    content: ['./src/**/*.{html,ts}'],
   },
-  content: ['./src/**/*.{html,ts}'],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
       'Poppins': ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji'],

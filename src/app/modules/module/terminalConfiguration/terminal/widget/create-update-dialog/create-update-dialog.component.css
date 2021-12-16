@@ -1,0 +1,179 @@
+.dialog-container {
+  height: 300px;
+  width: 600px;
+}
+
+.dialog-input-field {
+  @apply
+  tw-w-full tw-h-full
+  tw-flex tw-flex-col tw-justify-between
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.terminalId-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  height: 65px;
+}
+
+.terminalId-input-text {
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.terminalId-input-field {
+  @apply
+  tw-bg-white
+  tw-appearance-none
+  tw-border-2
+  tw-border-gray-200 tw-rounded
+  tw-py-[5px] tw-px-4 tw-w-full tw-mt-[5px]
+  tw-text-gray-700 tw-leading-[0] tw-text-[14px]
+  focus:tw-outline-none focus:tw-bg-white focus:tw-border-[#3f51b5]
+}
+
+.ipAndPort-input {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  height: 65px;
+}
+
+.ipPort-input {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.ipPort-input-text {
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.ipPort-input-field {
+  @apply
+  tw-bg-white
+  tw-appearance-none
+  tw-border-2
+  tw-border-gray-200 tw-rounded
+  tw-py-[5px] tw-px-4 tw-w-full tw-mt-[5px]
+  tw-text-gray-700 tw-leading-[0] tw-text-[14px]
+  focus:tw-outline-none focus:tw-bg-white focus:tw-border-[#3f51b5]
+}
+
+.terminalId-input-field.terminalId.ng-invalid.ng-touched,
+.ipPort-input-field.ipAddress.ng-invalid.ng-touched,
+.ipPort-input-field.port.ng-invalid.ng-touched,
+.terminal-type-field.port.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+.terminalId-input-field.terminalId.ng-valid.ng-touched,
+.ipPort-input-field.ipAddress.ng-valid.ng-touched,
+.ipPort-input-field.port.ng-valid.ng-touched,
+.terminal-type-field.port.ng-valid.ng-touched {
+  border-color: green;
+}
+
+.down-icon {
+  transition: opacity .5s ease-in-out;
+  float: right;
+  position: relative;
+  margin-right: 130px;
+  margin-top: -23px;
+  z-index: 1;
+}
+
+.error-down-icon {
+  transition: opacity .5s ease-in-out;
+  float: right;
+  position: relative;
+  margin-right: 130px;
+  margin-top: -23px;
+  color: red;
+  z-index: 2;
+}
+
+.valid-icon {
+  transition: opacity .5s ease-in-out;
+  float: right;
+  position: relative;
+  margin-top: -25px;
+  margin-right: 12px;
+  color: green;
+}
+
+.invalid-icon {
+  transition: opacity .5s ease-in-out;
+  float: right;
+  position: relative;
+  margin-top: -25px;
+  margin-right: 12px;
+  color: red;
+}
+
+.invalid-text {
+  color: red;
+  font-size: 14px;
+}
+
+.layer3 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.terminal-type {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.terminal-type-text {
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.terminal-type-onpremise-field {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.terminal-type-field {
+  @apply
+  tw-block tw-appearance-none tw-w-[75%] tw-bg-white tw-border-2 tw-border-gray-200 tw-text-gray-700 tw-pt-[2px] tw-pb-[3px] tw-px-4 tw-pr-8 tw-rounded focus:tw-outline-none focus:tw-bg-white focus:tw-border-[#3f51b5];
+}
+
+.terminal-type-field.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancel-button {
+  margin-right: 10px;
+}
+
+.required-icon:after {
+  content: " *";
+  color: red;
+}

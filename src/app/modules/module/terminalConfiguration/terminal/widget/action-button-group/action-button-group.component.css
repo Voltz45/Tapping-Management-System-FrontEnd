@@ -1,0 +1,38 @@
+::ng-deep .mat-menu-content {
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.edit-button {
+  padding-top: .5rem;
+}
+
+.edit-button,
+.delete-button {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding-bottom: 0.5rem;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  /*background-color: #919aa3;*/
+}
+
+.edit-icon,
+.delete-icon {
+  margin: 0 10px;
+  font-size: 20px;
+}
+
+.delete-icon,
+.delete-text {
+  color: red;
+}

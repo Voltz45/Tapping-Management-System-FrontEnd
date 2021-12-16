@@ -49,6 +49,7 @@
   tw-pr-[10px]
   tw-min-w-[50px]
   tw-opacity-[1]
+  tw-text-right
 }
 
 .user-data > .user-role {
@@ -61,6 +62,7 @@
   tw-w-[40px]
   tw-rounded-[50%]
   tw-cursor-pointer
+  tw-bg-white
 }
 
 .user-dropdown-menu {

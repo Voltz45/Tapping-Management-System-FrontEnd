@@ -1,10 +1,15 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {AuthenticationService} from "../service/authentication.service";
+import {NotificationService} from "../service/notification.service";
+import {NotificationTypeEnum} from "../enum/notification-type.enum";
 
 @Injectable({providedIn: 'root'})
 export class AuthenticationGuard implements CanActivate {
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
+  constructor(
+    private authenticationService: AuthenticationService, private router: Router,
+    private notificationService: NotificationService
+  ) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
@@ -16,7 +21,7 @@ export class AuthenticationGuard implements CanActivate {
       return true;
     }
     this.router.navigate(['/TMS/login']);
-    console.log('ga boleh login');
+    this.notificationService.notify(NotificationTypeEnum.ERROR, 'Login Heula Atu BOS!!!');
     return false;
   }
 }

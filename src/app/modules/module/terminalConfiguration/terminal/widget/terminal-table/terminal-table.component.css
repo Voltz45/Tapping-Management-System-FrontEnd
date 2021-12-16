@@ -1,0 +1,61 @@
+.terminal-table {
+  height: 300px;
+}
+
+:host ::ng-deep .ag-center-cols-clipper {
+  min-height: unset !important;
+}
+
+:host ::ng-deep .terminal-header-color {
+  background-color: #173B5E;
+}
+
+:host ::ng-deep .ag-header-cell-label {
+  @apply tw-text-white
+}
+
+/*:host ::ng-deep .ag-cell-wrapper {*/
+/*  @apply tw-justify-center*/
+/*}*/
+
+:host ::ng-deep .ag-theme-alpine .ag-header-icon {
+  @apply tw-text-white
+}
+
+:host ::ng-deep .ag-theme-alpine .ag-paging-panel {
+  @apply tw-bg-gray-200
+}
+
+/*:host ::ng-deep .ag-header-cell,*/
+/*:host ::ng-deep .ag-theme-alpine .ag-ltr .ag-cell {*/
+/*  border-right: 2px solid #dde2eb;*/
+/*}*/
+
+:host ::ng-deep .ag-header-cell-resize {
+  width: 10px;
+}
+
+:host ::ng-deep .ag-header-cell-resize:after {
+  background-color: transparent;
+}
+
+:host ::ng-deep .ag-center-cols-viewport::-webkit-scrollbar {
+  background-color: transparent;
+  height: 0;
+}
+
+:host ::ng-deep .ag-body-horizontal-scroll,
+:host ::ng-deep .ag-body-horizontal-scroll-viewport,
+:host ::ng-deep .ag-body-horizontal-scroll-container {
+  height: 15px !important;
+  min-height: 15px !important;
+  max-height: 15px !important;
+}
+
+:host ::ng-deep .ag-theme-alpine .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+  border: 1px solid #dde2eb;
+}
+
+:host ::ng-deep .ag-theme-alpine .ag-cell {
+  line-height: normal;
+}

@@ -1,0 +1,16 @@
+<ag-grid-angular
+  style="width: 100%;"
+  class="ag-theme-alpine terminal-table"
+  rowSelection="single"
+  enableCellTextSelection
+  [animateRows]="true"
+  [columnDefs]="terminalTableService.columnDefs"
+  [defaultColDef]="terminalTableService.defaultColDef"
+  [rowData]="rowData"
+  [rowHeight]="40"
+  [headerHeight]="40"
+  [overlayLoadingTemplate]="overlayLoadingTemplate"
+  [frameworkComponents]="frameworkComponents"
+  (gridReady)="onGridReady($event)"
+  (rowClicked)="onCellClicked($event)"
+></ag-grid-angular>

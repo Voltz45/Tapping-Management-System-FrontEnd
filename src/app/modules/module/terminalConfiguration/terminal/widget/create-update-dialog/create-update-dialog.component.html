@@ -1,0 +1,107 @@
+<div class="dialog-container">
+  <div class="dialog-input-field" [formGroup]="form">
+    <div class="input-field">
+      <div class="terminalId-input">
+        <span class="terminalId-input-text required-icon">Terminal ID</span>
+        <div>
+          <input class="terminalId-input-field terminalId" type="text" formControlName="terminalId">
+          <span
+            *ngIf="form.controls['terminalId'].touched && !form.controls['terminalId'].invalid"
+            class="valid-icon bx bx-check"></span>
+          <span *ngIf="form.controls['terminalId'].touched && form.controls['terminalId'].invalid"
+                class="invalid-icon bx bx-x"></span>
+
+          <span *ngIf="form.controls['terminalId'].touched && form.controls['terminalId'].hasError('required')"
+                class="invalid-text">
+              Terminal Id should be fill.
+            </span>
+        </div>
+      </div>
+
+      <div class="ipAndPort-input">
+        <div class="ipPort-input" style="padding-right: 0.75rem">
+          <span class="ipPort-input-text required-icon">IP Address</span>
+          <div>
+            <input class="ipPort-input-field ipAddress" type="text" maxlength="15" formControlName="ipAddress">
+            <span
+              *ngIf="form.controls['ipAddress'].touched && !form.controls['ipAddress'].invalid"
+              class="valid-icon bx bx-check"></span>
+            <span *ngIf="form.controls['ipAddress'].touched && form.controls['ipAddress'].invalid"
+                  class="invalid-icon bx bx-x"></span>
+
+            <span *ngIf="form.controls['ipAddress'].touched && form.controls['ipAddress'].hasError('required')"
+                  class="invalid-text">
+              IP Address should be fill.
+            </span>
+            <span *ngIf="form.controls['ipAddress'].touched && form.controls['ipAddress'].hasError('pattern')"
+                  class="invalid-text">
+              IP Address format is invalid.
+            </span>
+          </div>
+        </div>
+        <div class="ipPort-input" style="padding-left: 0.75rem">
+          <span class="ipPort-input-text required-icon">Port</span>
+          <div>
+            <input class="ipPort-input-field port" type="text" formControlName="port">
+            <span
+              *ngIf="form.controls['port'].touched && !form.controls['port'].invalid"
+              class="valid-icon bx bx-check"></span>
+            <span *ngIf="form.controls['port'].touched && form.controls['port'].invalid"
+                  class="invalid-icon bx bx-x"></span>
+
+            <span *ngIf="form.controls['port'].touched && form.controls['port'].hasError('required')"
+                  class="invalid-text">
+              Port should be fill.
+            </span>
+            <span *ngIf="form.controls['port'].touched && form.controls['port'].hasError('pattern')"
+                  class="invalid-text">
+              Port should be number.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="layer3">
+        <div class="terminal-type">
+          <span class="terminal-type-text required-icon">Terminal Type</span>
+          <div class="terminal-type-onpremise-field">
+            <div style="width: 100%">
+              <div style="display: flex; flex-wrap: nowrap; align-items: center">
+                <div style="width: 100%">
+                  <select class="terminal-type-field terminalType" formControlName="terminalType">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                  <span class="down-icon bx bx-chevron-down"></span>
+                  <span *ngIf="form.controls['terminalType'].touched && form.controls['terminalType'].invalid"
+                        class="error-down-icon bx bx-chevron-down"></span>
+                </div>
+                <section style="margin-right: 20px">
+                  <mat-checkbox class="example-margin" style="font-weight: 600" formControlName="isOnPremise">
+                    Onpremise
+                  </mat-checkbox>
+                </section>
+              </div>
+
+              <span *ngIf="form.controls['terminalType'].touched && form.controls['terminalType'].hasError('required')"
+                    class="invalid-text">
+                Terminal Type should be fill.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="cancel-button" mat-flat-button color="warn" (click)="closeDialog()">Cancel</button>
+      <button class="create-button" mat-flat-button color="primary" *ngIf="buttonStatus == 'create'"
+              [disabled]="disableButton()" (click)="createButton()">Create
+      </button>
+      <button class="create-button" mat-flat-button color="primary" *ngIf="buttonStatus == 'edit'"
+              [disabled]="disableButton()" (click)="updateButton()">Edit
+      </button>
+    </div>
+  </div>
+</div>

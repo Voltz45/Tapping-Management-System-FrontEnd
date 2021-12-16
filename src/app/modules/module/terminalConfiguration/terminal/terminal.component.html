@@ -12,18 +12,6 @@
     </button>
   </div>
   <div class="content">
-    <ag-grid-angular
-      style="width: 100%;height: 500px"
-      class="ag-theme-alpine"
-      rowSelection="single"
-      enableCellTextSelection
-      [animateRows]="true"
-      [columnDefs]="columnDefs"
-      [rowData]="rowData"
-      [overlayLoadingTemplate]="overlayLoadingTemplate"
-      [frameworkComponents]="frameworkComponents"
-      (gridReady)="onGridReady($event)"
-    >
-    </ag-grid-angular>
+    <terminal-table></terminal-table>
   </div>
 </div>

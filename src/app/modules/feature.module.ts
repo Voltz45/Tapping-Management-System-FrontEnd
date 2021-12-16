@@ -54,15 +54,21 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {SystemParametersComponent} from './module/system/system-parameters/system-parameters.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {TerminalService} from "./services/terminal-service/terminal.service";
+import {TerminalService} from "./services/terminal-configuration-service/terminal-service/terminal.service";
 import {
   CreateUpdateDialogComponent
-} from './module/system/system-parameters/create-update-dialog/create-update-dialog.component';
+} from './module/terminalConfiguration/terminal/widget/create-update-dialog/create-update-dialog.component';
 import {HpanDialogComponent} from './module/transaction/widget-transaction/hpan-dialog/hpan-dialog.component';
 import {
   ActionButtonGroupComponent
 } from './module/terminalConfiguration/terminal/widget/action-button-group/action-button-group.component';
 import {MatMenuModule} from "@angular/material/menu";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {
+  TerminalTableComponent
+} from './module/terminalConfiguration/terminal/widget/terminal-table/terminal-table.component';
+import {TerminalTableService} from "./services/terminal-configuration-service/terminal-service/terminal-table.service";
 
 
 @NgModule({
@@ -91,6 +97,7 @@ import {MatMenuModule} from "@angular/material/menu";
     CreateUpdateDialogComponent,
     HpanDialogComponent,
     ActionButtonGroupComponent,
+    TerminalTableComponent,
   ],
   imports: [
     NgxEchartsModule.forRoot({
@@ -119,7 +126,9 @@ import {MatMenuModule} from "@angular/material/menu";
     MatPaginatorModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCheckboxModule,
+    MatAutocompleteModule
   ],
   providers: [
     WebsocketService,
@@ -127,7 +136,8 @@ import {MatMenuModule} from "@angular/material/menu";
     TransactionApiService,
     TransactionTableService,
     DashboardService,
-    TerminalService
+    TerminalService,
+    TerminalTableService
   ]
 })
 export class FeatureModule {

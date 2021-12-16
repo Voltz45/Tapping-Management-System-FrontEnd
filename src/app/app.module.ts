@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {DefaultModule} from "./layout/default/default.module";
 import {LoginModule} from "./layout/login/login.module";
 import {NotificationModule} from "./notification/notification.module";
+import {NotificationService} from "./layout/service/notification.service";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import {NotificationModule} from "./notification/notification.module";
     LoginModule,
     NotificationModule
   ],
-  providers: [],
+  providers: [NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

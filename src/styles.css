@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~angular-notifier/styles";
 @import "~boxicons/css/boxicons.css";
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
@@ -47,4 +48,8 @@ body {
 /*ag-grid color*/
 .rag-red {
   color: red;
+}
+
+::ng-deep notifier-container .notifier__notification--material .notifier__notification-button {
+  padding: 0 0 3px 0;
 }

@@ -15,5 +15,45 @@
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "channel": [
+    {
+      "id": 1,
+      "channelStatus": "1",
+      "ipAddress": "1.1.1.1",
+      "port": "1239",
+      "terminalId": "test",
+      "terminalType": "1",
+      "timeTrace": "1",
+      "isOnPremise": "true"
+    },
+    {
+      "terminalId": "test",
+      "ipAddress": "1.2.3.1",
+      "port": "123",
+      "terminalType": "Missouri",
+      "onPremise": true,
+      "id": 2
+    },
+    {
+      "id": 3,
+      "terminalId": "asd",
+      "ipAddress": "",
+      "port": "",
+      "terminalType": "",
+      "timeTrace": "",
+      "isOnPremise": "",
+      "channelStatus": ""
+    },
+    {
+      "id": 4,
+      "terminalId": "asjdaiosdj",
+      "ipAddress": "1.1.1.1",
+      "port": "123",
+      "terminalType": "New Mexico",
+      "timeTrace": "",
+      "isOnPremise": true,
+      "channelStatus": ""
+    }
+  ]
 }

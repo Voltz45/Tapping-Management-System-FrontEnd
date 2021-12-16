@@ -16,7 +16,11 @@
              style="color: red; margin-bottom: 5px">Password Required!</p>
         </div>
 
-        <input type="submit" value="login" class="btn solid" (click)="onLogin(form.value)">
+        <button class="btn solid" (click)="onLogin(form.value)" [disabled]="form.invalid || showLoading">
+          <span *ngIf="showLoading">Loading </span>
+          <span *ngIf="!showLoading">Login</span>
+          <i *ngIf="showLoading" class="bx bx-loader bx-spin"></i>
+        </button>
       </form>
       <form [formGroup]="form" class="sign-up-form">
         <h2 class="title">Sign up</h2>
@@ -37,7 +41,7 @@
     <div class="panel left-panel">
       <div class="content">
         <h3>New Here ?</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus impedit quidem quibusdam?</p>
+        <p>Sheild Your Transactions, Monitoring Your Devices, Save Your Performances!</p>
         <button class="btn transparent" id="sign-up-btn">Sign up</button>
       </div>
 

@@ -286,7 +286,7 @@ export class TransactionComponent implements OnInit, AfterViewInit {
     if (this.rowData.length != 0) {
       setTimeout(() => {
         this.transactionTableService.gridApi.setRowData(this.rowData);
-      }, 700)
+      }, 700);
     }
   }
 

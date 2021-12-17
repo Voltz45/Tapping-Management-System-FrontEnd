@@ -94,6 +94,16 @@ export class SidebarComponent implements OnInit, AfterViewInit {
           externalInterfaces.style.left = right + 'px';
         }
 
+        if (this.children.namedItem('iso8583-container') != null) {
+          if (collapsed?.classList.contains('collapsed')) {
+            const app = this.children.namedItem('iso8583-container') as HTMLElement;
+            app.style.left = right - 67 + 'px';
+          } else {
+            const app = this.children.namedItem('iso8583-container') as HTMLElement;
+            app.style.left = right - 280 + 'px';
+          }
+        }
+
         if (this.children.namedItem('transaction-container') != null) {
           const transaction = this.children.namedItem('transaction-container') as HTMLElement;
           transaction.style.top = top + 'px';
@@ -118,7 +128,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             app.style.left = right - 67 + 'px';
           } else {
             const app = this.children.namedItem('app-container') as HTMLElement;
-            app.style.left = right - 273 + 'px';
+            app.style.left = right - 280 + 'px';
           }
         }
       })

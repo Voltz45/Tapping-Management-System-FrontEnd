@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {CreateUpdateDialogComponent} from "./widget/create-update-dialog/create-update-dialog.component";
 import {
@@ -10,7 +10,7 @@ import {
   templateUrl: './terminal.component.html',
   styleUrls: ['./terminal.component.css']
 })
-export class TerminalComponent implements OnInit, OnDestroy {
+export class TerminalComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
@@ -19,14 +19,20 @@ export class TerminalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-  }
-
-  ngOnDestroy(): void {
 
   }
 
   openDialog() {
     this.terminalTableService.buttonStatus = 'create';
-    this.dialog.open(CreateUpdateDialogComponent, {autoFocus: false});
+    this.dialog.open(CreateUpdateDialogComponent, {autoFocus: false, disableClose: true});
+  }
+
+  onFilterTextBoxChanged() {
+    this.terminalTableService.onFilter('search-filter');
+  }
+
+  refreshTable() {
+    this.terminalTableService.getAllTerminalWithDelay();
   }
 }
+

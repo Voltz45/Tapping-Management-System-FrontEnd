@@ -3,7 +3,7 @@ export class TerminalModel {
   terminalId: string = '';
   ipAddress: string = '';
   port: string = '';
-  terminalType!: BigInt;
+  terminalType: string = '';
   timeTrace: string = '';
   onPremise: boolean = false;
   channelStatus: string = '';

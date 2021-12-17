@@ -70,6 +70,9 @@ export class TransactionComponent implements OnInit, AfterViewInit {
   //Api
   responseHandler(response: TransactionMessageModel[]) {
     let responseData: TransactionMessage[] = [];
+    if (response.length == 0) {
+      this.transactionTableService.gridApi.showNoRowsOverlay();
+    }
     response.forEach(x => {
       responseData.push({
         amount: x.amount,
@@ -97,6 +100,7 @@ export class TransactionComponent implements OnInit, AfterViewInit {
   }
 
   errorHandler(error: any) {
+    console.log(error);
     this.transactionTableService.gridApi.showNoRowsOverlay();
   }
 

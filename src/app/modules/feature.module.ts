@@ -69,6 +69,12 @@ import {
   TerminalTableComponent
 } from './module/terminalConfiguration/terminal/widget/terminal-table/terminal-table.component';
 import {TerminalTableService} from "./services/terminal-configuration-service/terminal-service/terminal-table.service";
+import {
+  TerminalTypeComponent
+} from './module/terminalConfiguration/terminal-type/terminal-type/terminal-type.component';
+import {
+  TerminalTypeService
+} from "./services/terminal-configuration-service/terminal-type-service/terminal-type.service";
 
 
 @NgModule({
@@ -98,6 +104,7 @@ import {TerminalTableService} from "./services/terminal-configuration-service/te
     HpanDialogComponent,
     ActionButtonGroupComponent,
     TerminalTableComponent,
+    TerminalTypeComponent,
   ],
   imports: [
     NgxEchartsModule.forRoot({
@@ -137,7 +144,8 @@ import {TerminalTableService} from "./services/terminal-configuration-service/te
     TransactionTableService,
     DashboardService,
     TerminalService,
-    TerminalTableService
+    TerminalTableService,
+    TerminalTypeService
   ]
 })
 export class FeatureModule {

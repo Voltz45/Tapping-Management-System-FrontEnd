@@ -25,6 +25,9 @@ import {ARPComponent} from "./modules/module/system/applicationParameters/arp/ar
 import {SystemParametersComponent} from "./modules/module/system/system-parameters/system-parameters.component";
 import {LoginComponent} from "./layout/login/login.component";
 import {AuthenticationGuard} from "./layout/guard/authentication.guard";
+import {
+  TerminalTypeComponent
+} from "./modules/module/terminalConfiguration/terminal-type/terminal-type/terminal-type.component";
 
 const routes: Routes = [
   {
@@ -104,6 +107,10 @@ const routes: Routes = [
           {
             path: 'terminal',
             component: TerminalComponent
+          },
+          {
+            path: 'terminal-type',
+            component: TerminalTypeComponent
           }
         ]
       },

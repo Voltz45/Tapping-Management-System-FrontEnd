@@ -89,7 +89,7 @@
   transition: opacity .5s ease-in-out;
   float: right;
   position: relative;
-  margin-right: 130px;
+  margin-right: 60px;
   margin-top: -23px;
   z-index: 1;
 }
@@ -98,7 +98,7 @@
   transition: opacity .5s ease-in-out;
   float: right;
   position: relative;
-  margin-right: 130px;
+  margin-right: 60px;
   margin-top: -23px;
   color: red;
   z-index: 2;
@@ -157,7 +157,7 @@
 
 .terminal-type-field {
   @apply
-  tw-block tw-appearance-none tw-w-[75%] tw-bg-white tw-border-2 tw-border-gray-200 tw-text-gray-700 tw-pt-[2px] tw-pb-[3px] tw-px-4 tw-pr-8 tw-rounded focus:tw-outline-none focus:tw-bg-white focus:tw-border-[#3f51b5];
+  tw-block tw-appearance-none tw-w-[90%] tw-bg-white tw-border-2 tw-border-gray-200 tw-text-gray-700 tw-pt-[2px] tw-pb-[3px] tw-px-4 tw-pr-8 tw-rounded focus:tw-outline-none focus:tw-bg-white focus:tw-border-[#3f51b5];
 }
 
 .terminal-type-field.ng-invalid.ng-touched {
@@ -176,4 +176,8 @@
 .required-icon:after {
   content: " *";
   color: red;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #3f51b5 !important;
 }

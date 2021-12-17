@@ -1,28 +1,28 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {NotificationService} from "../../../../../../layout/service/notification.service";
-import {NotificationTypeEnum} from "../../../../../../layout/enum/notification-type.enum";
 import {
   TerminalService
 } from "../../../../../services/terminal-configuration-service/terminal-service/terminal.service";
 import {TerminalModel} from "../../../../../model/TerminalModel";
-import {Router} from "@angular/router";
 import {
   TerminalTableService
 } from "../../../../../services/terminal-configuration-service/terminal-service/terminal-table.service";
+import {TerminalTypeGroup} from "../../../../../interface/terminal-type-group";
 
 @Component({
   selector: 'app-create-update-dialog',
   templateUrl: './create-update-dialog.component.html',
   styleUrls: ['./create-update-dialog.component.css']
 })
-export class CreateUpdateDialogComponent implements OnInit, AfterViewInit {
+export class CreateUpdateDialogComponent implements OnInit, AfterViewInit, OnDestroy {
   form!: FormGroup;
   filteredOptions!: Observable<string[]>;
   terminalModel: TerminalModel = new TerminalModel();
-  buttonStatus: string = ''
+  buttonStatus: string = '';
+  terminalTypeOptionList: TerminalTypeGroup[] = [];
 
   constructor(
     private dialog: MatDialog,
@@ -37,6 +37,7 @@ export class CreateUpdateDialogComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.createForm();
     this.buttonStatus = this.terminalTableService.buttonStatus;
+    this.terminalTypeOptionList = this.terminalTableService.terminalTypeList;
   }
 
   ngAfterViewInit(): void {
@@ -44,6 +45,10 @@ export class CreateUpdateDialogComponent implements OnInit, AfterViewInit {
       this.setExistingDataToDialog();
       this.changeDetectorRef.detectChanges();
     }
+  }
+
+  ngOnDestroy(): void {
+
   }
 
   createForm() {
@@ -69,16 +74,28 @@ export class CreateUpdateDialogComponent implements OnInit, AfterViewInit {
     this.terminalModel.terminalId = this.terminalId.value;
     this.terminalModel.ipAddress = this.ipAddress.value;
     this.terminalModel.port = this.port.value;
-    this.terminalModel.terminalType = this.terminalType.value;
+    this.terminalTableService.terminalTypeList.forEach(x => {
+      if (x.value == this.terminalType.value) {
+        this.terminalModel.terminalType = x.value;
+      }
+    })
     this.terminalModel.onPremise = this.onPremise.value;
+    if (this.onPremise.value == '' || this.onPremise.value == null) {
+      this.terminalModel.onPremise = false;
+    }
     return this.terminalModel;
   }
 
   setExistingDataToDialog() {
+    const data = this.terminalTableService.terminalTypeList.filter(value => {
+      return value.viewValue == this.existingTerminalType;
+    })
     this.terminalId.setValue(this.existingTerminalId);
     this.ipAddress.setValue(this.existingIpAddress);
     this.port.setValue(this.existingPort);
-    this.terminalType.setValue(this.existingTerminalType);
+    if (data.length != 0) {
+      this.terminalType.setValue(data[0].value);
+    }
     this.onPremise.setValue(this.existingOnPremise);
   }
 

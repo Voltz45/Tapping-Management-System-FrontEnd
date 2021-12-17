@@ -30,6 +30,20 @@
   justify-content: space-between;
   margin-bottom: 10px;
   position: relative;
+  min-height: 40px;
+}
+
+.right-button-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.refresh-button {
+  margin-right: 10px;
+  padding: 0;
+  min-width: 40px;
 }
 
 .create-button {
@@ -37,6 +51,11 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
+}
+
+.refresh-icon {
+  margin: 0;
+  font-size: 20px;
 }
 
 .create-icon {

@@ -5,6 +5,8 @@ import {TransactionMessageModel} from "../../../../model/TransactionMessageModel
 import {TransactionMessage} from "../../interface/transaction-message";
 import {TransactionApiService} from "../../../../services/transaction-service/transaction-api.service";
 import {HpanDialogComponent} from "../hpan-dialog/hpan-dialog.component";
+import {NotificationService} from "../../../../../layout/service/notification.service";
+import {NotificationTypeEnum} from "../../../../../layout/enum/notification-type.enum";
 
 @Component({
   selector: 'transaction-table',
@@ -30,7 +32,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private transactionTableService: TransactionTableService,
-    private transactionApiService: TransactionApiService) {
+    private transactionApiService: TransactionApiService,
+    private notifierService: NotificationService
+  ) {
   }
 
   ngOnInit(): void {
@@ -62,6 +66,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   responseHandler(response: TransactionMessageModel[]) {
     const transactionTable = document.querySelector('.ag-theme-alpine') as HTMLElement;
     let responseData: TransactionMessage[] = [];
+    if (response.length == 0) {
+      this.transactionTableService.gridApi.showNoRowsOverlay();
+    }
     response.forEach(x => {
       responseData.push({
         amount: x.amount,
@@ -93,6 +100,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   errorHandler(error: any) {
     this.transactionTableService.gridApi.showNoRowsOverlay();
+    this.notifierService.notify(NotificationTypeEnum.ERROR, 'status: ' + error.status + ' message: ' + error.statusText)
   }
 
   ngAfterViewInit(): void {

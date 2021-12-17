@@ -4,12 +4,17 @@
       <span class="search-icon bx bx-search"></span>
       <input
         class="search-input"
-        type="text" placeholder="Search">
+        type="text" placeholder="Search" id="search-filter" (input)="onFilterTextBoxChanged()">
     </div>
-    <button mat-flat-button color="primary" class="create-button" (click)="openDialog()">
-      <span class="create-icon bx bx-layer-plus"></span>
-      <span class="create-text">Create</span>
-    </button>
+    <div class="right-button-group">
+      <button mat-flat-button color="primary" class="refresh-button" (click)="refreshTable()">
+        <span class="refresh-icon bx bx-refresh"></span>
+      </button>
+      <button mat-flat-button color="primary" class="create-button" (click)="openDialog()">
+        <span class="create-icon bx bx-layer-plus"></span>
+        <span class="create-text">Create</span>
+      </button>
+    </div>
   </div>
   <div class="content">
     <terminal-table></terminal-table>

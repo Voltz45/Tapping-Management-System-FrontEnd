@@ -66,18 +66,18 @@
           <span class="terminal-type-text required-icon">Terminal Type</span>
           <div class="terminal-type-onpremise-field">
             <div style="width: 100%">
-              <div style="display: flex; flex-wrap: nowrap; align-items: center">
+              <div style="display: flex; flex-wrap: nowrap; align-items: center; justify-content: space-between">
                 <div style="width: 100%">
                   <select class="terminal-type-field terminalType" formControlName="terminalType">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                    <option *ngFor="let terminalOption of terminalTypeOptionList" [value]="terminalOption.value">
+                      {{terminalOption.viewValue}}
+                    </option>
                   </select>
                   <span class="down-icon bx bx-chevron-down"></span>
                   <span *ngIf="form.controls['terminalType'].touched && form.controls['terminalType'].invalid"
                         class="error-down-icon bx bx-chevron-down"></span>
                 </div>
-                <section style="margin-right: 20px">
+                <section>
                   <mat-checkbox class="example-margin" style="font-weight: 600" formControlName="isOnPremise">
                     Onpremise
                   </mat-checkbox>

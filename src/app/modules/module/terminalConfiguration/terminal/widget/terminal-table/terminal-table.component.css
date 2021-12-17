@@ -1,5 +1,5 @@
 .terminal-table {
-  height: 300px;
+  height: 500px;
 }
 
 :host ::ng-deep .ag-center-cols-clipper {
@@ -36,7 +36,7 @@
 }
 
 :host ::ng-deep .ag-header-cell-resize:after {
-  background-color: transparent;
+  background-color: white;
 }
 
 :host ::ng-deep .ag-center-cols-viewport::-webkit-scrollbar {
@@ -53,7 +53,7 @@
 }
 
 :host ::ng-deep .ag-theme-alpine .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
-  border: 1px solid #dde2eb;
+  border: 0 solid #dde2eb;
 }
 
 :host ::ng-deep .ag-theme-alpine .ag-cell {

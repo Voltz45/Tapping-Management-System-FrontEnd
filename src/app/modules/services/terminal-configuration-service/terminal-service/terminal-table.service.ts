@@ -1,109 +1,201 @@
 import {Injectable} from '@angular/core';
-import {ColDef, GridApi} from "ag-grid-community";
+import {ColDef, ColumnApi, GridApi} from "ag-grid-community";
 import {TerminalService} from "./terminal.service";
 import {TerminalModel} from "../../../model/TerminalModel";
 import {NotificationService} from "../../../../layout/service/notification.service";
 import {MatDialog} from "@angular/material/dialog";
 import {NotificationTypeEnum} from "../../../../layout/enum/notification-type.enum";
 import {HttpErrorResponse} from "@angular/common/http";
+import {TerminalTypeService} from "../terminal-type-service/terminal-type.service";
+import {TerminalTypeModel} from "../../../model/TerminalTypeModel";
+import {TerminalTypeGroup} from "../../../interface/terminal-type-group";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TerminalTableService {
   gridApi!: GridApi;
+  gridColumnApi!: ColumnApi;
+  rowData: TerminalModel[] = [];
   existingData: TerminalModel = new TerminalModel();
   matDialog!: MatDialog;
   buttonStatus: string = '';
+  terminalTypeList: TerminalTypeGroup[] = [];
+  terminalValue: string[] = [];
+  terminalTextValue: string[] = [];
+  sortModel = [
+    {
+      colId: 'transactionDate',
+      sort: 'desc'
+    }
+  ]
   defaultColDef = {
     flex: 1,
     minWidth: 110,
-    editable: false,
-    resizable: true,
+    editable: false
   };
   columnDefs: ColDef[] = [
     {field: 'id', hide: true, headerClass: 'terminal-header-color'},
-    {field: 'terminalId', headerClass: 'terminal-header-color'},
-    {field: 'terminalType', headerClass: 'terminal-header-color'},
-    {field: 'ipAddress', headerClass: 'terminal-header-color'},
-    {field: 'port', headerClass: 'terminal-header-color'},
+    {field: 'terminalId', sortable: true, sort: 'asc', headerClass: 'terminal-header-color'},
+    {field: 'terminalType', sortable: true, headerClass: 'terminal-header-color'},
+    {field: 'ipAddress', sortable: true, headerClass: 'terminal-header-color'},
+    {field: 'port', sortable: true, headerClass: 'terminal-header-color'},
     {field: 'timeTrace', hide: true, headerClass: 'terminal-header-color'},
-    {field: 'channelStatus', headerClass: 'terminal-header-color'},
-    {field: 'onPremise', headerClass: 'terminal-header-color'},
-    {field: 'action', cellRenderer: 'actionButtonGroup', headerClass: 'terminal-header-color'}
+    {
+      field: 'channelStatus', sortable: true, headerClass: 'terminal-header-color',
+      cellRenderer: function (params) {
+        let badge;
+        if (params.value == '1') {
+          badge = '<span style="color: white" class="badge bg-success">Active</span>'
+        } else {
+          badge = '<span style="color: white" class="badge bg-danger">Not Active</span>'
+        }
+        return badge;
+      }
+    },
+    {
+      field: 'onPremise', sortable: true, headerClass: 'terminal-header-color',
+      cellRenderer: function (params) {
+        let badge;
+        if (params.value) {
+          badge = '<span style="color: white" class="badge bg-primary">On Premise</span>'
+        } else {
+          badge = '<span style="color: white" class="badge bg-secondary">Off Premise</span>'
+        }
+        return badge;
+      }
+    },
+    {
+      field: 'action',
+      sortable: true,
+      resizable: false,
+      cellRenderer: 'actionButtonGroup',
+      headerClass: 'terminal-header-color'
+    }
   ];
 
   constructor(
     private terminalService: TerminalService,
     private notifierService: NotificationService,
+    private terminalTypeService: TerminalTypeService,
     private dialog: MatDialog
   ) {
   }
 
-  getAllTerminal() {
-    const terminalTable = document.querySelector('.terminal-table') as HTMLElement;
-    this.showTableLoading();
-    this.terminalService.getAllTerminal().subscribe((response) => {
-      if (response.length != 0) {
-        terminalTable.style.height = 'auto';
-        this.setAutoHeightTable();
-        this.hideTableLoading();
-        this.gridApi.setRowData(response);
-      } else {
-        this.showNoRowData();
-      }
-    }, (error) => {
-      this.gridApi.showNoRowsOverlay();
-    })
+  onFilter(searchInputClass: string) {
+    this.gridApi.setQuickFilter((document.getElementById(searchInputClass) as HTMLInputElement)?.value)
   }
 
   getAllTerminalWithDelay() {
     setTimeout(() => {
-      this.getAllTerminal();
-    }, 800);
+      this.onGetAllTerminal();
+    }, 200);
+  }
+
+  onGetAllTerminal() {
+    const terminalTable = document.querySelector('.terminal-table') as HTMLElement;
+    this.showTableLoading();
+    this.terminalService.getAllTerminal().subscribe({
+      next: this.responseGetAllTerminal(terminalTable),
+      error: this.errorGetAllTerminal()
+    })
   }
 
   onCreateTerminal(data: TerminalModel) {
     this.terminalService.addTerminal(data).subscribe({
       next: this.responseCreateAmdUpdate('Data added successfully.'),
-      error: this.errorCreateAndUpdate
+      error: this.errorCreateAndUpdate()
     });
   }
 
   onUpdateTerminal(data: FormData) {
     this.terminalService.updateTerminal(data).subscribe({
       next: this.responseCreateAmdUpdate('Data edited successfully'),
-      error: this.errorCreateAndUpdate
+      error: this.errorCreateAndUpdate()
     })
   }
 
   onDeleteTerminal() {
     this.terminalService.deleteTerminal(this.existingData.id).subscribe({
-      next: this.responseDelete,
-      error: this.errorDelete
+      next: this.responseDelete(),
+      error: this.errorDelete()
     });
-
   }
 
-  responseCreateAmdUpdate(message: string) {
-    return (response: any) => {
-      this.getAllTerminalWithDelay();
-      this.dialog.closeAll();
-      this.successNotification('Data edited successfully');
+  getAllTerminalTypeWithDelay() {
+    setTimeout(() => {
+      this.onGetAllTerminalType();
+    });
+  }
+
+  onGetAllTerminalType() {
+    this.terminalTypeService.getAllTerminalType().subscribe({
+      next: this.responseGetAllTerminalType()
+    })
+  }
+
+  private responseGetAllTerminal(terminalTable: HTMLElement) {
+    return (response: TerminalModel[]) => {
+      if (response.length != 0) {
+        response.forEach(x => {
+          const data = this.terminalTypeList.filter((value => {
+            return value.value == x.terminalType
+          }));
+          x.terminalType = data[0].viewValue;
+        })
+        this.gridColumnApi.applyColumnState({state: this.sortModel});
+        this.gridApi.onSortChanged();
+        this.hideTableLoading();
+        this.gridApi.setRowData(response);
+        this.rowData = response;
+      } else {
+        this.showNoRowData();
+      }
     }
   }
 
-  errorCreateAndUpdate() {
+  private errorGetAllTerminal() {
+    return (error: HttpErrorResponse) => {
+      const errorMessage = 'status: ' + error.status + ' message: ' + error.statusText;
+      this.errorNotification(errorMessage);
+      this.showNoRowData();
+    }
+  }
+
+  private responseCreateAmdUpdate(message: string) {
+    return (response: any) => {
+      this.getAllTerminalWithDelay();
+      this.dialog.closeAll();
+      this.successNotification(message);
+    }
+  }
+
+  private errorCreateAndUpdate() {
     return (error: any) => this.errorNotification(JSON.stringify(error.message));
   }
 
-  responseDelete = (response: any) => {
-    this.notifierService.notify(NotificationTypeEnum.SUCCESS, 'Data deleted successfully');
-    this.getAllTerminalWithDelay();
+  private responseDelete() {
+    return (response: any) => {
+      this.notifierService.notify(NotificationTypeEnum.SUCCESS, 'Data deleted successfully');
+      this.getAllTerminalWithDelay();
+    }
   }
 
-  errorDelete = (error: HttpErrorResponse) => {
-    this.notifierService.notify(NotificationTypeEnum.ERROR, error.message)
+  private errorDelete() {
+    return (error: HttpErrorResponse) => {
+      this.notifierService.notify(NotificationTypeEnum.ERROR, error.message)
+    }
+  }
+
+  private responseGetAllTerminalType() {
+    return (response: TerminalTypeModel[]) => {
+      response.forEach(x => {
+        this.terminalTypeList.push({
+          value: String(x.msgTemplate),
+          viewValue: x.terminalType
+        })
+      })
+    }
   }
 
   successNotification(message: string) {

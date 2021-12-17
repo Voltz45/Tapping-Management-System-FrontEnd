@@ -95,9 +95,26 @@
             <span class="first-submenu-text">External Interfaces</span>
           </div>
           <ul class="first-submenu-list">
-            <li class="first-submenu-item" routerLink="external-interfaces/iso8583-configuration">
+            <li class="first-submenu-item have-child" routerLink="external-interfaces/iso8583-configuration">
               <span class="first-submenu-item-icon bx bx-layer"></span>
               <span class="first-submenu-item-text">ISO8583 Configuration</span>
+              <span class='chevron-icon bx bx-chevron-down'></span>
+              <div class="second-submenu-container" id="iso8583-container" style="border-bottom-left-radius: 5px;">
+                <ul class="second-submenu-list">
+                  <li class="second-submenu-item" routerLink="system/application-parameters/ARP">
+                    <span class="second-submenu-item-icon bx bx-code-curly"></span>
+                    <span class="second-submenu-item-text">ISO Dialects</span>
+                  </li>
+                  <li class="second-submenu-item" routerLink="system/application-parameters/ARP">
+                    <span class="second-submenu-item-icon bx bx-code-curly"></span>
+                    <span class="second-submenu-item-text">ISO Field Configuration</span>
+                  </li>
+                  <li class="second-submenu-item" routerLink="system/application-parameters/ARP">
+                    <span class="second-submenu-item-icon bx bx-code-curly"></span>
+                    <span class="second-submenu-item-text">Response Mapping</span>
+                  </li>
+                </ul>
+              </div>
             </li>
             <li class="first-submenu-item" routerLink="external-interfaces/iso20022">
               <span class="first-submenu-item-icon bx bx-layer"></span>
@@ -132,6 +149,10 @@
             <li class="first-submenu-item" routerLink="terminal-configuration/terminal">
               <span class="first-submenu-item-icon bx bx-server"></span>
               <span class="first-submenu-item-text">Terminal</span>
+            </li>
+            <li class="first-submenu-item" routerLink="terminal-configuration/terminal-type">
+              <span class="first-submenu-item-icon bx bx-server"></span>
+              <span class="first-submenu-item-text">Terminal Type</span>
             </li>
           </ul>
         </div>

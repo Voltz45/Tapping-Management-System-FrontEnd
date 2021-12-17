@@ -1,9 +1,9 @@
-::ng-deep .mat-menu-content {
+:host ::ng-deep .mat-menu-content {
   display: flex;
   flex-direction: column;
 }
 
-::ng-deep .mat-menu-content:not(:empty) {
+:host ::ng-deep .mat-menu-content:not(:empty) {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }

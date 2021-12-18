@@ -75,6 +75,12 @@ import {
 import {
   TerminalTypeService
 } from "./services/terminal-configuration-service/terminal-type-service/terminal-type.service";
+import {ButtonModule} from "primeng/button";
+import {PasswordModule} from "primeng/password";
+import {DividerModule} from "primeng/divider";
+import {ToastModule} from "primeng/toast";
+import {RippleModule} from "primeng/ripple";
+import {TabViewModule} from "primeng/tabview";
 
 
 @NgModule({
@@ -135,7 +141,13 @@ import {
     MatSnackBarModule,
     MatMenuModule,
     MatCheckboxModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ButtonModule,
+    PasswordModule,
+    DividerModule,
+    ToastModule,
+    RippleModule,
+    TabViewModule
   ],
   providers: [
     WebsocketService,
@@ -145,7 +157,7 @@ import {
     DashboardService,
     TerminalService,
     TerminalTableService,
-    TerminalTypeService
+    TerminalTypeService,
   ]
 })
 export class FeatureModule {

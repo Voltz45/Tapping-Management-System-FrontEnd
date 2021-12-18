@@ -1,11 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~angular-notifier/styles";
+/*@import "~angular-notifier/styles";*/
 @import "~boxicons/css/boxicons.css";
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "~primeng/resources/primeng.min.css";
+@import "~primeng/resources/themes/tailwind-light/theme.css";
+@import "~primeicons/primeicons.css";
+
+/*@import 'tailwindcss/base';*/
+/*@import 'tailwindcss/components';*/
+/*@import 'tailwindcss/utilities';*/
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "~bootstrap/dist/css/bootstrap.css";
+/*@import "~bootstrap/dist/css/bootstrap.css";*/
 
 /*ag-grid-community*/
 @import "~ag-grid-community/dist/styles/ag-grid.css";
@@ -53,3 +57,4 @@ body {
 ::ng-deep notifier-container .notifier__notification--material .notifier__notification-button {
   padding: 0 0 3px 0;
 }
+

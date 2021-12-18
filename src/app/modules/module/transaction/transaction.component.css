@@ -122,6 +122,53 @@
   @apply tw-text-[18px]
 }
 
+.additional-data {
+  @apply tw-mt-[20px] tw-h-[400px] tw-bg-white
+}
+
+.additional-data-tab {
+  @apply tw-bg-gray-200
+}
+
+.transaction-summary-content {
+  border: solid 1px #dee2e6;
+  border-top: transparent;
+  height: calc(100% - 42px)
+}
+
+.transaction-summary-content-data {
+  @apply tw-p-[12px] tw-flex tw-flex-row
+}
+
+.transaction-summary-content-data-left,
+.transaction-summary-content-data-right {
+  @apply tw-w-1/2 tw-flex tw-flex-col
+}
+
+.transaction-summary-content-data-right {
+  @apply tw-ml-[15px]
+}
+
+.transaction-summary-content-data-container {
+  /*display: flex; */
+  /*flex-direction: row; */
+  /*align-items: center; justify-content: space-between; margin-bottom: 0.5rem;*/
+  @apply tw-flex tw-flex-row tw-items-center tw-justify-between tw-mb-[0.5rem]
+}
+
+.transaction-summary-content-data-text {
+  @apply tw-whitespace-nowrap tw-w-[190px] tw-text-[14px]
+}
+
+.transaction-summary-content-data-input {
+  @apply
+  tw-bg-gray-200
+  tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded
+  tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0]
+  tw-text-[14px] tw-mr-[25px]
+  focus:tw-outline-none
+}
+
 /*Transition / Animation*/
 .transaction-header-card:hover .transaction-expand-button {
   @apply
@@ -228,6 +275,8 @@
   font-weight: 600;
 }
 
-/*.left {*/
-/*  @apply tw-animate-pulse*/
-/*}*/
+/*PrimeNg Styles*/
+:host ::ng-deep .p-tabview .p-tabview-nav li.transaction-summary .p-tabview-nav-link {
+  @apply tw-px-[1rem] tw-py-[0.2rem]
+}
+

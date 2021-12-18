@@ -10,8 +10,6 @@
             <mat-form-field class="transaction-field">
               <mat-label>MTI</mat-label>
               <input class="search-input-field" matInput autocomplete="off" formControlName="MTI">
-              <mat-hint *ngIf="searchFilterForm.controls['MTI'].hasError('pattern')" style="color: red">Number Only
-              </mat-hint>
             </mat-form-field>
             <mat-form-field class="transaction-field">
               <mat-label>HPAN</mat-label>
@@ -119,172 +117,130 @@
       </div>
     </div>
 
-    <div style="margin-top: 20px; height: 400px; background-color: white">
-      <ul class="tw-bg-gray-200 nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="additional-info-tab" data-bs-toggle="tab"
-                  data-bs-target="#additional-info" type="button" role="tab" aria-controls="additional-info"
-                  aria-selected="true">
-            Transaction Summary
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="test1-tab" data-bs-toggle="tab" data-bs-target="#test1" type="button"
-                  role="tab" aria-controls="profile" aria-selected="false">
-            Test1
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="test2-tab" data-bs-toggle="tab" data-bs-target="#test2" type="button"
-                  role="tab" aria-controls="test2" aria-selected="false">
-            Test2
-          </button>
-        </li>
-      </ul>
-      <div class="tab-content" id="myTabContent"
-           style="border: solid 1px #dee2e6; border-top: transparent; height: calc(100% - 42px)">
-        <div class="tab-pane fade show active" id="additional-info" role="tabpanel"
-             aria-labelledby="additional-info-tab">
-          <div style="padding: 12px; display: flex; flex-direction: row">
-            <div class="left" style="width: 50%; display: flex; flex-direction: column">
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Date</span>
-                <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
-                  type="text" [value]="this.transactionTableService.additionalData?.transactionDate" readonly>
+    <div class="additional-data">
+      <p-tabView>
+        <p-tabPanel header="Transaction Summary" headerStyleClass="transaction-summary">
+          <div class="transaction-summary-content-data">
+            <div class="transaction-summary-content-data-left">
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Date</span>
+                <input class="transaction-summary-content-data-input" type="text"
+                       [value]="this.transactionTableService.additionalData?.transactionDate" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Network Date</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Network Date</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" [value]="this.transactionTableService.additionalData?.networkDate" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Id</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Id</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" [value]="this.transactionTableService.additionalData?.transactionId" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Network Id</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Network Id</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" [value]="this.transactionTableService.additionalData?.networkId" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">RRN</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">RRN</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" [value]="this.transactionTableService.additionalData?.RRN" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Amount</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Amount</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" [value]="this.transactionTableService.additionalData?.amount" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Currency Code</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Currency Code</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" [value]="this.transactionTableService.additionalData?.currencyCode" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Type</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Type</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" [value]="this.transactionTableService.additionalData?.transType" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Protocol</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Protocol</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" value="" readonly>
               </div>
             </div>
-            <div style="width: 50%; display: flex; flex-direction: column; margin-left: 15px">
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Date</span>
+            <div class="transaction-summary-content-data-right">
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Date</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" value="" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Date</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Date</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" value="" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Date</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Date</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" value="" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Date</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Date</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" value="" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Date</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Date</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" value="" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Date</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Date</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" value="" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Date</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Date</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" value="" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Date</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Date</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" value="" readonly>
               </div>
-              <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 0.5rem">
-                <span style="white-space: nowrap; width: 190px; font-size: 14px">Transaction Date</span>
+              <div class="transaction-summary-content-data-container">
+                <span class="transaction-summary-content-data-text">Transaction Date</span>
                 <input
-                  class="tw-bg-gray-200 tw-appearance-none tw-border-2 tw-border-gray-200 tw-rounded tw-py-[5px] tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px] tw-mr-[25px] focus:tw-outline-none"
+                  class="transaction-summary-content-data-input"
                   type="text" value="" readonly>
               </div>
             </div>
           </div>
-        </div>
-        <div class="tab-pane fade" id="test1" role="tabpanel" aria-labelledby="test1-tab">
-          test1
-        </div>
-        <div class="tab-pane fade" id="test2" role="tabpanel" aria-labelledby="test2-tab">
-          test2
-        </div>
-      </div>
+        </p-tabPanel>
+        <p-tabPanel header="Header 2" headerStyleClass="transaction-summary">
+          Content 2
+        </p-tabPanel>
+        <p-tabPanel header="Header 3" headerStyleClass="transaction-summary">
+          Content 3
+        </p-tabPanel>
+      </p-tabView>
     </div>
   </mat-card>
 </div>

@@ -7,6 +7,11 @@ import {DefaultModule} from "./layout/default/default.module";
 import {LoginModule} from "./layout/login/login.module";
 import {NotificationModule} from "./notification/notification.module";
 import {NotificationService} from "./layout/service/notification.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastModule} from "primeng/toast";
+import {MessageService} from "primeng/api";
+import {ButtonModule} from "primeng/button";
+import {RippleModule} from "primeng/ripple";
 
 @NgModule({
   declarations: [
@@ -14,12 +19,16 @@ import {NotificationService} from "./layout/service/notification.service";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     DefaultModule,
     LoginModule,
-    NotificationModule
+    NotificationModule,
+    ToastModule,
+    ButtonModule,
+    RippleModule
   ],
-  providers: [NotificationService],
+  providers: [NotificationService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

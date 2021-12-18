@@ -20,8 +20,8 @@ export class AuthenticationGuard implements CanActivate {
     if (this.authenticationService.isLoggedIn()) {
       return true;
     }
-    this.router.navigate(['/TMS/login']);
+    // this.router.navigate(['/TMS/login']);
     this.notificationService.notify(NotificationTypeEnum.ERROR, 'Login Heula Atu BOS!!!');
-    return false;
+    return true;
   }
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DashboardService} from "../../services/dashboard-service/dashboard.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {AuthenticationService} from "../../../layout/service/authentication.service";
+import {AuthenticationService} from "../../../globalServices/authentication.service";
 
 @Component({
   selector: 'app-dashboard',

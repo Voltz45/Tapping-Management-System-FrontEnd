@@ -277,6 +277,20 @@
 
 /*PrimeNg Styles*/
 :host ::ng-deep .p-tabview .p-tabview-nav li.transaction-summary .p-tabview-nav-link {
-  @apply tw-px-[1rem] tw-py-[0.2rem]
+  @apply tw-px-[1rem] tw-py-[0.5rem]
 }
 
+:host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background-color: #173B5E;
+  color: white;
+  border-color: transparent;
+}
+
+:host ::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+  box-shadow: none;
+}
+
+:host ::ng-deep .p-tabview .p-tabview-panels {
+  padding: 0;
+  border: 1px solid #babfc7;
+}

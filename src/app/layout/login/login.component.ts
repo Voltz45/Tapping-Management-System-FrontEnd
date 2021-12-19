@@ -3,11 +3,11 @@ import {Router} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Subscription} from "rxjs";
 import {User} from "../model/user";
-import {AuthenticationService} from "../service/authentication.service";
-import {HeaderTypeEnum} from "../enum/header-type.enum";
+import {AuthenticationService} from "../../globalServices/authentication.service";
+import {HeaderTypeEnum} from "../../enum/header-type.enum";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NotificationTypeEnum} from "../enum/notification-type.enum";
-import {NotificationService} from "../service/notification.service";
+import {NotificationTypeEnum} from "../../enum/notification-type.enum";
+import {NotificationService} from "../../globalServices/notification.service";
 
 @Component({
   selector: 'app-login',
@@ -66,18 +66,18 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.showLoading = false;
         },
         (errorResponse: HttpErrorResponse) => {
-          this.sendErrorNotification(NotificationTypeEnum.ERROR, errorResponse.error.message);
+          this.sendErrorNotification(NotificationTypeEnum.ERROR, errorResponse.error.message, errorResponse.status);
           this.showLoading = false;
         }
       )
     );
   }
 
-  private sendErrorNotification(notificationTypeEnum: NotificationTypeEnum, message: string): void {
+  private sendErrorNotification(notificationTypeEnum: NotificationTypeEnum, message: string, statusCode: number): void {
     if (message) {
-      this.notificationService.notify(notificationTypeEnum, message);
+      this.notificationService.notify(notificationTypeEnum, message, statusCode);
     } else {
-      this.notificationService.notify(notificationTypeEnum, 'An Error Occured. Please Try Again');
+      this.notificationService.notify(notificationTypeEnum, 'An Error Occured. Please Try Again', statusCode);
     }
   }
 

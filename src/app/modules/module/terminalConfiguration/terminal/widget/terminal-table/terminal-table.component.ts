@@ -4,6 +4,7 @@ import {ActionButtonGroupComponent} from "../action-button-group/action-button-g
 import {
   TerminalTableService
 } from "../../../../../services/terminal-configuration-service/terminal-service/terminal-table.service";
+import {OverlayLoadingComponent} from "../overlay-loading/overlay-loading.component";
 
 @Component({
   selector: 'terminal-table',
@@ -12,9 +13,10 @@ import {
 })
 export class TerminalTableComponent implements OnInit, OnDestroy {
   frameworkComponents = {
-    actionButtonGroup: ActionButtonGroupComponent
+    actionButtonGroup: ActionButtonGroupComponent,
+    overlayLoading: OverlayLoadingComponent
   };
-  overlayLoadingTemplate = '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>';
+  overlayLoadingTemplate = 'overlayLoading';
 
   constructor(
     public terminalTableService: TerminalTableService

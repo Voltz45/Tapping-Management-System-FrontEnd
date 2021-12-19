@@ -4,9 +4,6 @@ import {DashboardComponent} from "./module/dashboard/dashboard.component";
 import {AlertAnalysisComponent} from "./module/investigation/alert-analysis/alert-analysis.component";
 import {TerminalListComponent} from './module/acquirer/terminal-list/terminal-list.component';
 import {AlertComponent} from './module/acquirer/alert/alert.component';
-import {
-  Iso8583configurationComponent
-} from './module/external-interfaces/iso8583configuration/iso8583configuration.component';
 import {Iso20022Component} from './module/external-interfaces/iso20022/iso20022.component';
 import {JsonConfigurationComponent} from './module/external-interfaces/json-configuration/json-configuration.component';
 import {NDCComponent} from './module/external-interfaces/ndc/ndc.component';
@@ -81,6 +78,19 @@ import {DividerModule} from "primeng/divider";
 import {ToastModule} from "primeng/toast";
 import {RippleModule} from "primeng/ripple";
 import {TabViewModule} from "primeng/tabview";
+import {
+  Iso8583DialectComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-dialect/iso8583-dialect.component';
+import {
+  Iso8583FieldConfigurationComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-field-configuration/iso8583-field-configuration.component';
+import {
+  Iso8583ResponseMappingComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-response-mapping/iso8583-response-mapping.component';
+import {ProgressBarModule} from "primeng/progressbar";
+import {
+  OverlayLoadingComponent
+} from './module/terminalConfiguration/terminal/widget/overlay-loading/overlay-loading.component';
 
 
 @NgModule({
@@ -89,7 +99,6 @@ import {TabViewModule} from "primeng/tabview";
     AlertAnalysisComponent,
     TerminalListComponent,
     AlertComponent,
-    Iso8583configurationComponent,
     Iso20022Component,
     JsonConfigurationComponent,
     NDCComponent,
@@ -111,6 +120,10 @@ import {TabViewModule} from "primeng/tabview";
     ActionButtonGroupComponent,
     TerminalTableComponent,
     TerminalTypeComponent,
+    Iso8583DialectComponent,
+    Iso8583FieldConfigurationComponent,
+    Iso8583ResponseMappingComponent,
+    OverlayLoadingComponent,
   ],
   imports: [
     NgxEchartsModule.forRoot({
@@ -147,7 +160,8 @@ import {TabViewModule} from "primeng/tabview";
     DividerModule,
     ToastModule,
     RippleModule,
-    TabViewModule
+    TabViewModule,
+    ProgressBarModule
   ],
   providers: [
     WebsocketService,

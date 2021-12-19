@@ -5,8 +5,8 @@ import {TransactionMessageModel} from "../../../../model/TransactionMessageModel
 import {TransactionMessage} from "../../interface/transaction-message";
 import {TransactionApiService} from "../../../../services/transaction-service/transaction-api.service";
 import {HpanDialogComponent} from "../hpan-dialog/hpan-dialog.component";
-import {NotificationService} from "../../../../../layout/service/notification.service";
-import {NotificationTypeEnum} from "../../../../../layout/enum/notification-type.enum";
+import {NotificationService} from "../../../../../globalServices/notification.service";
+import {NotificationTypeEnum} from "../../../../../enum/notification-type.enum";
 
 @Component({
   selector: 'transaction-table',
@@ -100,7 +100,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   errorHandler(error: any) {
     this.transactionTableService.gridApi.showNoRowsOverlay();
-    this.notifierService.notify(NotificationTypeEnum.ERROR, 'status: ' + error.status + ' message: ' + error.statusText)
+    this.notifierService.notify(NotificationTypeEnum.ERROR, 'status: ' + error.status + ' message: ' + error.statusText, error.status)
   }
 
   ngAfterViewInit(): void {

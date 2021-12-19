@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {DefaultModule} from "./layout/default/default.module";
 import {LoginModule} from "./layout/login/login.module";
 import {NotificationModule} from "./notification/notification.module";
-import {NotificationService} from "./layout/service/notification.service";
+import {NotificationService} from "./globalServices/notification.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";

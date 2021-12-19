@@ -24,10 +24,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
     data.forEach(x => {
       const childrenChevron = x.children.item(0)?.children;
+      const subChildrenChevron = x.children.item(2);
       const chevronIconInvestigation = childrenChevron?.namedItem('chevron-icon-investigation') as HTMLElement;
       const chevronIconAcquirer = childrenChevron?.namedItem('chevron-icon-acquirer') as HTMLElement;
       const chevronIconIssuer = childrenChevron?.namedItem('chevron-icon-issuer') as HTMLElement;
       const chevronIconExternalInt = childrenChevron?.namedItem('chevron-icon-external-int') as HTMLElement;
+      const chevronIconIso8583Config = subChildrenChevron?.querySelector('#chevron-icon-iso8583-config') as HTMLElement;
       const chevronIconTerminalConfig = childrenChevron?.namedItem('chevron-icon-terminal-config') as HTMLElement;
       const chevronIconUser = childrenChevron?.namedItem('chevron-icon-user') as HTMLElement;
       const chevronIconSystem = childrenChevron?.namedItem('chevron-icon-system') as HTMLElement;
@@ -36,22 +38,25 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         chevronIconInvestigation.style.left = x.getBoundingClientRect().right - 165 + 'px';
       }
       if (chevronIconAcquirer) {
-        chevronIconAcquirer.style.left = x.getBoundingClientRect().right - 134 + 'px';
+        chevronIconAcquirer.style.left = x.getBoundingClientRect().right - 132 + 'px';
       }
       if (chevronIconIssuer) {
-        chevronIconIssuer.style.left = x.getBoundingClientRect().right - 115 + 'px';
+        chevronIconIssuer.style.left = x.getBoundingClientRect().right - 114 + 'px';
       }
       if (chevronIconExternalInt) {
-        chevronIconExternalInt.style.left = x.getBoundingClientRect().right - 202 + 'px';
+        chevronIconExternalInt.style.left = x.getBoundingClientRect().right - 211 + 'px';
+      }
+      if (chevronIconIso8583Config) {
+        chevronIconExternalInt.style.left = x.getBoundingClientRect().right - 500 + 'px';
       }
       if (chevronIconTerminalConfig) {
-        chevronIconTerminalConfig.style.left = x.getBoundingClientRect().right - 234 + 'px';
+        chevronIconTerminalConfig.style.left = x.getBoundingClientRect().right - 240 + 'px';
       }
       if (chevronIconUser) {
-        chevronIconUser.style.left = x.getBoundingClientRect().right - 204 + 'px';
+        chevronIconUser.style.left = x.getBoundingClientRect().right - 208 + 'px';
       }
       if (chevronIconSystem) {
-        chevronIconSystem.style.left = x.getBoundingClientRect().right - 124 + 'px';
+        chevronIconSystem.style.left = x.getBoundingClientRect().right - 125 + 'px';
       }
 
       x.addEventListener('mouseover', function (this: Element) {
@@ -95,11 +100,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         }
 
         if (this.children.namedItem('iso8583-container') != null) {
+          const app = this.children.namedItem('iso8583-container') as HTMLElement;
           if (collapsed?.classList.contains('collapsed')) {
-            const app = this.children.namedItem('iso8583-container') as HTMLElement;
             app.style.left = right - 67 + 'px';
           } else {
-            const app = this.children.namedItem('iso8583-container') as HTMLElement;
             app.style.left = right - 280 + 'px';
           }
         }

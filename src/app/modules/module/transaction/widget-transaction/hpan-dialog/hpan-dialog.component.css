@@ -1,0 +1,27 @@
+.masked-hpan {
+  text-decoration: underline;
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hpan-dialog-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
+}
+
+.hpan-dialog-header {
+  white-space: nowrap;
+  font-size: 14px;
+  margin-bottom: 0.5rem
+}
+
+.hpan-dialog-clear {
+  @apply
+  tw-bg-gray-200 tw-appearance-none tw-border-2
+  tw-border-gray-200 tw-rounded tw-py-[5px]
+  tw-px-4 tw-w-full tw-text-gray-700 tw-leading-[0] tw-text-[14px]
+  focus:tw-outline-none
+}

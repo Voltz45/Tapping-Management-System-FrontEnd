@@ -2,7 +2,7 @@ import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@a
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
-import {NotificationService} from "../../../../../../layout/service/notification.service";
+import {NotificationService} from "../../../../../../globalServices/notification.service";
 import {
   TerminalService
 } from "../../../../../services/terminal-configuration-service/terminal-service/terminal.service";

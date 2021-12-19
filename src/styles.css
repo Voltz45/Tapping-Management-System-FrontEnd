@@ -20,16 +20,18 @@ html:focus-within {
 }
 
 body {
+  display: block;
   margin: 0;
   padding: 0;
   min-height: var(--full-screen-height);
   min-width: var(--full-screen-width);
 }
 
-*, ::before, ::after {
+* {
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
+  font-family: var(--font-family);
 }
 
 ::-webkit-scrollbar {
@@ -54,7 +56,47 @@ body {
   color: red;
 }
 
-::ng-deep notifier-container .notifier__notification--material .notifier__notification-button {
-  padding: 0 0 3px 0;
+/*PrimeNg custom style*/
+.custom-toast.p-toast {
+  width: 350px;
+  z-index: 1500;
 }
 
+.custom-toast.p-toast .p-toast-message .p-toast-message-content {
+  padding: 10px;
+}
+
+.custom-toast.p-toast .p-toast-message.p-toast-message {
+  border: none;
+}
+
+.custom-toast.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+  font-size: 2rem;
+}
+
+.custom-toast.p-toast .p-toast-message .p-toast-icon-close {
+  height: 1rem;
+  width: 1rem;
+}
+
+.custom-toast.p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
+  font-size: 14px;
+}
+
+.custom-toast.p-toast .p-toast-message.p-toast-message-error {
+  background: #ffaea8;
+  border-width: 0 0 0 6px;
+  color: #ff1200;
+}
+
+.custom-toast.p-toast .p-toast-message.p-toast-message-Error .p-toast-icon-close {
+  color: #ff1200;
+}
+
+.custom-toast.p-toast .p-toast-message .p-toast-icon-close:hover {
+  background: none;
+}
+
+.custom-toast.p-toast .p-toast-message .p-toast-icon-close:focus {
+  box-shadow: none !important;
+}

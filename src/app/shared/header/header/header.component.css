@@ -50,6 +50,7 @@
   tw-min-w-[50px]
   tw-opacity-[1]
   tw-text-right
+  tw-justify-center
 }
 
 .user-data > .user-role {
@@ -59,7 +60,7 @@
 
 .user-pict {
   @apply
-  tw-w-[40px]
+  tw-w-[40px] tw-h-[40px]
   tw-rounded-[50%]
   tw-cursor-pointer
   tw-bg-white

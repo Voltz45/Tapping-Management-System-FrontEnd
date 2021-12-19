@@ -1,10 +1,10 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {HeaderService} from "../../services/header-service/header.service";
-import {RolesUserEnum} from "../../../layout/enum/roles-user.enum";
-import {AuthenticationService} from "../../../layout/service/authentication.service";
+import {RolesUserEnum} from "../../../enum/roles-user.enum";
+import {AuthenticationService} from "../../../globalServices/authentication.service";
 import {Router} from "@angular/router";
-import {NotificationService} from "../../../layout/service/notification.service";
-import {NotificationTypeEnum} from "../../../layout/enum/notification-type.enum";
+import {NotificationService} from "../../../globalServices/notification.service";
+import {NotificationTypeEnum} from "../../../enum/notification-type.enum";
 
 @Component({
   host: {
@@ -64,9 +64,9 @@ export class HeaderComponent implements OnInit {
 
   private sendNotification(notificationType: NotificationTypeEnum, message: string): void {
     if (message) {
-      this.notificationService.notify(notificationType, message);
+      this.notificationService.notify(notificationType, message, 0);
     } else {
-      this.notificationService.notify(notificationType, 'An error occurred. Please try again.');
+      this.notificationService.notify(notificationType, 'An error occurred. Please try again.', 0);
     }
   }
 }

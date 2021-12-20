@@ -3,8 +3,8 @@ import {AgRendererComponent} from "ag-grid-angular";
 import {ICellRendererParams} from "ag-grid-community";
 import {
   TerminalTableService
-} from "../../../../../services/terminal-configuration-service/terminal-service/terminal-table.service";
-import {CreateUpdateDialogComponent} from "../create-update-dialog/create-update-dialog.component";
+} from "../../../../services/terminal-configuration-service/terminal-service/terminal-table.service";
+import {CreateUpdateDialogComponent} from "../../terminal/widget/create-update-dialog/create-update-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({

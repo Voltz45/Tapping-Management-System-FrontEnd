@@ -1,15 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 /*@import "~angular-notifier/styles";*/
+/*@import 'tailwindcss/base';*/
+/*@import 'tailwindcss/components';*/
+/*@import 'tailwindcss/utilities';*/
+/*@import "~bootstrap/dist/css/bootstrap.css";*/
+
 @import "~boxicons/css/boxicons.css";
 @import "~primeng/resources/primeng.min.css";
 @import "~primeng/resources/themes/tailwind-light/theme.css";
 @import "~primeicons/primeicons.css";
-
-/*@import 'tailwindcss/base';*/
-/*@import 'tailwindcss/components';*/
-/*@import 'tailwindcss/utilities';*/
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-/*@import "~bootstrap/dist/css/bootstrap.css";*/
+@import "~primeflex/primeflex.css";
 
 /*ag-grid-community*/
 @import "~ag-grid-community/dist/styles/ag-grid.css";
@@ -99,4 +100,9 @@ body {
 
 .custom-toast.p-toast .p-toast-message .p-toast-icon-close:focus {
   box-shadow: none !important;
+}
+
+.required-icon:after {
+  content: " *";
+  color: red;
 }

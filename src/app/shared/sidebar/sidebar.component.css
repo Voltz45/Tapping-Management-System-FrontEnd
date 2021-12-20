@@ -223,7 +223,12 @@
   tw-ease-in-out
 }
 
-.sidebar-item-icon,
+.sidebar-item-icon {
+  @apply
+  tw-left-[12px]
+  tw-relative
+}
+
 .sidebar-item-text {
   @apply
   tw-left-[8px]

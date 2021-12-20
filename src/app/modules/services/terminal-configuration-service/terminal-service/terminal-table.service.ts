@@ -18,7 +18,6 @@ export class TerminalTableService {
   gridColumnApi!: ColumnApi;
   rowData: TerminalModel[] = [];
   existingData: TerminalModel = new TerminalModel();
-  matDialog!: MatDialog;
   buttonStatus: string = '';
   terminalTypeList: TerminalTypeGroup[] = [];
   terminalValue: string[] = [];
@@ -49,28 +48,20 @@ export class TerminalTableService {
     {field: 'port', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'terminal-header-color'},
     {field: 'timeTrace', hide: true, minWidth: 150, maxWidth: 200, headerClass: 'terminal-header-color'},
     {
-      field: 'channelStatus', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'terminal-header-color',
-      cellRenderer: function (params) {
-        let badge;
-        if (params.value == '1') {
-          badge = '<span style="color: white" class="badge bg-success">Active</span>'
-        } else {
-          badge = '<span style="color: white" class="badge bg-danger">Not Active</span>'
-        }
-        return badge;
-      }
+      field: 'channelStatus',
+      sortable: true,
+      minWidth: 150,
+      maxWidth: 200,
+      headerClass: 'terminal-header-color',
+      cellRenderer: 'tag'
     },
     {
-      field: 'onPremise', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'terminal-header-color',
-      cellRenderer: function (params) {
-        let badge;
-        if (params.value) {
-          badge = '<span style="color: white" class="badge bg-primary">On Premise</span>'
-        } else {
-          badge = '<span style="color: white" class="badge bg-secondary">Off Premise</span>'
-        }
-        return badge;
-      }
+      field: 'onPremise',
+      sortable: true,
+      minWidth: 150,
+      maxWidth: 200,
+      headerClass: 'terminal-header-color',
+      cellRenderer: 'tag'
     },
     {
       field: 'action',
@@ -104,7 +95,7 @@ export class TerminalTableService {
     const terminalTable = document.querySelector('.terminal-table') as HTMLElement;
     this.showTableLoading();
     this.terminalService.getAllTerminal().subscribe({
-      next: this.responseGetAllTerminal(terminalTable),
+      next: this.responseGetAllTerminal(),
       error: this.errorGetAllTerminal()
     })
   }
@@ -142,7 +133,7 @@ export class TerminalTableService {
     })
   }
 
-  private responseGetAllTerminal(terminalTable: HTMLElement) {
+  private responseGetAllTerminal() {
     return (response: TerminalModel[]) => {
       if (response.length != 0) {
         response.forEach(x => {

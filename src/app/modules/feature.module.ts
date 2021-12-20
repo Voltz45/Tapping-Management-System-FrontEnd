@@ -58,7 +58,7 @@ import {
 import {HpanDialogComponent} from './module/transaction/widget-transaction/hpan-dialog/hpan-dialog.component';
 import {
   ActionButtonGroupComponent
-} from './module/terminalConfiguration/terminal/widget/action-button-group/action-button-group.component';
+} from './module/terminalConfiguration/global-widget/action-button-group/action-button-group.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
@@ -68,7 +68,7 @@ import {
 import {TerminalTableService} from "./services/terminal-configuration-service/terminal-service/terminal-table.service";
 import {
   TerminalTypeComponent
-} from './module/terminalConfiguration/terminal-type/terminal-type/terminal-type.component';
+} from './module/terminalConfiguration/terminal-type/terminal-type.component';
 import {
   TerminalTypeService
 } from "./services/terminal-configuration-service/terminal-type-service/terminal-type.service";
@@ -90,7 +90,27 @@ import {
 import {ProgressBarModule} from "primeng/progressbar";
 import {
   OverlayLoadingComponent
-} from './module/terminalConfiguration/terminal/widget/overlay-loading/overlay-loading.component';
+} from './module/terminalConfiguration/global-widget/overlay-loading/overlay-loading.component';
+import {MessageModule} from "primeng/message";
+import {InputTextModule} from "primeng/inputtext";
+import {
+  TerminalTypeGetSetService
+} from "./services/terminal-configuration-service/terminal-type-service/terminal-type-get-set.service";
+import {DialogModule} from "primeng/dialog";
+import {TagModule} from "primeng/tag";
+import {TagComponent} from './module/terminalConfiguration/global-widget/tag/tag.component';
+import {DropdownModule} from "primeng/dropdown";
+import {IsoDialectService} from "./services/iso-dialect-service/iso-dialect.service";
+import {
+  CreateUpdateDialogTerminalTypeComponent
+} from "./module/terminalConfiguration/terminal-type/widget/create-update-dialog/create-update-terminalType-dialog.component";
+import {
+  TerminalTypeTableComponent
+} from './module/terminalConfiguration/terminal-type/widget/terminal-type-table/terminal-type-table.component';
+import {
+  TerminalTypeTableService
+} from "./services/terminal-configuration-service/terminal-type-service/terminal-type-table.service";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 
 @NgModule({
@@ -124,6 +144,9 @@ import {
     Iso8583FieldConfigurationComponent,
     Iso8583ResponseMappingComponent,
     OverlayLoadingComponent,
+    TagComponent,
+    CreateUpdateDialogTerminalTypeComponent,
+    TerminalTypeTableComponent,
   ],
   imports: [
     NgxEchartsModule.forRoot({
@@ -161,7 +184,13 @@ import {
     ToastModule,
     RippleModule,
     TabViewModule,
-    ProgressBarModule
+    ProgressBarModule,
+    MessageModule,
+    InputTextModule,
+    DialogModule,
+    TagModule,
+    DropdownModule,
+    ProgressSpinnerModule
   ],
   providers: [
     WebsocketService,
@@ -172,6 +201,9 @@ import {
     TerminalService,
     TerminalTableService,
     TerminalTypeService,
+    TerminalTypeGetSetService,
+    IsoDialectService,
+    TerminalTypeTableService
   ]
 })
 export class FeatureModule {

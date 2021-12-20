@@ -3,7 +3,7 @@
 }
 
 :host ::ng-deep .ag-center-cols-clipper {
-  min-height: unset !important;
+  /*min-height: unset !important;*/
 }
 
 :host ::ng-deep .terminal-header-color {
@@ -59,4 +59,9 @@
 
 :host ::ng-deep .ag-theme-alpine .ag-cell {
   line-height: normal;
+  transition: all 0.5s ease-in-out 0.5s;
+}
+
+:host ::ng-deep .ag-center-cols-container {
+  transition: all 0.5s ease-in-out 0.5s;
 }

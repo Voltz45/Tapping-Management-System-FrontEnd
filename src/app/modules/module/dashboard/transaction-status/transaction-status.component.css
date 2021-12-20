@@ -27,7 +27,7 @@
 .status-result {
   font-weight: 600;
   font-size: 30px;
-  margin: 15px 0;
+  margin: 10px 0;
 }
 
 .transaction-success > .header > .status-container > .status-result,

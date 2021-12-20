@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GridReadyEvent, RowClickedEvent} from "ag-grid-community";
-import {ActionButtonGroupComponent} from "../action-button-group/action-button-group.component";
+import {ActionButtonGroupComponent} from "../../../global-widget/action-button-group/action-button-group.component";
 import {
   TerminalTableService
 } from "../../../../../services/terminal-configuration-service/terminal-service/terminal-table.service";
-import {OverlayLoadingComponent} from "../overlay-loading/overlay-loading.component";
+import {OverlayLoadingComponent} from "../../../global-widget/overlay-loading/overlay-loading.component";
+import {TagComponent} from "../../../global-widget/tag/tag.component";
 
 @Component({
   selector: 'terminal-table',
@@ -14,7 +15,8 @@ import {OverlayLoadingComponent} from "../overlay-loading/overlay-loading.compon
 export class TerminalTableComponent implements OnInit, OnDestroy {
   frameworkComponents = {
     actionButtonGroup: ActionButtonGroupComponent,
-    overlayLoading: OverlayLoadingComponent
+    overlayLoading: OverlayLoadingComponent,
+    tag: TagComponent
   };
   overlayLoadingTemplate = 'overlayLoading';
 

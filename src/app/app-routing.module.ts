@@ -24,7 +24,7 @@ import {LoginComponent} from "./layout/login/login.component";
 import {AuthenticationGuard} from "./guard/authentication.guard";
 import {
   TerminalTypeComponent
-} from "./modules/module/terminalConfiguration/terminal-type/terminal-type/terminal-type.component";
+} from "./modules/module/terminalConfiguration/terminal-type/terminal-type.component";
 import {
   Iso8583DialectComponent
 } from "./modules/module/external-interfaces/iso8583configuration/iso8583-dialect/iso8583-dialect.component";

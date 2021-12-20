@@ -19,6 +19,7 @@
   flex-wrap: nowrap;
   align-items: center;
   padding-bottom: 0.5rem;
+  background-color: transparent;
 }
 
 .edit-button:hover,

@@ -1,6 +1,6 @@
 export class TerminalTypeModel {
   id: number = 0;
-  terminalType: string = '';
+  channelType: string = '';
   description: string = '';
-  msgTemplate!: bigint;
+  dialectMsgTemplateId: String = '';
 }

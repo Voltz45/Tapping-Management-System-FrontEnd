@@ -1,68 +1,36 @@
-.system-parameter-container {
-  padding: 20px;
-  height: 100%;
+.channel-container {
+  @apply tw-h-full tw-p-[20px]
 }
 
-.search-container {
-  width: 300px;
-  display: flex;
-  align-items: center;
+.header-group {
+  @apply tw-flex tw-flex-row tw-flex-nowrap tw-justify-between tw-items-center
+  tw-mb-[1rem]
 }
 
-.search-icon {
-  position: absolute;
-  margin-left: 10px;
+.search-group {
+  @apply tw-w-[300px]
+}
+
+.field {
+  @apply tw-flex tw-flex-col tw-flex-nowrap tw-h-[90px]
 }
 
 .search-input {
-  @apply
-  tw-bg-white
-  tw-appearance-none
-  tw-border-2
-  tw-border-gray-300
-  tw-rounded tw-py-[5px] tw-pl-[30px] tw-pr-4 tw-w-full
-  tw-text-gray-700 tw-leading-[0] tw-text-[14px]
-  focus:tw-outline-none focus:tw-border-[#3f51b5]
+  @apply tw-py-[.5rem] tw-pr-[.5rem] tw-pl-[2.5rem]
 }
 
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  position: relative;
-  min-height: 40px;
-}
-
-.right-button-group {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
+.header-button-group {
+  @apply tw-flex tw-flex-row tw-flex-nowrap
 }
 
 .refresh-button {
-  margin-right: 10px;
-  padding: 0;
-  min-width: 40px;
+  @apply tw-mr-[.5rem]
 }
 
-.create-button {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-}
-
-.refresh-icon {
-  margin: 0;
-  font-size: 20px;
-}
-
-.create-icon {
-  margin-right: 5px;
-  font-size: 20px;
-}
-
-.content {
-  position: relative;
+/*Ng deep styles Prime*/
+:host ::ng-deep .p-button,
+:host ::ng-deep .p-button:enabled:hover {
+  box-shadow: none;
+  background-color: #3f51b5;
+  border-color: #3f51b5;
 }

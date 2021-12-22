@@ -1,9 +1,6 @@
 module.exports = {
   mode: 'jit',
   prefix: 'tw-',
-  corePlugins: {
-    preflight: false
-  },
   purge: {
     enabled: true,
     content: ['./src/**/*.{html,ts}'],

@@ -2,13 +2,17 @@
   <div class="header-group">
     <span class="search-group p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input type="text" pInputText placeholder="Search" class="search-input">
+        <input (input)="onFilterTextBoxChanged()" class="search-input" id="search-filter" pInputText
+               placeholder="Search"
+               type="text">
     </span>
-    <p-button label="Create" icon="pi pi-plus" styleClass="p-button-sm" (click)="showDialog()"></p-button>
+    <div class="header-button-group">
+      <p-button (click)="refreshTable()" class="refresh-button" icon="pi pi-refresh"
+                styleClass="p-button-sm"></p-button>
+      <p-button (click)="showDialog()" icon="pi pi-plus" label="Create" styleClass="p-button-sm"></p-button>
+    </div>
   </div>
   <div class="content">
     <terminal-type-table></terminal-type-table>
   </div>
 </div>
-
-<create-update-terminalType-dialog></create-update-terminalType-dialog>

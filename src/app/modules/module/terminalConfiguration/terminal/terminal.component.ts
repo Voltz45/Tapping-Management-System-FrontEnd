@@ -4,6 +4,7 @@ import {CreateUpdateDialogComponent} from "./widget/create-update-dialog/create-
 import {
   TerminalTableService
 } from "../../../services/terminal-configuration-service/terminal-service/terminal-table.service";
+import {TerminalService} from "../../../services/terminal-configuration-service/terminal-service/terminal.service";
 
 @Component({
   selector: 'app-terminal',
@@ -14,17 +15,17 @@ export class TerminalComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    public terminalService: TerminalService,
     public terminalTableService: TerminalTableService
   ) {
   }
 
   ngOnInit(): void {
-
   }
 
   openDialog() {
-    this.terminalTableService.buttonStatus = 'create';
-    this.dialog.open(CreateUpdateDialogComponent, {autoFocus: false, disableClose: true});
+    this.terminalService.buttonStatus = 'create';
+    this.dialog.open(CreateUpdateDialogComponent, {autoFocus: false, disableClose: true, width: '55%'});
   }
 
   onFilterTextBoxChanged() {
@@ -32,7 +33,7 @@ export class TerminalComponent implements OnInit {
   }
 
   refreshTable() {
-    this.terminalTableService.getAllTerminalWithDelay();
+    this.terminalService.getAllTerminalWithDelay();
   }
 }
 

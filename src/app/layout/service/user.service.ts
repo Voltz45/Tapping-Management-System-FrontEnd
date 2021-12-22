@@ -3,7 +3,7 @@ import {environment} from 'src/environments/environment';
 import {HttpClient, HttpErrorResponse, HttpEvent} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../model/user";
-import {CustomHttpResponse} from "../model/custom-http-response";
+import {CustomHttpResponse} from "../../globalModel/custom-http-response";
 
 @Injectable({
   providedIn: 'root'

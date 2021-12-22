@@ -57,8 +57,8 @@ import {
 } from './module/terminalConfiguration/terminal/widget/create-update-dialog/create-update-dialog.component';
 import {HpanDialogComponent} from './module/transaction/widget-transaction/hpan-dialog/hpan-dialog.component';
 import {
-  ActionButtonGroupComponent
-} from './module/terminalConfiguration/global-widget/action-button-group/action-button-group.component';
+  ActionButtonGroupTerminalComponent
+} from './module/terminalConfiguration/terminal/widget/action-button-group-terminal/action-button-group-terminal.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
@@ -66,9 +66,7 @@ import {
   TerminalTableComponent
 } from './module/terminalConfiguration/terminal/widget/terminal-table/terminal-table.component';
 import {TerminalTableService} from "./services/terminal-configuration-service/terminal-service/terminal-table.service";
-import {
-  TerminalTypeComponent
-} from './module/terminalConfiguration/terminal-type/terminal-type.component';
+import {TerminalTypeComponent} from './module/terminalConfiguration/terminal-type/terminal-type.component';
 import {
   TerminalTypeService
 } from "./services/terminal-configuration-service/terminal-type-service/terminal-type.service";
@@ -93,14 +91,11 @@ import {
 } from './module/terminalConfiguration/global-widget/overlay-loading/overlay-loading.component';
 import {MessageModule} from "primeng/message";
 import {InputTextModule} from "primeng/inputtext";
-import {
-  TerminalTypeGetSetService
-} from "./services/terminal-configuration-service/terminal-type-service/terminal-type-get-set.service";
 import {DialogModule} from "primeng/dialog";
 import {TagModule} from "primeng/tag";
 import {TagComponent} from './module/terminalConfiguration/global-widget/tag/tag.component';
 import {DropdownModule} from "primeng/dropdown";
-import {IsoDialectService} from "./services/iso-dialect-service/iso-dialect.service";
+import {DialectMessageService} from "./services/dialect-message-service/dialect-message.service";
 import {
   CreateUpdateDialogTerminalTypeComponent
 } from "./module/terminalConfiguration/terminal-type/widget/create-update-dialog/create-update-terminalType-dialog.component";
@@ -111,6 +106,18 @@ import {
   TerminalTypeTableService
 } from "./services/terminal-configuration-service/terminal-type-service/terminal-type-table.service";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {
+  ActionButtonGroupTerminalTypeComponent
+} from './module/terminalConfiguration/terminal-type/widget/action-button-group-terminal-type/action-button-group-terminal-type.component';
+import {
+  Iso8583DialectTableComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/iso8583-dialect-table/iso8583-dialect-table.component';
+import {
+  CreateUpdateIso8583DialectDialogComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/create-update-iso8583-dialect-dialog/create-update-iso8583-dialect-dialog.component';
+import {
+  ActionButtonGroupIso8583DialectComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/action-button-group-iso8583-dialect/action-button-group-iso8583-dialect.component';
 
 
 @NgModule({
@@ -137,7 +144,7 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
     SystemParametersComponent,
     CreateUpdateDialogComponent,
     HpanDialogComponent,
-    ActionButtonGroupComponent,
+    ActionButtonGroupTerminalComponent,
     TerminalTableComponent,
     TerminalTypeComponent,
     Iso8583DialectComponent,
@@ -147,6 +154,10 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
     TagComponent,
     CreateUpdateDialogTerminalTypeComponent,
     TerminalTypeTableComponent,
+    ActionButtonGroupTerminalTypeComponent,
+    Iso8583DialectTableComponent,
+    CreateUpdateIso8583DialectDialogComponent,
+    ActionButtonGroupIso8583DialectComponent,
   ],
   imports: [
     NgxEchartsModule.forRoot({
@@ -201,8 +212,7 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
     TerminalService,
     TerminalTableService,
     TerminalTypeService,
-    TerminalTypeGetSetService,
-    IsoDialectService,
+    DialectMessageService,
     TerminalTypeTableService
   ]
 })

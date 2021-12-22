@@ -1,26 +1,36 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
   TerminalTypeTableService
 } from "../../../../../services/terminal-configuration-service/terminal-type-service/terminal-type-table.service";
-import {ActionButtonGroupComponent} from "../../../global-widget/action-button-group/action-button-group.component";
 import {OverlayLoadingComponent} from "../../../global-widget/overlay-loading/overlay-loading.component";
-import {TagComponent} from "../../../global-widget/tag/tag.component";
 import {GridReadyEvent, RowClickedEvent} from "ag-grid-community";
+import {
+  TerminalTypeService
+} from "../../../../../services/terminal-configuration-service/terminal-type-service/terminal-type.service";
+import {
+  ActionButtonGroupTerminalTypeComponent
+} from "../action-button-group-terminal-type/action-button-group-terminal-type.component";
 
 @Component({
   selector: 'terminal-type-table',
   templateUrl: './terminal-type-table.component.html',
   styleUrls: ['./terminal-type-table.component.css']
 })
-export class TerminalTypeTableComponent implements OnInit {
+export class TerminalTypeTableComponent implements OnInit, OnDestroy {
   frameworkComponents = {
-    actionButtonGroup: ActionButtonGroupComponent,
-    overlayLoading: OverlayLoadingComponent,
-    tag: TagComponent
+    actionButtonGroup: ActionButtonGroupTerminalTypeComponent,
+    overlayLoading: OverlayLoadingComponent
   };
   overlayLoadingTemplate = 'overlayLoading';
 
-  constructor(public terminalTypeTableService: TerminalTypeTableService) {
+  constructor(
+    private terminalTypeService: TerminalTypeService,
+    public terminalTypeTableService: TerminalTypeTableService
+  ) {
+  }
+
+  ngOnDestroy(): void {
+    this.terminalTypeService.dialectMsgTemplateList.length = 0;
   }
 
   ngOnInit(): void {
@@ -29,10 +39,16 @@ export class TerminalTypeTableComponent implements OnInit {
   onGridReady(params: GridReadyEvent) {
     this.terminalTypeTableService.gridApi = params.api;
     this.terminalTypeTableService.gridColumnApi = params.columnApi;
-    this.terminalTypeTableService.getAllTerminalTypeWithDelay();
+    this.runService();
   }
 
   onCellClicked(data: RowClickedEvent) {
+    this.terminalTypeService.existingData = data.data;
+  }
 
+  runService() {
+    this.terminalTypeService.getAllDialectMsgTemplateWithDelay();
+    this.terminalTypeTableService.showTableLoading();
+    this.terminalTypeService.getAllTerminalTypeWithDelay();
   }
 }

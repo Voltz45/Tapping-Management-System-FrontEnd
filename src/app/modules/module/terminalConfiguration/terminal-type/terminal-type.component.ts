@@ -1,7 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  TerminalTypeGetSetService
-} from "../../../services/terminal-configuration-service/terminal-type-service/terminal-type-get-set.service";
+  TerminalTypeService
+} from "../../../services/terminal-configuration-service/terminal-type-service/terminal-type.service";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  CreateUpdateDialogTerminalTypeComponent
+} from "./widget/create-update-dialog/create-update-terminalType-dialog.component";
+import {
+  TerminalTypeTableService
+} from "../../../services/terminal-configuration-service/terminal-type-service/terminal-type-table.service";
 
 @Component({
   selector: 'app-terminal-type',
@@ -10,14 +17,28 @@ import {
 })
 export class TerminalTypeComponent implements OnInit {
 
-  constructor(public terminalTypeGetSet: TerminalTypeGetSetService) {
-
+  constructor(
+    public dialog: MatDialog,
+    public terminalTypeService: TerminalTypeService,
+    public terminalTypeTableService: TerminalTypeTableService
+  ) {
   }
 
   ngOnInit(): void {
   }
 
   showDialog() {
-    this.terminalTypeGetSet.showDialog = true;
+    this.dialog.open(CreateUpdateDialogTerminalTypeComponent, {
+      autoFocus: false, disableClose: true, width: '55%'
+    });
+    this.terminalTypeService.buttonDialogStatus = 'create';
+  }
+
+  onFilterTextBoxChanged() {
+    this.terminalTypeTableService.onFilter('search-filter');
+  }
+
+  refreshTable() {
+    this.terminalTypeService.getAllTerminalTypeWithDelay();
   }
 }

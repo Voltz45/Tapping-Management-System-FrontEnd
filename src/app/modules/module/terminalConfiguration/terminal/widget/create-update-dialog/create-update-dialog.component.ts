@@ -1,7 +1,6 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Observable} from "rxjs";
 import {NotificationService} from "../../../../../../globalServices/notification.service";
 import {
   TerminalService
@@ -19,10 +18,11 @@ import {TerminalTypeGroup} from "../../../../../interface/terminal-type-group";
 })
 export class CreateUpdateDialogComponent implements OnInit, AfterViewInit, OnDestroy {
   form!: FormGroup;
-  filteredOptions!: Observable<string[]>;
   terminalModel: TerminalModel = new TerminalModel();
   buttonStatus: string = '';
+  showClear: boolean = false;
   terminalTypeOptionList: TerminalTypeGroup[] = [];
+  disableStatus: boolean = false;
 
   constructor(
     private dialog: MatDialog,
@@ -34,81 +34,71 @@ export class CreateUpdateDialogComponent implements OnInit, AfterViewInit, OnDes
   ) {
   }
 
-  ngOnInit(): void {
-    this.createForm();
-    this.buttonStatus = this.terminalTableService.buttonStatus;
-    this.terminalTypeOptionList = this.terminalTableService.terminalTypeList;
+  get channelId() {
+    return this.form.controls['channelId'];
   }
 
-  ngAfterViewInit(): void {
-    if (this.buttonStatus == 'edit') {
-      this.setExistingDataToDialog();
-      this.changeDetectorRef.detectChanges();
-    }
+  get channelType() {
+    return this.form.controls['channelType'];
   }
 
   ngOnDestroy(): void {
-
   }
 
-  createForm() {
-    this.form = this.fb.group({
-      terminalId: ['', Validators.required],
-      ipAddress: ['', [Validators.required, Validators.pattern('^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]],
-      port: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      terminalType: ['', Validators.required],
-      isOnPremise: ['']
-    });
+  get existingTerminalId() {
+    return this.terminalService.existingData.channelId;
   }
 
-  createButton() {
-    this.terminalTableService.onCreateTerminal(this.setNewDataToModel());
+  get existingIpAddress() {
+    return this.terminalService.existingData.ipAddress;
   }
 
-  updateButton() {
-    const newData = this.terminalService.createTerminalFormData(this.existingTerminalId, this.setNewDataToModel())
-    this.terminalTableService.onUpdateTerminal(newData);
+  get existingPort() {
+    return this.terminalService.existingData.port;
   }
 
-  setNewDataToModel(): TerminalModel {
-    this.terminalModel.terminalId = this.terminalId.value;
-    this.terminalModel.ipAddress = this.ipAddress.value;
-    this.terminalModel.port = this.port.value;
-    this.terminalTableService.terminalTypeList.forEach(x => {
-      if (x.value == this.terminalType.value) {
-        this.terminalModel.terminalType = x.value;
-      }
-    })
-    this.terminalModel.onPremise = this.onPremise.value;
-    if (this.onPremise.value == '' || this.onPremise.value == null) {
-      this.terminalModel.onPremise = false;
-    }
-    return this.terminalModel;
+  get existingTerminalType() {
+    return this.terminalService.existingData.channelType;
   }
 
-  setExistingDataToDialog() {
-    const data = this.terminalTableService.terminalTypeList.filter(value => {
-      return value.viewValue == this.existingTerminalType;
-    })
-    this.terminalId.setValue(this.existingTerminalId);
-    this.ipAddress.setValue(this.existingIpAddress);
-    this.port.setValue(this.existingPort);
-    if (data.length != 0) {
-      this.terminalType.setValue(data[0].value);
-    }
-    this.onPremise.setValue(this.existingOnPremise);
+  get existingOnPremise() {
+    return this.terminalService.existingData.onPremise;
   }
 
   disableButton() {
     return this.form.invalid;
   }
 
+  ngOnInit(): void {
+    this.createForm();
+    this.buttonStatus = this.terminalService.buttonStatus;
+    this.terminalTypeOptionList = this.terminalService.terminalTypeList.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
   closeDialog() {
     this.dialog.closeAll();
   }
 
-  get terminalId() {
-    return this.form.controls['terminalId'];
+  ngAfterViewInit(): void {
+    if (this.buttonStatus == 'edit') {
+      this.setExistingDataToDialog();
+      this.form.valueChanges.subscribe(value => {
+        if (
+          this.existingTerminalId != value.terminalId || this.existingIpAddress != value.ipAddress ||
+          this.existingPort != value.port || this.existingTerminalType != value.terminalType || this.existingOnPremise != value.isOnPremise
+        ) {
+          this.disableStatus = true;
+        }
+
+        if (
+          this.existingTerminalId == value.terminalId || this.existingIpAddress == value.ipAddress ||
+          this.existingPort == value.port || this.existingTerminalType == value.terminalType || this.existingOnPremise == value.isOnPremise
+        ) {
+          this.disableStatus = false;
+        }
+      })
+      this.changeDetectorRef.detectChanges();
+    }
   }
 
   get ipAddress() {
@@ -119,31 +109,60 @@ export class CreateUpdateDialogComponent implements OnInit, AfterViewInit, OnDes
     return this.form.controls['port'];
   }
 
-  get terminalType() {
-    return this.form.controls['terminalType'];
+  createForm() {
+    this.form = this.fb.group({
+      channelId: ['', Validators.required],
+      ipAddress: ['', [Validators.required, Validators.pattern('^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]],
+      port: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      channelType: ['', Validators.required],
+      isOnPremise: ['']
+    });
   }
 
   get onPremise() {
     return this.form.controls['isOnPremise'];
   }
 
-  get existingTerminalId() {
-    return this.terminalTableService.existingData.terminalId;
+  createButton() {
+    this.terminalService.onCreateTerminal(this.setNewDataToModel());
   }
 
-  get existingIpAddress() {
-    return this.terminalTableService.existingData.ipAddress;
+  updateButton() {
+    const newData = this.terminalService.createTerminalFormData(this.existingTerminalId, this.setNewDataToModel())
+    this.terminalService.onUpdateTerminal(newData);
   }
 
-  get existingPort() {
-    return this.terminalTableService.existingData.port;
+  setNewDataToModel(): TerminalModel {
+    this.terminalModel.channelId = this.channelId.value;
+    this.terminalModel.ipAddress = this.ipAddress.value;
+    this.terminalModel.port = this.port.value;
+    this.terminalService.terminalTypeList.forEach(x => {
+      if (x.code == this.channelType.value.code) {
+        this.terminalModel.channelType = x.code;
+      }
+    })
+    this.terminalModel.onPremise = this.onPremise.value;
+    if (this.onPremise.value == '' || this.onPremise.value == null) {
+      this.terminalModel.onPremise = false;
+    }
+    return this.terminalModel;
   }
 
-  get existingTerminalType() {
-    return this.terminalTableService.existingData.terminalType;
+  setExistingDataToDialog() {
+    const data = this.terminalService.terminalTypeList.filter(value => {
+      return value.name == this.existingTerminalType;
+    })
+    console.log(data)
+    this.channelId.setValue(this.existingTerminalId);
+    this.ipAddress.setValue(this.existingIpAddress);
+    this.port.setValue(this.existingPort);
+    if (data.length != 0) {
+      this.channelType.setValue(data[0]);
+    }
+    this.onPremise.setValue(this.existingOnPremise);
   }
 
-  get existingOnPremise() {
-    return this.terminalTableService.existingData.onPremise;
+  onChange($event: any) {
+    this.showClear = $event != '' && $event != null;
   }
 }

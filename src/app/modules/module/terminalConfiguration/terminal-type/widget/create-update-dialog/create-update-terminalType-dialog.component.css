@@ -8,7 +8,7 @@
 
 .terminal-type-description.ng-valid.ng-touched,
 .input-field.ng-valid.ng-touched,
-:host ::ng-deep .ng-touched.ng-valid .p-dropdown {
+:host ::ng-deep p-dropdown.ng-touched.ng-valid .p-dropdown {
   border-color: #059669 !important;
 }
 
@@ -26,7 +26,7 @@
   @apply tw-absolute tw-bottom-[25px] tw-right-[25px]
 }
 
-.create-button {
+.cancel-button {
   @apply tw-mr-[10px]
 }
 
@@ -49,11 +49,15 @@
   max-height: 100px !important;
 }
 
-:host ::ng-deep .p-dropdown-filter-container .p-inputtext {
-  padding: 0.2rem !important;
-}
-
 :host ::ng-deep .p-inline-message.p-inline-message-error,
 :host ::ng-deep .p-inline-message.p-inline-message-success {
   background: none !important;
+}
+
+::ng-deep .p-dropdown-filter.p-inputtext {
+  padding: 0.2rem !important;
+}
+
+::ng-deep .p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
+  padding-right: 1.75rem !important;
 }

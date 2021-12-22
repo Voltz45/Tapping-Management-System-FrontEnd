@@ -188,6 +188,7 @@ form.sign-up-form {
   transform: translateX(800px);
 }
 
+
 /*ANIMATION*/
 .login-container.sign-up-mode:before {
   transform: translate(100%, -50%);

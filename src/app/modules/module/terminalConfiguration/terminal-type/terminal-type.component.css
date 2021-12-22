@@ -4,6 +4,7 @@
 
 .header-group {
   @apply tw-flex tw-flex-row tw-flex-nowrap tw-justify-between tw-items-center
+  tw-mb-[1rem]
 }
 
 .search-group {
@@ -16,6 +17,14 @@
 
 .search-input {
   @apply tw-py-[.5rem] tw-pr-[.5rem] tw-pl-[2.5rem]
+}
+
+.header-button-group {
+  @apply tw-flex tw-flex-row tw-flex-nowrap
+}
+
+.refresh-button {
+  @apply tw-mr-[.5rem]
 }
 
 /*Ng deep styles Prime*/

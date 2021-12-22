@@ -1,11 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GridReadyEvent, RowClickedEvent} from "ag-grid-community";
-import {ActionButtonGroupComponent} from "../../../global-widget/action-button-group/action-button-group.component";
+import {
+  ActionButtonGroupTerminalComponent
+} from "../action-button-group-terminal/action-button-group-terminal.component";
 import {
   TerminalTableService
 } from "../../../../../services/terminal-configuration-service/terminal-service/terminal-table.service";
 import {OverlayLoadingComponent} from "../../../global-widget/overlay-loading/overlay-loading.component";
 import {TagComponent} from "../../../global-widget/tag/tag.component";
+import {
+  TerminalService
+} from "../../../../../services/terminal-configuration-service/terminal-service/terminal.service";
 
 @Component({
   selector: 'terminal-table',
@@ -14,13 +19,14 @@ import {TagComponent} from "../../../global-widget/tag/tag.component";
 })
 export class TerminalTableComponent implements OnInit, OnDestroy {
   frameworkComponents = {
-    actionButtonGroup: ActionButtonGroupComponent,
+    actionButtonGroup: ActionButtonGroupTerminalComponent,
     overlayLoading: OverlayLoadingComponent,
     tag: TagComponent
   };
   overlayLoadingTemplate = 'overlayLoading';
 
   constructor(
+    private terminalService: TerminalService,
     public terminalTableService: TerminalTableService
   ) {
   }
@@ -30,26 +36,23 @@ export class TerminalTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.terminalTableService.gridApi.destroy();
+    this.terminalTableService.gridApi.destroy();
+    this.terminalService.terminalTypeList.length = 0;
   }
 
   onGridReady(params: GridReadyEvent) {
     this.terminalTableService.gridApi = params.api;
     this.terminalTableService.gridColumnApi = params.columnApi;
-    this.terminalTableService.getAllTerminalTypeWithDelay();
-    this.onSetValueTerminalType();
-    this.terminalTableService.showTableLoading();
-    this.terminalTableService.getAllTerminalWithDelay();
+    this.runService();
   }
 
   onCellClicked(data: RowClickedEvent) {
-    this.terminalTableService.existingData = data.data;
+    this.terminalService.existingData = data.data;
   }
 
-  onSetValueTerminalType() {
-    this.terminalTableService.terminalTypeList.forEach(x => {
-      this.terminalTableService.terminalValue.push(x.value);
-      this.terminalTableService.terminalTextValue.push(x.viewValue);
-    })
+  runService() {
+    this.terminalService.getAllTerminalTypeWithDelay();
+    this.terminalTableService.showTableLoading();
+    this.terminalService.getAllTerminalWithDelay();
   }
 }

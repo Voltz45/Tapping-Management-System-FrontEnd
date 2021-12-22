@@ -58,9 +58,18 @@ body {
 }
 
 /*PrimeNg custom style*/
+p {
+  margin: 0;
+}
+
 .custom-toast.p-toast {
   width: 350px;
   z-index: 1500;
+}
+
+.p-element .p-button,
+.p-element .p-button:enabled:hover {
+  box-shadow: none !important;
 }
 
 .custom-toast.p-toast .p-toast-message .p-toast-message-content {

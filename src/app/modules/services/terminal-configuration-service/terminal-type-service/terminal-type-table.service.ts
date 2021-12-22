@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {ColDef, ColumnApi, GridApi} from "ag-grid-community";
-import {TerminalTypeService} from "./terminal-type.service";
-import {TerminalTypeModel} from "../../../model/TerminalTypeModel";
 
 @Injectable({
   providedIn: 'root'
@@ -11,43 +9,27 @@ export class TerminalTypeTableService {
   gridColumnApi!: ColumnApi;
   defaultColDef: ColDef = {
     flex: 1,
-    minWidth: 110,
     editable: false,
     sortable: true
   };
 
   columnDefs: ColDef[] = [
-    {field: 'id', hide: true},
-    {field: 'terminalType'},
-    {field: 'msgTemplate'},
-    {field: 'description'},
+    {field: 'id', hide: true, headerClass: 'terminal-type-header-color'},
+    {field: 'channelType', sort: 'asc', headerClass: 'terminal-type-header-color'},
+    {field: 'dialectMsgTemplateId', headerName: 'Message Template', headerClass: 'terminal-type-header-color'},
+    {field: 'description', width: 200, headerClass: 'terminal-type-header-color'},
+    {field: 'actions', maxWidth: 100, cellRenderer: 'actionButtonGroup', headerClass: 'terminal-type-header-color'}
   ]
 
-  constructor(private terminalTypeService: TerminalTypeService) {
+  constructor() {
   }
 
-  getAllTerminalTypeWithDelay() {
-    setTimeout(() => {
-      this.onGetAllTerminalType();
-    });
+  onFilter(searchInputClass: string) {
+    this.gridApi.setQuickFilter((document.getElementById(searchInputClass) as HTMLInputElement)?.value)
   }
 
-  onGetAllTerminalType() {
-    this.terminalTypeService.getAllTerminalType().subscribe({
-      next: this.responseGetAllTerminalType()
-    })
-  }
-
-  private responseGetAllTerminalType() {
-    return (response: TerminalTypeModel[]) => {
-      if (response.length != 0) {
-        console.log(response)
-        this.hideTableLoading();
-        this.gridApi.setRowData(response);
-      } else {
-        this.showNoRowData();
-      }
-    }
+  showTableLoading() {
+    this.gridApi.showLoadingOverlay();
   }
 
   hideTableLoading() {

@@ -20,6 +20,8 @@
   align-items: center;
   padding-bottom: 0.5rem;
   background-color: transparent;
+  cursor: pointer;
+  width: 100%;
 }
 
 .edit-button:hover,

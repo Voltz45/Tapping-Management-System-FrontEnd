@@ -7,13 +7,13 @@
           <i class="input-icon bx bx-user"></i>
           <input type="text" placeholder="Username" formControlName="username">
           <p *ngIf="form.controls['username'].invalid && form.controls['username'].touched"
-             style="color: red; margin-bottom: 5px">Username Required!</p>
+             style="color: red; margin: 0 0 0 3.3rem">Username Required!</p>
         </div>
         <div class="input-field">
           <i class="input-icon bx bx-lock"></i>
           <input type="password" placeholder="Password" formControlName="password">
           <p *ngIf="form.controls['password'].invalid && form.controls['password'].touched"
-             style="color: red; margin-bottom: 5px">Password Required!</p>
+             style="color: red; margin: 0 0 0 3.3rem">Password Required!</p>
         </div>
 
         <button class="btn solid" (click)="onLogin(form.value)" [disabled]="form.invalid || showLoading">

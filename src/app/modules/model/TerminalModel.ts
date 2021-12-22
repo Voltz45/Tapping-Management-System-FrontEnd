@@ -1,9 +1,9 @@
 export class TerminalModel {
   id: number = 0;
-  terminalId: string = '';
+  channelId: string = '';
   ipAddress: string = '';
   port: string = '';
-  terminalType: string = '';
+  channelType: string = '';
   timeTrace: string = '';
   onPremise: boolean = false;
   channelStatus: string = '';

@@ -1,5 +1,8 @@
-<p-dialog header="Create Terminal Type" [(visible)]="terminalTypeGetSet.showDialog" [modal]="true"
-          [style]="{width: '50vw', height: '400px'}" [draggable]="false" [resizable]="false">
+<h2 mat-dialog-title style="display: flex; align-items: center;justify-content: space-between">
+  Create Channel Type
+  <span class="bx bx-x" mat-dialog-close="true" style="font-size: 2rem; cursor: pointer"></span>
+</h2>
+<mat-dialog-content>
   <div class="m-0" [formGroup]="formGroup">
     <div class="field">
       <label for="Description" class="required-icon">Description</label>
@@ -13,36 +16,47 @@
     </div>
     <div class="formgrid grid">
       <div class="field col">
-        <label class="required-icon">Terminal Type</label>
+        <label class="required-icon">Channel Type</label>
         <div style="width: 100%">
           <input type="text" pInputText class="w-10 input-field" formControlName="terminalType">
           <p-message *ngIf="terminalType.touched && !terminalType.hasError('required')" severity="success"></p-message>
           <p-message *ngIf="terminalType.touched && terminalType.hasError('required')" severity="error"></p-message>
         </div>
-        <small *ngIf="terminalType.touched && terminalType.hasError('required')" class="p-error">Terminal Type should be
+        <small *ngIf="terminalType.touched && terminalType.hasError('required')" class="p-error">Channel Type should be
           fill.</small>
       </div>
       <div class="field col">
         <label class="required-icon">Message Template</label>
-        <div style="width: 100%">
-          <p-dropdown [options]="cities" [filter]="true" filterBy="name" placeholder="Select Message Template"
+        <div style="width: 100%;">
+          <p-dropdown [filter]="true" [options]="dialectMsgTemplateOptionList" appendTo="body"
+                      filterBy="name" placeholder="Select Message Template"
                       optionLabel="name" [showClear]="showClear" styleClass="msgTemplate" (onChange)="onChange($event)"
                       formControlName="messageTemplate"></p-dropdown>
-          <p-message *ngIf="messageTemplate.touched && !messageTemplate.hasError('required')"
+          <p-message *ngIf="dialectMsgTemplate.touched && !dialectMsgTemplate.hasError('required')"
                      severity="success"></p-message>
-          <p-message *ngIf="messageTemplate.touched && messageTemplate.hasError('required')"
+          <p-message *ngIf="dialectMsgTemplate.touched && dialectMsgTemplate.hasError('required')"
                      severity="error"></p-message>
         </div>
-        <small *ngIf="messageTemplate.touched && messageTemplate.hasError('required')" class="p-error">Message Template
+        <small *ngIf="dialectMsgTemplate.touched && dialectMsgTemplate.hasError('required')" class="p-error">Message
+          Template
           should be
           fill.</small>
       </div>
     </div>
   </div>
   <div class="action-button-group">
-    <p-button class="create-button" label="Create" styleClass="p-button-sm"
-              (click)="terminalTypeGetSet.showDialog=false"></p-button>
-    <p-button class="cancel-button" label="Cancel" styleClass="p-button-sm"
-              (click)="terminalTypeGetSet.showDialog=false"></p-button>
+
   </div>
-</p-dialog>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <p-button class="cancel-button" label="Cancel" mat-dialog-close="true"
+            styleClass="p-button-sm"></p-button>
+  <p-button (onClick)="onCreateTerminalType()" *ngIf="terminalTypeService.buttonDialogStatus == 'create'"
+            [disabled]="formGroup.invalid"
+            class="create-button" label="Create"
+            styleClass="p-button-sm"></p-button>
+  <p-button (onClick)="onUpdateTerminalType()" *ngIf="terminalTypeService.buttonDialogStatus == 'edit'"
+            [disabled]="!formGroup.dirty" class="create-button"
+            label="Save"
+            styleClass="p-button-sm"></p-button>
+</mat-dialog-actions>

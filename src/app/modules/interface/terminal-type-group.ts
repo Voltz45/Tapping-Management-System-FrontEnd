@@ -1,4 +1,4 @@
 export interface TerminalTypeGroup {
-  value: string;
-  viewValue: string;
+  name: string;
+  code: string;
 }

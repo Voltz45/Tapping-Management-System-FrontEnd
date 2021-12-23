@@ -158,7 +158,6 @@ export class TerminalService {
 
   private errorCreateAndUpdate() {
     return (error: HttpErrorResponse) => {
-      console.log(error)
       this.errorNotification(error.error.message, error.status)
     };
   }

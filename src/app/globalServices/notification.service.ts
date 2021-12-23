@@ -30,4 +30,12 @@ export class NotificationService {
   upperCaseFirstLetter(char: string): string {
     return char.charAt(0).toUpperCase() + char.slice(1);
   }
+
+  successNotification(message: string, statusCode: number) {
+    this.notify(NotificationTypeEnum.SUCCESS, message, statusCode);
+  }
+
+  errorNotification(message: string, statusCode: number) {
+    this.notify(NotificationTypeEnum.ERROR, message, statusCode)
+  }
 }

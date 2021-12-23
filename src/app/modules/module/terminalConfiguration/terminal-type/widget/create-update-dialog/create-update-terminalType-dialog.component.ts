@@ -15,6 +15,7 @@ import {DialectMsgTemplateGroup} from "../../../../../interface/dialect-msg-temp
 export class CreateUpdateDialogTerminalTypeComponent implements OnInit, AfterViewInit, OnDestroy {
   showClear: boolean = false;
   formGroup!: FormGroup;
+  disableStatus: boolean = false;
   dialectMsgTemplateOptionList: DialectMsgTemplateGroup[] = [];
   terminalTypeModel: TerminalTypeModel = new TerminalTypeModel();
 
@@ -26,36 +27,16 @@ export class CreateUpdateDialogTerminalTypeComponent implements OnInit, AfterVie
   ) {
   }
 
-  get dialectMsgTemplate() {
-    return this.formGroup.controls['messageTemplate'];
-  }
-
-  get existingId() {
-    return this.terminalTypeService.existingData.id;
-  }
-
-  get existingDescription() {
-    return this.terminalTypeService.existingData.description;
-  }
-
   createForm() {
     this.formGroup = this.fb.group({
       description: ['', Validators.required],
-      terminalType: ['', Validators.required],
+      channelType: ['', Validators.required],
       messageTemplate: ['', Validators.required]
     })
   }
 
   onChange($event: any) {
     this.showClear = $event != '' && $event != null;
-  }
-
-  get existingTerminalType() {
-    return this.terminalTypeService.existingData.channelType;
-  }
-
-  get existingDialectMsgTemplate() {
-    return this.terminalTypeService.existingData.dialectMsgTemplateId;
   }
 
   ngOnInit(): void {
@@ -66,19 +47,27 @@ export class CreateUpdateDialogTerminalTypeComponent implements OnInit, AfterVie
   ngAfterViewInit(): void {
     if (this.terminalTypeService.buttonDialogStatus == 'edit') {
       this.setExistingDataToDialog();
+      this.disableStatus = !this.formGroup.dirty;
+      this.formGroup.valueChanges.subscribe(value => {
+        if (
+          this.existingDescription != value.description || this.existingChannelType != value.channelType ||
+          this.existingDialectMsgTemplate != value.messageTemplate.name
+        ) {
+          this.disableStatus = false;
+        }
+
+        if (
+          this.existingDescription == value.description && this.existingChannelType == value.channelType &&
+          this.existingDialectMsgTemplate == value.messageTemplate.name
+        ) {
+          this.disableStatus = true;
+        }
+      })
       this.changeDetectorRef.detectChanges();
     }
   }
 
   ngOnDestroy(): void {
-  }
-
-  get description() {
-    return this.formGroup.controls['description'];
-  }
-
-  get terminalType() {
-    return this.formGroup.controls['terminalType'];
   }
 
   onCloseDialog() {
@@ -91,12 +80,12 @@ export class CreateUpdateDialogTerminalTypeComponent implements OnInit, AfterVie
   }
 
   onUpdateTerminalType() {
-    const newData = this.terminalTypeService.createTerminalTypeFormData(this.existingTerminalType, this.setNewDataToModel());
+    const newData = this.terminalTypeService.createTerminalTypeFormData(this.existingChannelType, this.setNewDataToModel());
     this.terminalTypeService.onUpdateTerminalType(newData);
   }
 
   setNewDataToModel(): TerminalTypeModel {
-    this.terminalTypeModel.channelType = this.terminalType.value;
+    this.terminalTypeModel.channelType = this.channelType.value;
     this.terminalTypeModel.dialectMsgTemplateId = this.dialectMsgTemplate.value.code;
     this.terminalTypeModel.description = this.description.value;
     return this.terminalTypeModel;
@@ -106,11 +95,39 @@ export class CreateUpdateDialogTerminalTypeComponent implements OnInit, AfterVie
     const data = this.terminalTypeService.dialectMsgTemplateList.filter(value => {
       return value.name === String(this.existingDialectMsgTemplate);
     });
-    this.terminalType.setValue(this.existingTerminalType);
+    this.channelType.setValue(this.existingChannelType);
     this.description.setValue(this.existingDescription);
 
     if (data.length != 0) {
       this.dialectMsgTemplate.setValue(data[0])
     }
+  }
+
+  get dialectMsgTemplate() {
+    return this.formGroup.controls['messageTemplate'];
+  }
+
+  get description() {
+    return this.formGroup.controls['description'];
+  }
+
+  get channelType() {
+    return this.formGroup.controls['channelType'];
+  }
+
+  get existingId() {
+    return this.terminalTypeService.existingData.id;
+  }
+
+  get existingDescription() {
+    return this.terminalTypeService.existingData.description;
+  }
+
+  get existingChannelType() {
+    return this.terminalTypeService.existingData.channelType;
+  }
+
+  get existingDialectMsgTemplate() {
+    return this.terminalTypeService.existingData.dialectMsgTemplateId;
   }
 }

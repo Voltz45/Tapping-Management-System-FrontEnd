@@ -3,11 +3,13 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {environment} from "../../../../../environments/environment";
 import {map} from "rxjs/operators";
 import {TerminalTypeModel} from "../../../model/TerminalTypeModel";
-import {DialectMsgTemplateModel} from "../../../model/dialectMsgTemplateModel";
+import {Iso8583DialectMsgTemplateModel} from "../../../model/iso8583DialectMsgTemplateModel";
 import {NotificationTypeEnum} from "../../../../enum/notification-type.enum";
 import {TerminalTypeTableService} from "./terminal-type-table.service";
 import {NotificationService} from "../../../../globalServices/notification.service";
-import {DialectMessageService} from "../../dialect-message-service/dialect-message.service";
+import {
+  Iso8583DialectService
+} from "../../external-interfaces/iso8583Configuration/iso8583-dialect/iso8583-dialect.service";
 import {DialectMsgTemplateGroup} from "../../../interface/dialect-msg-template-group";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -24,7 +26,7 @@ export class TerminalTypeService {
     private http: HttpClient,
     private dialog: MatDialog,
     private notifierService: NotificationService,
-    private dialectService: DialectMessageService,
+    private dialectService: Iso8583DialectService,
     private terminalTypeTableService: TerminalTypeTableService
   ) {
   }
@@ -104,7 +106,7 @@ export class TerminalTypeService {
   }
 
   onGetAllDialectMsgTemplate() {
-    this.dialectService.getAllDialectMsgTemplate().subscribe({
+    this.dialectService.getAllIso8583Dialect().subscribe({
       next: this.responseGetAllDialectMsgTemplate()
     })
   }
@@ -171,7 +173,7 @@ export class TerminalTypeService {
   }
 
   private responseGetAllDialectMsgTemplate() {
-    return (response: DialectMsgTemplateModel[]) => {
+    return (response: Iso8583DialectMsgTemplateModel[]) => {
       response.forEach(x => {
         this.dialectMsgTemplateList.push({
           name: x.nameType,

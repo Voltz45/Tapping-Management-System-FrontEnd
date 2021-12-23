@@ -32,7 +32,7 @@
       <div class="field col">
         <label class="required-icon">Port</label>
         <div style="width: 100%">
-          <input class="w-10 port-field" formControlName="port" pInputText type="text">
+          <input class="w-10 port-field" formControlName="port" maxlength="6" pInputText type="text">
           <p-message *ngIf="port.touched && !port.hasError('required')" severity="success"></p-message>
           <p-message *ngIf="port.touched && port.hasError('required')" severity="error"></p-message>
         </div>
@@ -78,7 +78,7 @@
   <p-button (onClick)="createButton()" *ngIf="buttonStatus == 'create'" [disabled]="disableButton()"
             class="create-button" label="Create"
             styleClass="p-button-sm"></p-button>
-  <p-button (onClick)="updateButton()" *ngIf="buttonStatus == 'edit'" [disabled]="disableButton() || disableStatus"
+  <p-button (onClick)="updateButton()" *ngIf="buttonStatus == 'edit'" [disabled]="disableStatus"
             class="create-button"
             label="Save"
             styleClass="p-button-sm"></p-button>

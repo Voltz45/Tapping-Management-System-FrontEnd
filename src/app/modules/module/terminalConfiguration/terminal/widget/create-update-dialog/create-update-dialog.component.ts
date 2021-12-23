@@ -82,19 +82,20 @@ export class CreateUpdateDialogComponent implements OnInit, AfterViewInit, OnDes
   ngAfterViewInit(): void {
     if (this.buttonStatus == 'edit') {
       this.setExistingDataToDialog();
+      this.disableStatus = !this.form.dirty;
       this.form.valueChanges.subscribe(value => {
         if (
-          this.existingTerminalId != value.terminalId || this.existingIpAddress != value.ipAddress ||
-          this.existingPort != value.port || this.existingTerminalType != value.terminalType || this.existingOnPremise != value.isOnPremise
+          this.existingTerminalId != value.channelId || this.existingIpAddress != value.ipAddress ||
+          this.existingPort != value.port || this.existingTerminalType != value.channelType || this.existingOnPremise != value.isOnPremise
         ) {
-          this.disableStatus = true;
+          this.disableStatus = false;
         }
 
         if (
-          this.existingTerminalId == value.terminalId || this.existingIpAddress == value.ipAddress ||
-          this.existingPort == value.port || this.existingTerminalType == value.terminalType || this.existingOnPremise == value.isOnPremise
+          this.existingTerminalId == value.channelId && this.existingIpAddress == value.ipAddress &&
+          this.existingPort == value.port && this.existingTerminalType == value.channelType.name && this.existingOnPremise == value.isOnPremise
         ) {
-          this.disableStatus = false;
+          this.disableStatus = true;
         }
       })
       this.changeDetectorRef.detectChanges();
@@ -152,7 +153,6 @@ export class CreateUpdateDialogComponent implements OnInit, AfterViewInit, OnDes
     const data = this.terminalService.terminalTypeList.filter(value => {
       return value.name == this.existingTerminalType;
     })
-    console.log(data)
     this.channelId.setValue(this.existingTerminalId);
     this.ipAddress.setValue(this.existingIpAddress);
     this.port.setValue(this.existingPort);

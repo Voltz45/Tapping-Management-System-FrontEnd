@@ -95,7 +95,9 @@ import {DialogModule} from "primeng/dialog";
 import {TagModule} from "primeng/tag";
 import {TagComponent} from './module/terminalConfiguration/global-widget/tag/tag.component';
 import {DropdownModule} from "primeng/dropdown";
-import {DialectMessageService} from "./services/dialect-message-service/dialect-message.service";
+import {
+  Iso8583DialectService
+} from "./services/external-interfaces/iso8583Configuration/iso8583-dialect/iso8583-dialect.service";
 import {
   CreateUpdateDialogTerminalTypeComponent
 } from "./module/terminalConfiguration/terminal-type/widget/create-update-dialog/create-update-terminalType-dialog.component";
@@ -212,7 +214,7 @@ import {
     TerminalService,
     TerminalTableService,
     TerminalTypeService,
-    DialectMessageService,
+    Iso8583DialectService,
     TerminalTypeTableService
   ]
 })

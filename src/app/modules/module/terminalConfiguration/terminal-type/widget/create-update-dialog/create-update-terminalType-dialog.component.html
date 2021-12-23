@@ -18,11 +18,11 @@
       <div class="field col">
         <label class="required-icon">Channel Type</label>
         <div style="width: 100%">
-          <input type="text" pInputText class="w-10 input-field" formControlName="terminalType">
-          <p-message *ngIf="terminalType.touched && !terminalType.hasError('required')" severity="success"></p-message>
-          <p-message *ngIf="terminalType.touched && terminalType.hasError('required')" severity="error"></p-message>
+          <input type="text" pInputText class="w-10 input-field" formControlName="channelType">
+          <p-message *ngIf="channelType.touched && !channelType.hasError('required')" severity="success"></p-message>
+          <p-message *ngIf="channelType.touched && channelType.hasError('required')" severity="error"></p-message>
         </div>
-        <small *ngIf="terminalType.touched && terminalType.hasError('required')" class="p-error">Channel Type should be
+        <small *ngIf="channelType.touched && channelType.hasError('required')" class="p-error">Channel Type should be
           fill.</small>
       </div>
       <div class="field col">
@@ -44,9 +44,6 @@
       </div>
     </div>
   </div>
-  <div class="action-button-group">
-
-  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <p-button class="cancel-button" label="Cancel" mat-dialog-close="true"
@@ -56,7 +53,7 @@
             class="create-button" label="Create"
             styleClass="p-button-sm"></p-button>
   <p-button (onClick)="onUpdateTerminalType()" *ngIf="terminalTypeService.buttonDialogStatus == 'edit'"
-            [disabled]="!formGroup.dirty" class="create-button"
+            [disabled]="disableStatus" class="create-button"
             label="Save"
             styleClass="p-button-sm"></p-button>
 </mat-dialog-actions>

@@ -1,16 +1,16 @@
-<!--<div class="terminal-type-container">-->
-<!--  <div class="header-group">-->
-<!--    <span class="search-group p-input-icon-left">-->
-<!--        <i class="pi pi-search"></i>-->
-<!--        <input type="text" pInputText placeholder="Search" class="search-input" id="search-filter"-->
-<!--               (input)="onFilterTextBoxChanged()">-->
-<!--    </span>-->
-<!--    <div class="header-button-group">-->
-<!--      <p-button icon="pi pi-refresh" class="refresh-button" styleClass="p-button-sm" (click)="refreshTable()"></p-button>-->
-<!--      <p-button label="Create" icon="pi pi-plus" styleClass="p-button-sm" (click)="showDialog()"></p-button>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="content">-->
-<!--    <iso8583-dialect-table></iso8583-dialect-table>-->
-<!--  </div>-->
-<!--</div>-->
+<div class="iso8583-dialect-container">
+  <div class="header-group">
+    <span class="search-group p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Search" class="search-input" id="search-filter"
+               (input)="onFilterTextBoxChanged()">
+    </span>
+    <div class="header-button-group">
+      <p-button icon="pi pi-refresh" class="refresh-button" styleClass="p-button-sm" (click)="refreshTable()"></p-button>
+      <p-button label="Create" icon="pi pi-plus" styleClass="p-button-sm" (click)="openDialog()"></p-button>
+    </div>
+  </div>
+  <div class="content">
+    <iso8583-dialect-table></iso8583-dialect-table>
+  </div>
+</div>

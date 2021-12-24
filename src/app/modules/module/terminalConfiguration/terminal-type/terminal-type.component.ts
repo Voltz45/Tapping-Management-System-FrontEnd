@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  TerminalTypeService
-} from "../../../services/terminal-configuration-service/terminal-type-service/terminal-type.service";
+  ChannelTypeService
+} from "../../../services/terminal-configuration-service/terminal-type-service/channel-type.service";
 import {MatDialog} from "@angular/material/dialog";
 import {
   CreateUpdateDialogTerminalTypeComponent
@@ -19,7 +19,7 @@ export class TerminalTypeComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public terminalTypeService: TerminalTypeService,
+    public terminalTypeService: ChannelTypeService,
     public terminalTypeTableService: TerminalTypeTableService
   ) {
   }
@@ -28,9 +28,7 @@ export class TerminalTypeComponent implements OnInit {
   }
 
   showDialog() {
-    this.dialog.open(CreateUpdateDialogTerminalTypeComponent, {
-      autoFocus: false, disableClose: true, width: '55%'
-    });
+    this.dialog.open(CreateUpdateDialogTerminalTypeComponent, this.terminalTypeService.dialogConfig);
     this.terminalTypeService.buttonDialogStatus = 'create';
   }
 
@@ -39,6 +37,6 @@ export class TerminalTypeComponent implements OnInit {
   }
 
   refreshTable() {
-    this.terminalTypeService.getAllTerminalTypeWithDelay();
+    this.terminalTypeService.getAllChannelTypeWithDelay();
   }
 }

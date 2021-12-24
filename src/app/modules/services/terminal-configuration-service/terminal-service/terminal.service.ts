@@ -5,9 +5,9 @@ import {map} from "rxjs/operators";
 import {TerminalModel} from "../../../model/TerminalModel";
 import {CustomHttpResponse} from "../../../../globalModel/custom-http-response";
 import {NotificationTypeEnum} from "../../../../enum/notification-type.enum";
-import {TerminalTypeModel} from "../../../model/TerminalTypeModel";
+import {ChannelTypeModel} from "../../../model/ChannelType.model";
 import {TerminalTableService} from "./terminal-table.service";
-import {TerminalTypeService} from "../terminal-type-service/terminal-type.service";
+import {ChannelTypeService} from "../terminal-type-service/channel-type.service";
 import {TerminalTypeGroup} from "../../../interface/terminal-type-group";
 import {MatDialog} from "@angular/material/dialog";
 import {NotificationService} from "../../../../globalServices/notification.service";
@@ -24,7 +24,7 @@ export class TerminalService {
   constructor(
     private http: HttpClient,
     private terminalTableService: TerminalTableService,
-    private terminalTypeService: TerminalTypeService,
+    private terminalTypeService: ChannelTypeService,
     private notifierService: NotificationService,
     private dialog: MatDialog
   ) {
@@ -107,7 +107,7 @@ export class TerminalService {
   }
 
   onGetAllTerminalType() {
-    this.terminalTypeService.getAllTerminalType().subscribe({
+    this.terminalTypeService.getAllChannelType().subscribe({
       next: this.responseGetAllTerminalType()
     })
   }
@@ -176,7 +176,7 @@ export class TerminalService {
   }
 
   private responseGetAllTerminalType() {
-    return (response: TerminalTypeModel[]) => {
+    return (response: ChannelTypeModel[]) => {
       response.forEach(x => {
         this.terminalTypeList.push({
           code: String(x.id),

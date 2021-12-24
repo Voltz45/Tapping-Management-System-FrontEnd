@@ -6,11 +6,11 @@ import {Iso8583DialectMsgTemplateModel} from "../../../../model/iso8583DialectMs
 import {CustomHttpResponse} from "../../../../../globalModel/custom-http-response";
 import {Iso8583DialectTableService} from "./iso8583-dialect-table.service";
 import {NotificationService} from "../../../../../globalServices/notification.service";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {RowClickedEvent} from "ag-grid-community";
 import {MessageFormatGroup} from "../../../../interface/message-format-group";
-import {MessageFormatService} from "../../../message-format/message-format.service";
-import {MsgFormatModel} from "../../../../model/MsgFormat.model";
+import {Iso8583FormatService} from "../../../message-format/iso8583-format/iso8583-format.service";
+import {Iso8583FormatModel} from "../../../../model/iso8583-Format.model";
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +20,13 @@ export class Iso8583DialectService {
   buttonStatus: string = '';
   msgFormatIdList: MessageFormatGroup[] = [];
   existingData: Iso8583DialectMsgTemplateModel = new Iso8583DialectMsgTemplateModel();
+  dialogConfig: MatDialogConfig = {autoFocus: false, disableClose: true, width: '55%'};
 
   constructor(
     private http: HttpClient,
     private dialog: MatDialog,
     private notifierService: NotificationService,
-    private msgFormatService: MessageFormatService,
+    private msgFormatService: Iso8583FormatService,
     private iso8583DialectTableService: Iso8583DialectTableService
   ) {
   }
@@ -49,7 +50,7 @@ export class Iso8583DialectService {
   }
 
   deleteIso8583Dialect(id: number) {
-    return this.http.delete<CustomHttpResponse>(`${this.apiUrl}/dialectMsgTemplate/delete` + id).pipe(map(response => {
+    return this.http.delete<CustomHttpResponse>(`${this.apiUrl}/dialectMsgTemplate/delete/` + id).pipe(map(response => {
       return response;
     }))
   }
@@ -70,7 +71,7 @@ export class Iso8583DialectService {
   getAllIso8583DialectWithDelay() {
     setTimeout(() => {
       this.onGetAllIso8583Dialect();
-    }, 200)
+    }, 500)
   }
 
   onGetAllIso8583Dialect() {
@@ -125,6 +126,7 @@ export class Iso8583DialectService {
     return (error: HttpErrorResponse) => {
       const errorMessage = 'Something went wrong, Please contact your administrator.';
       this.notifierService.errorNotification(errorMessage, error.status);
+      this.iso8583DialectTableService.showNoRowData();
     }
   }
 
@@ -132,7 +134,7 @@ export class Iso8583DialectService {
     return (response: CustomHttpResponse) => {
       this.onGetAllIso8583Dialect();
       this.closeDialog();
-      this.notifierService.successNotification(response.message, response.httpStatus);
+      this.notifierService.successNotification(response.message, response.httpStatusCode);
     }
   }
 
@@ -145,7 +147,7 @@ export class Iso8583DialectService {
   private responseDeleteIso8583Dialect() {
     return (response: CustomHttpResponse) => {
       this.onGetAllIso8583Dialect();
-      this.notifierService.successNotification(response.message, response.httpStatus);
+      this.notifierService.successNotification(response.message, response.httpStatusCode);
     }
   }
 
@@ -156,14 +158,13 @@ export class Iso8583DialectService {
   }
 
   onGetAllMessageFormat() {
-    this.msgFormatService.getAllMessageFormat().subscribe({
+    this.msgFormatService.getAllIso8583Format().subscribe({
       next: this.responseGetAllMessageFormat()
     })
   }
 
   private responseGetAllMessageFormat() {
-    return (response: MsgFormatModel[]) => {
-      console.log(response)
+    return (response: Iso8583FormatModel[]) => {
       response.forEach(x => {
         this.msgFormatIdList.push({
           name: x.msgFormat,

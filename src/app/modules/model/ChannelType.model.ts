@@ -1,4 +1,4 @@
-export class TerminalTypeModel {
+export class ChannelTypeModel {
   id: number = 0;
   channelType: string = '';
   description: string = '';

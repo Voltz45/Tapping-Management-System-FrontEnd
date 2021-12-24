@@ -28,6 +28,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       const chevronIconInvestigation = childrenChevron?.namedItem('chevron-icon-investigation') as HTMLElement;
       const chevronIconAcquirer = childrenChevron?.namedItem('chevron-icon-acquirer') as HTMLElement;
       const chevronIconIssuer = childrenChevron?.namedItem('chevron-icon-issuer') as HTMLElement;
+      const chevronIconMsgFormat = childrenChevron?.namedItem('chevron-icon-msgFormat') as HTMLElement;
       const chevronIconExternalInt = childrenChevron?.namedItem('chevron-icon-external-int') as HTMLElement;
       const chevronIconIso8583Config = subChildrenChevron?.querySelector('#chevron-icon-iso8583-config') as HTMLElement;
       const chevronIconTerminalConfig = childrenChevron?.namedItem('chevron-icon-terminal-config') as HTMLElement;
@@ -43,20 +44,23 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       if (chevronIconIssuer) {
         chevronIconIssuer.style.left = x.getBoundingClientRect().right - 114 + 'px';
       }
+      if (chevronIconMsgFormat) {
+        chevronIconMsgFormat.style.left = x.getBoundingClientRect().right - 194 + 'px';
+      }
       if (chevronIconExternalInt) {
         chevronIconExternalInt.style.left = x.getBoundingClientRect().right - 211 + 'px';
       }
       if (chevronIconIso8583Config) {
-        chevronIconExternalInt.style.left = x.getBoundingClientRect().right - 500 + 'px';
+        chevronIconExternalInt.style.left = x.getBoundingClientRect().right - 498 + 'px';
       }
       if (chevronIconTerminalConfig) {
-        chevronIconTerminalConfig.style.left = x.getBoundingClientRect().right - 240 + 'px';
+        chevronIconTerminalConfig.style.left = x.getBoundingClientRect().right - 238 + 'px';
       }
       if (chevronIconUser) {
-        chevronIconUser.style.left = x.getBoundingClientRect().right - 208 + 'px';
+        chevronIconUser.style.left = x.getBoundingClientRect().right - 206 + 'px';
       }
       if (chevronIconSystem) {
-        chevronIconSystem.style.left = x.getBoundingClientRect().right - 125 + 'px';
+        chevronIconSystem.style.left = x.getBoundingClientRect().right - 123 + 'px';
       }
 
       x.addEventListener('mouseover', function (this: Element) {
@@ -91,6 +95,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
           const acquirer = this.children.namedItem('terminal-config-container') as HTMLElement;
           acquirer.style.top = top + 'px';
           acquirer.style.left = right + 'px';
+        }
+
+        if (this.children.namedItem('msgFormat-container') != null) {
+          const msgFormat = this.children.namedItem('msgFormat-container') as HTMLElement;
+          msgFormat.style.top = top + 'px';
+          msgFormat.style.left = right + 'px';
         }
 
         if (this.children.namedItem('external-int-container') != null) {

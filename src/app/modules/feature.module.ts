@@ -67,9 +67,7 @@ import {
 } from './module/terminalConfiguration/terminal/widget/terminal-table/terminal-table.component';
 import {TerminalTableService} from "./services/terminal-configuration-service/terminal-service/terminal-table.service";
 import {TerminalTypeComponent} from './module/terminalConfiguration/terminal-type/terminal-type.component';
-import {
-  TerminalTypeService
-} from "./services/terminal-configuration-service/terminal-type-service/terminal-type.service";
+import {ChannelTypeService} from "./services/terminal-configuration-service/terminal-type-service/channel-type.service";
 import {ButtonModule} from "primeng/button";
 import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
@@ -86,14 +84,12 @@ import {
   Iso8583ResponseMappingComponent
 } from './module/external-interfaces/iso8583configuration/iso8583-response-mapping/iso8583-response-mapping.component';
 import {ProgressBarModule} from "primeng/progressbar";
-import {
-  OverlayLoadingComponent
-} from './module/terminalConfiguration/global-widget/overlay-loading/overlay-loading.component';
+import {OverlayLoadingComponent} from './module/global-widget/overlay-loading/overlay-loading.component';
 import {MessageModule} from "primeng/message";
 import {InputTextModule} from "primeng/inputtext";
 import {DialogModule} from "primeng/dialog";
 import {TagModule} from "primeng/tag";
-import {TagComponent} from './module/terminalConfiguration/global-widget/tag/tag.component';
+import {TagComponent} from './module/global-widget/tag/tag.component';
 import {DropdownModule} from "primeng/dropdown";
 import {
   Iso8583DialectService
@@ -120,6 +116,16 @@ import {
 import {
   ActionButtonGroupIso8583DialectComponent
 } from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/action-button-group-iso8583-dialect/action-button-group-iso8583-dialect.component';
+import {Iso8583FormatComponent} from './module/message-format/iso8583-format/iso8583-format.component';
+import {
+  Iso8583FormatTableComponent
+} from './module/message-format/iso8583-format/widget/iso8583-format-table/iso8583-format-table.component';
+import {
+  ActionButtonGroupIso8583FormatComponent
+} from './module/message-format/iso8583-format/widget/action-button-group-iso8583-format/action-button-group-iso8583-format.component';
+import {
+  CreateUpdateDialogIso8583FormatComponent
+} from './module/message-format/iso8583-format/widget/create-update-dialog-iso8583-format/create-update-dialog-iso8583-format.component';
 
 
 @NgModule({
@@ -160,6 +166,10 @@ import {
     Iso8583DialectTableComponent,
     CreateUpdateIso8583DialectDialogComponent,
     ActionButtonGroupIso8583DialectComponent,
+    Iso8583FormatComponent,
+    Iso8583FormatTableComponent,
+    ActionButtonGroupIso8583FormatComponent,
+    CreateUpdateDialogIso8583FormatComponent,
   ],
   imports: [
     NgxEchartsModule.forRoot({
@@ -213,7 +223,7 @@ import {
     DashboardService,
     TerminalService,
     TerminalTableService,
-    TerminalTypeService,
+    ChannelTypeService,
     Iso8583DialectService,
     TerminalTypeTableService
   ]

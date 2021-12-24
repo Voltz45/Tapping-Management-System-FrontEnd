@@ -6,8 +6,8 @@ import {
 import {
   TerminalTableService
 } from "../../../../../services/terminal-configuration-service/terminal-service/terminal-table.service";
-import {OverlayLoadingComponent} from "../../../global-widget/overlay-loading/overlay-loading.component";
-import {TagComponent} from "../../../global-widget/tag/tag.component";
+import {OverlayLoadingComponent} from "../../../../global-widget/overlay-loading/overlay-loading.component";
+import {TagComponent} from "../../../../global-widget/tag/tag.component";
 import {
   TerminalService
 } from "../../../../../services/terminal-configuration-service/terminal-service/terminal.service";

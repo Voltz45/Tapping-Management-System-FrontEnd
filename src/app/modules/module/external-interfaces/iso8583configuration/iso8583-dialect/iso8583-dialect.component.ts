@@ -29,7 +29,7 @@ export class Iso8583DialectComponent implements OnInit {
 
   openDialog() {
     this.iso8583DialectService.buttonStatus = 'create';
-    this.dialog.open(CreateUpdateIso8583DialectDialogComponent, {autoFocus: false, disableClose: true, width: '55%'});
+    this.dialog.open(CreateUpdateIso8583DialectDialogComponent, this.iso8583DialectService.dialogConfig);
   }
 
   onFilterTextBoxChanged() {

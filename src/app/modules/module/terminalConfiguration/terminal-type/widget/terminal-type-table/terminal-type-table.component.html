@@ -4,11 +4,11 @@
   rowSelection="single"
   enableCellTextSelection
   suppressDragLeaveHidesColumns
-  [animateRows]="true"
-  [columnDefs]="terminalTypeTableService.columnDefs"
-  [defaultColDef]="terminalTypeTableService.defaultColDef"
-  [rowHeight]="40"
-  [headerHeight]="40"
+  [animateRows]="animateRow"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [rowHeight]="rowHeight"
+  [headerHeight]="headerHeight"
   [loadingOverlayComponent]="overlayLoadingTemplate"
   [frameworkComponents]="frameworkComponents"
   (gridReady)="onGridReady($event)"

@@ -1,5 +1,9 @@
 import {Injectable} from '@angular/core';
 import {ColDef, ColumnApi, GridApi} from "ag-grid-community";
+import {OverlayLoadingComponent} from "../../../module/global-widget/overlay-loading/overlay-loading.component";
+import {
+  ActionButtonGroupTerminalTypeComponent
+} from "../../../module/terminalConfiguration/terminal-type/widget/action-button-group-terminal-type/action-button-group-terminal-type.component";
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +11,19 @@ import {ColDef, ColumnApi, GridApi} from "ag-grid-community";
 export class TerminalTypeTableService {
   gridApi!: GridApi;
   gridColumnApi!: ColumnApi;
+  animateRow: boolean = true;
+  rowHeight: number = 40;
+  headerHeight: number = 40;
+  overlayLoadingTemplate: string = 'overlayLoading';
+  frameworkComponents = {
+    actionButtonGroup: ActionButtonGroupTerminalTypeComponent,
+    overlayLoading: OverlayLoadingComponent
+  };
   defaultColDef: ColDef = {
     flex: 1,
     editable: false,
     sortable: true
   };
-
   columnDefs: ColDef[] = [
     {field: 'id', hide: true, headerClass: 'terminal-type-header-color'},
     {field: 'channelType', sort: 'asc', headerClass: 'terminal-type-header-color'},

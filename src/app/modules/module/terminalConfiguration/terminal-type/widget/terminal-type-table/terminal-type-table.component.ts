@@ -2,14 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
   TerminalTypeTableService
 } from "../../../../../services/terminal-configuration-service/terminal-type-service/terminal-type-table.service";
-import {OverlayLoadingComponent} from "../../../global-widget/overlay-loading/overlay-loading.component";
 import {GridReadyEvent, RowClickedEvent} from "ag-grid-community";
 import {
-  TerminalTypeService
-} from "../../../../../services/terminal-configuration-service/terminal-type-service/terminal-type.service";
-import {
-  ActionButtonGroupTerminalTypeComponent
-} from "../action-button-group-terminal-type/action-button-group-terminal-type.component";
+  ChannelTypeService
+} from "../../../../../services/terminal-configuration-service/terminal-type-service/channel-type.service";
 
 @Component({
   selector: 'terminal-type-table',
@@ -17,20 +13,15 @@ import {
   styleUrls: ['./terminal-type-table.component.css']
 })
 export class TerminalTypeTableComponent implements OnInit, OnDestroy {
-  frameworkComponents = {
-    actionButtonGroup: ActionButtonGroupTerminalTypeComponent,
-    overlayLoading: OverlayLoadingComponent
-  };
-  overlayLoadingTemplate = 'overlayLoading';
 
   constructor(
-    private terminalTypeService: TerminalTypeService,
-    public terminalTypeTableService: TerminalTypeTableService
+    private terminalTypeService: ChannelTypeService,
+    private terminalTypeTableService: TerminalTypeTableService
   ) {
   }
 
   ngOnDestroy(): void {
-    this.terminalTypeService.dialectMsgTemplateList.length = 0;
+    this.terminalTypeService.DialectMsgTemplateList.length = 0;
   }
 
   ngOnInit(): void {
@@ -43,12 +34,40 @@ export class TerminalTypeTableComponent implements OnInit, OnDestroy {
   }
 
   onCellClicked(data: RowClickedEvent) {
-    this.terminalTypeService.existingData = data.data;
+    this.terminalTypeService.ExistingData = data.data;
   }
 
   runService() {
-    this.terminalTypeService.getAllDialectMsgTemplateWithDelay();
+    this.terminalTypeService.onGetAllDialectMsgTemplate();
     this.terminalTypeTableService.showTableLoading();
-    this.terminalTypeService.getAllTerminalTypeWithDelay();
+    this.terminalTypeService.getAllChannelTypeWithDelay();
+  }
+
+  get animateRow() {
+    return this.terminalTypeTableService.animateRow;
+  }
+
+  get columnDefs() {
+    return this.terminalTypeTableService.columnDefs;
+  }
+
+  get defaultColDef() {
+    return this.terminalTypeTableService.defaultColDef;
+  }
+
+  get rowHeight() {
+    return this.terminalTypeTableService.rowHeight;
+  }
+
+  get headerHeight() {
+    return this.terminalTypeTableService.headerHeight;
+  }
+
+  get overlayLoadingTemplate() {
+    return this.terminalTypeTableService.overlayLoadingTemplate;
+  }
+
+  get frameworkComponents() {
+    return this.terminalTypeTableService.frameworkComponents;
   }
 }

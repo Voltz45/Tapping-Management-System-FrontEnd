@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   ws: 'http://localhost:8080/ws',
-  core236: 'http://192.168.1.236:8080'
+  core236: 'http://localhost:8181'
 };
 
 /*

@@ -22,9 +22,7 @@ import {ARPComponent} from "./modules/module/system/applicationParameters/arp/ar
 import {SystemParametersComponent} from "./modules/module/system/system-parameters/system-parameters.component";
 import {LoginComponent} from "./layout/login/login.component";
 import {AuthenticationGuard} from "./guard/authentication.guard";
-import {
-  TerminalTypeComponent
-} from "./modules/module/terminalConfiguration/terminal-type/terminal-type.component";
+import {TerminalTypeComponent} from "./modules/module/terminalConfiguration/terminal-type/terminal-type.component";
 import {
   Iso8583DialectComponent
 } from "./modules/module/external-interfaces/iso8583configuration/iso8583-dialect/iso8583-dialect.component";
@@ -34,6 +32,7 @@ import {
 import {
   Iso8583ResponseMappingComponent
 } from "./modules/module/external-interfaces/iso8583configuration/iso8583-response-mapping/iso8583-response-mapping.component";
+import {Iso8583FormatComponent} from "./modules/module/message-format/iso8583-format/iso8583-format.component";
 
 const routes: Routes = [
   {
@@ -79,6 +78,15 @@ const routes: Routes = [
           {
             path: 'alert',
             component: AlertComponent
+          }
+        ]
+      },
+      {
+        path: 'message-format',
+        children: [
+          {
+            path: 'iso8583-format',
+            component: Iso8583FormatComponent
           }
         ]
       },

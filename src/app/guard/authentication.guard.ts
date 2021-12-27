@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {AuthenticationService} from "../globalServices/authentication.service";
-import {NotificationService} from "../globalServices/notification.service";
+import {AuthenticationService} from "../services/authentication-service/authentication.service";
+import {NotificationService} from "../services/notification-service/notification.service";
 import {NotificationTypeEnum} from "../enum/notification-type.enum";
 
 @Injectable({providedIn: 'root'})

@@ -5,9 +5,9 @@ import {FooterComponent} from "./footer/footer.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatDividerModule} from "@angular/material/divider";
 import {RouterModule} from "@angular/router";
-import {HeaderComponent} from "./header/header/header.component";
-import {HeaderService} from "./services/header-service/header.service";
-import {SidebarService} from "./services/sidebar-service/sidebar.service";
+import {HeaderComponent} from "./header/header.component";
+import {HeaderService} from "../services/shared-service/header.service";
+import {SidebarService} from "../services/shared-service/sidebar.service";
 
 
 @NgModule({

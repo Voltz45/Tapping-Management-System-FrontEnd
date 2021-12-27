@@ -1,5 +1,5 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {DashboardService} from "../../../services/dashboard-service/dashboard.service";
+import {DashboardService} from "../../../../services/module-service/dashboard.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";

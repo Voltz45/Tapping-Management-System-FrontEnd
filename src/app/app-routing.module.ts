@@ -13,16 +13,16 @@ import {NDCComponent} from "./modules/module/external-interfaces/ndc/ndc.compone
 import {
   XmlConfigurationComponent
 } from "./modules/module/external-interfaces/xml-configuration/xml-configuration.component";
-import {TerminalComponent} from "./modules/module/terminalConfiguration/terminal/terminal.component";
+import {ChannelComponent} from "./modules/module/channelConfiguration/channel/channel.component";
 import {TransactionComponent} from "./modules/module/transaction/transaction.component";
 import {PrivateSchemeComponent} from "./modules/module/userManagement/private-scheme/private-scheme.component";
 import {RolesComponent} from "./modules/module/userManagement/roles/roles.component";
 import {UserComponent} from "./modules/module/userManagement/user/user.component";
 import {ARPComponent} from "./modules/module/system/applicationParameters/arp/arp.component";
 import {SystemParametersComponent} from "./modules/module/system/system-parameters/system-parameters.component";
-import {LoginComponent} from "./layout/login/login.component";
+import {LoginComponent} from "./modules/module/login/login.component";
 import {AuthenticationGuard} from "./guard/authentication.guard";
-import {TerminalTypeComponent} from "./modules/module/terminalConfiguration/terminal-type/terminal-type.component";
+import {ChannelTypeComponent} from "./modules/module/channelConfiguration/channel-type/channel-type.component";
 import {
   Iso8583DialectComponent
 } from "./modules/module/external-interfaces/iso8583configuration/iso8583-dialect/iso8583-dialect.component";
@@ -59,7 +59,7 @@ const routes: Routes = [
         path: 'acquirer',
         children: [
           {
-            path: 'terminal-list',
+            path: 'channel-list',
             component: TerminalListComponent
           },
           {
@@ -72,7 +72,7 @@ const routes: Routes = [
         path: 'issuer',
         children: [
           {
-            path: 'terminal-list',
+            path: 'channel-list',
             component: TerminalListComponent
           },
           {
@@ -129,15 +129,15 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'terminal-configuration',
+        path: 'channel-configuration',
         children: [
           {
-            path: 'terminal',
-            component: TerminalComponent
+            path: 'channel',
+            component: ChannelComponent
           },
           {
-            path: 'terminal-type',
-            component: TerminalTypeComponent
+            path: 'channel-type',
+            component: ChannelTypeComponent
           }
         ]
       },

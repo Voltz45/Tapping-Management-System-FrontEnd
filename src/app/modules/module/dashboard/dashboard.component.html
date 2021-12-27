@@ -2,7 +2,7 @@
 
   <div class="dashboard-header-content">
     <mat-card class="card-header-content mat-elevation-z1">
-      <span class="card-header-text">Hi {{dataUser.username}}, Good Morning! 👋</span>
+      <span class="card-header-text">Hi {{dataUser.username}}, {{greet}}! 👋</span>
       <button mat-raised-button color="primary" class="card-header-export-button" (click)="exportButtonListener()">
         Export
       </button>
@@ -31,7 +31,7 @@
   <div class="content-2">
     <mat-card class="card-content-2 mat-elevation-z1">
       <div class="transaction-rate-chart">
-        <h3 style="font-weight: 600; margin-bottom: 15px; font-size: 20px">Transaction Rate</h3>
+        <h3 style="font-weight: 600; margin-bottom: 15px; font-size: 20px; margin-top: 0">Transaction Rate</h3>
         <transactionRate-widget-chart></transactionRate-widget-chart>
       </div>
     </mat-card>

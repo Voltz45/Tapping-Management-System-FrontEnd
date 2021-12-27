@@ -4,10 +4,10 @@ import {MatSelectChange} from "@angular/material/select";
 import {Papa} from 'ngx-papaparse';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import {maskHPAN, TransactionTableService} from "../../services/transaction-service/transaction-table.service";
-import {TransactionApiService} from "../../services/transaction-service/transaction-api.service";
+import {maskHPAN, TransactionTableService} from "../../../services/module-service/transaction-table.service";
+import {TransactionApiService} from "../../../services/module-service/transaction-api.service";
 import {TransactionMessage} from "./interface/transaction-message";
-import {TransactionMessageModel} from "../../model/TransactionMessageModel";
+import {TransactionMessageModel} from "../../../globalModel/modules-model/transaction-message-model";
 import {additionalData} from "./widget-transaction/table/table.component";
 
 @Component({

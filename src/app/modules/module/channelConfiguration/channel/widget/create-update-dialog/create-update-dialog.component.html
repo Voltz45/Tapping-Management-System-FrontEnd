@@ -1,0 +1,85 @@
+<h2 mat-dialog-title style="display: flex; align-items: center;justify-content: space-between">
+  Create Channel
+  <span class="bx bx-x" mat-dialog-close="true" style="font-size: 2rem; cursor: pointer"></span>
+</h2>
+
+<mat-dialog-content>
+  <div [formGroup]="form" class="m-0">
+    <div class="field">
+      <label class="required-icon">Channel Id</label>
+      <div style="width: 100%">
+        <input class="channel-id" formControlName="channelId" pInputText type="text">
+        <p-message *ngIf="channelId.touched && !channelId.hasError('required')" severity="success"></p-message>
+        <p-message *ngIf="channelId.touched && channelId.hasError('required')" severity="error"></p-message>
+      </div>
+      <small *ngIf="channelId.touched && channelId.hasError('required')" class="p-error">Channel Id should be
+        fill.</small>
+    </div>
+
+    <div class="formgrid grid">
+      <div class="field col">
+        <label class="required-icon">IP Address</label>
+        <div style="width: 100%">
+          <input class="w-10 ipAddress-field" formControlName="ipAddress" pInputText type="text">
+          <p-message *ngIf="ipAddress.touched && !ipAddress.hasError('required')" severity="success"></p-message>
+          <p-message *ngIf="ipAddress.touched && ipAddress.hasError('required')" severity="error"></p-message>
+        </div>
+        <small *ngIf="ipAddress.touched && ipAddress.hasError('required')" class="p-error">IP Address should be
+          fill.</small>
+        <small *ngIf="ipAddress.touched && ipAddress.hasError('pattern')" class="p-error">IP Address format is
+          invalid.</small>
+      </div>
+      <div class="field col">
+        <label class="required-icon">Port</label>
+        <div style="width: 100%">
+          <input class="w-10 port-field" formControlName="port" maxlength="6" pInputText type="text">
+          <p-message *ngIf="port.touched && !port.hasError('required')" severity="success"></p-message>
+          <p-message *ngIf="port.touched && port.hasError('required')" severity="error"></p-message>
+        </div>
+        <small *ngIf="port.touched && port.hasError('required')" class="p-error">Port should be
+          fill.</small>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="required-icon">Channel Type</label>
+      <div style="width: 100%;">
+        <div class="layer3-input-group">
+          <div style="width: 85%">
+            <p-dropdown (onChange)="onChange($event)" [filter]="true" [options]="terminalTypeOptionList"
+                        [showClear]="showClear"
+                        appendTo="body" class="channel-type" filterBy="name"
+                        formControlName="channelType" optionLabel="name" placeholder="Select Message Template"
+                        scrollHeight="150px"
+                        styleClass="msgTemplate"></p-dropdown>
+            <p-message *ngIf="channelType.touched && !channelType.hasError('required')"
+                       severity="success"></p-message>
+            <p-message *ngIf="channelType.touched && channelType.hasError('required')"
+                       severity="error"></p-message>
+          </div>
+
+          <section>
+            <mat-checkbox class="example-margin" formControlName="isOnPremise" style="font-weight: 600">
+              Onpremise
+            </mat-checkbox>
+          </section>
+        </div>
+      </div>
+      <small *ngIf="channelType.touched && channelType.hasError('required')" class="p-error">Channel Type
+        should be
+        fill.</small>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <p-button class="cancel-button" label="Cancel" mat-dialog-close="true"
+            styleClass="p-button-sm"></p-button>
+  <p-button (onClick)="createButton()" *ngIf="buttonStatus == 'create'" [disabled]="disableButton()"
+            class="create-button" label="Create"
+            styleClass="p-button-sm"></p-button>
+  <p-button (onClick)="updateButton()" *ngIf="buttonStatus == 'edit'" [disabled]="disableStatus"
+            class="create-button"
+            label="Save"
+            styleClass="p-button-sm"></p-button>
+</mat-dialog-actions>

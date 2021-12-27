@@ -1,0 +1,18 @@
+<div class="terminal-type-container">
+  <div class="header-group">
+    <span class="search-group p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input (input)="onFilterTextBoxChanged()" class="search-input" id="search-filter" pInputText
+               placeholder="Search"
+               type="text">
+    </span>
+    <div class="header-button-group">
+      <p-button (click)="refreshTable()" class="refresh-button" icon="pi pi-refresh"
+                styleClass="p-button-sm"></p-button>
+      <p-button (click)="showDialog()" icon="pi pi-plus" label="Create" styleClass="p-button-sm"></p-button>
+    </div>
+  </div>
+  <div class="content">
+    <channel-type-table></channel-type-table>
+  </div>
+</div>

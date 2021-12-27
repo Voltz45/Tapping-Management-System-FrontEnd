@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {DashboardService} from "../../services/dashboard-service/dashboard.service";
+import {DashboardService} from "../../../services/module-service/dashboard.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {AuthenticationService} from "../../../globalServices/authentication.service";
+import {AuthenticationService} from "../../../services/authentication-service/authentication.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +10,9 @@ import {AuthenticationService} from "../../../globalServices/authentication.serv
 })
 export class DashboardComponent implements OnInit {
   dataUser: any;
+  currentDate = new Date();
+  hours = this.currentDate.getHours();
+  greet: string = '';
 
   constructor(
     private dashboardService: DashboardService,
@@ -20,10 +23,20 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataUser = this.authenticationService.getUserFromLocalCache();
+    this.giveGreetingByCurrentTime();
   }
 
   exportButtonListener() {
     this._snackBar.open('Export Button Work Perfectly Sir!', 'Close');
   }
 
+  giveGreetingByCurrentTime(){
+    if (this.hours < 12){
+      this.greet = 'Good Morning';
+    } else if (this.hours >= 12 && this.hours <= 17) {
+      this.greet = 'Good Afternoon';
+    } else if (this.hours >= 17 && this.hours <= 24) {
+      this.greet = 'Good Evening';
+    }
+  }
 }

@@ -8,7 +8,7 @@ import {Iso20022Component} from './module/external-interfaces/iso20022/iso20022.
 import {JsonConfigurationComponent} from './module/external-interfaces/json-configuration/json-configuration.component';
 import {NDCComponent} from './module/external-interfaces/ndc/ndc.component';
 import {XmlConfigurationComponent} from './module/external-interfaces/xml-configuration/xml-configuration.component';
-import {TerminalComponent} from './module/terminalConfiguration/terminal/terminal.component';
+import {ChannelComponent} from './module/channelConfiguration/channel/channel.component';
 import {TransactionComponent} from './module/transaction/transaction.component';
 import {PrivateSchemeComponent} from './module/userManagement/private-scheme/private-scheme.component';
 import {RolesComponent} from './module/userManagement/roles/roles.component';
@@ -16,8 +16,8 @@ import {UserComponent} from './module/userManagement/user/user.component';
 import {ARPComponent} from './module/system/applicationParameters/arp/arp.component';
 import {MatCardModule} from "@angular/material/card";
 import {NgxEchartsModule} from "ngx-echarts";
-import {WebsocketService} from "./services/websocket-service/websocket.service";
-import {TransactionRateChartService} from "./services/chart-services/transaction-rate-chart.service";
+import {WebsocketService} from "../services/module-service/websocket.service";
+import {TransactionRateChartService} from "../services/module-service/transaction-rate-chart.service";
 import {
   TransactionrateWidgetChartComponent
 } from './module/dashboard/transactionrate-widget-chart/transactionrate-widget-chart.component';
@@ -38,11 +38,11 @@ import {MatIconModule} from "@angular/material/icon";
 import {DatePickerComponent} from './module/transaction/widget-transaction/date-picker/date-picker.component';
 import {MatSelectModule} from "@angular/material/select";
 import {AgGridModule} from 'ag-grid-angular';
-import {TransactionApiService} from "./services/transaction-service/transaction-api.service";
-import {TransactionTableService} from "./services/transaction-service/transaction-table.service";
+import {TransactionApiService} from "../services/module-service/transaction-api.service";
+import {TransactionTableService} from "../services/module-service/transaction-table.service";
 import {TableComponent} from './module/transaction/widget-transaction/table/table.component';
-import {DashboardService} from "./services/dashboard-service/dashboard.service";
-import {HttpClientModule} from "@angular/common/http";
+import {DashboardService} from "../services/module-service/dashboard.service";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {InterfacesListComponent} from './module/dashboard/interfaces-list/interfaces-list.component';
 import {MatTableModule} from "@angular/material/table";
@@ -51,23 +51,23 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {SystemParametersComponent} from './module/system/system-parameters/system-parameters.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {TerminalService} from "./services/terminal-configuration-service/terminal-service/terminal.service";
+import {ChannelService} from "../services/module-service/channel.service";
 import {
   CreateUpdateDialogComponent
-} from './module/terminalConfiguration/terminal/widget/create-update-dialog/create-update-dialog.component';
+} from './module/channelConfiguration/channel/widget/create-update-dialog/create-update-dialog.component';
 import {HpanDialogComponent} from './module/transaction/widget-transaction/hpan-dialog/hpan-dialog.component';
 import {
   ActionButtonGroupTerminalComponent
-} from './module/terminalConfiguration/terminal/widget/action-button-group-terminal/action-button-group-terminal.component';
+} from './module/channelConfiguration/channel/widget/action-button-group-terminal/action-button-group-terminal.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {
-  TerminalTableComponent
-} from './module/terminalConfiguration/terminal/widget/terminal-table/terminal-table.component';
-import {TerminalTableService} from "./services/terminal-configuration-service/terminal-service/terminal-table.service";
-import {TerminalTypeComponent} from './module/terminalConfiguration/terminal-type/terminal-type.component';
-import {ChannelTypeService} from "./services/terminal-configuration-service/terminal-type-service/channel-type.service";
+  ChannelTableComponent
+} from './module/channelConfiguration/channel/widget/channel-table/channel-table.component';
+import {ChannelTableService} from "../services/module-service/channel-table.service";
+import {ChannelTypeComponent} from './module/channelConfiguration/channel-type/channel-type.component';
+import {ChannelTypeService} from "../services/module-service/channel-type.service";
 import {ButtonModule} from "primeng/button";
 import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
@@ -91,22 +91,18 @@ import {DialogModule} from "primeng/dialog";
 import {TagModule} from "primeng/tag";
 import {TagComponent} from './module/global-widget/tag/tag.component';
 import {DropdownModule} from "primeng/dropdown";
-import {
-  Iso8583DialectService
-} from "./services/external-interfaces/iso8583Configuration/iso8583-dialect/iso8583-dialect.service";
+import {Iso8583DialectService} from "../services/module-service/iso8583-dialect.service";
 import {
   CreateUpdateDialogTerminalTypeComponent
-} from "./module/terminalConfiguration/terminal-type/widget/create-update-dialog/create-update-terminalType-dialog.component";
+} from "./module/channelConfiguration/channel-type/widget/create-update-dialog/create-update-terminalType-dialog.component";
 import {
-  TerminalTypeTableComponent
-} from './module/terminalConfiguration/terminal-type/widget/terminal-type-table/terminal-type-table.component';
-import {
-  TerminalTypeTableService
-} from "./services/terminal-configuration-service/terminal-type-service/terminal-type-table.service";
+  ChannelTypeTableComponent
+} from './module/channelConfiguration/channel-type/widget/channel-type-table/channel-type-table.component';
+import {ChannelTypeTableService} from "../services/module-service/channel-type-table.service";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {
   ActionButtonGroupTerminalTypeComponent
-} from './module/terminalConfiguration/terminal-type/widget/action-button-group-terminal-type/action-button-group-terminal-type.component';
+} from './module/channelConfiguration/channel-type/widget/action-button-group-terminal-type/action-button-group-terminal-type.component';
 import {
   Iso8583DialectTableComponent
 } from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/iso8583-dialect-table/iso8583-dialect-table.component';
@@ -126,6 +122,11 @@ import {
 import {
   CreateUpdateDialogIso8583FormatComponent
 } from './module/message-format/iso8583-format/widget/create-update-dialog-iso8583-format/create-update-dialog-iso8583-format.component';
+import {AuthenticationService} from "../services/authentication-service/authentication.service";
+import {UserService} from "../services/user-service/user.service";
+import {AuthenticationGuard} from "../guard/authentication.guard";
+import {AuthInterceptor} from "../interceptor/auth.interceptor";
+import {LoginComponent} from "./module/login/login.component";
 
 
 @NgModule({
@@ -138,7 +139,7 @@ import {
     JsonConfigurationComponent,
     NDCComponent,
     XmlConfigurationComponent,
-    TerminalComponent,
+    ChannelComponent,
     TransactionComponent,
     PrivateSchemeComponent,
     RolesComponent,
@@ -153,15 +154,15 @@ import {
     CreateUpdateDialogComponent,
     HpanDialogComponent,
     ActionButtonGroupTerminalComponent,
-    TerminalTableComponent,
-    TerminalTypeComponent,
+    ChannelTableComponent,
+    ChannelTypeComponent,
     Iso8583DialectComponent,
     Iso8583FieldConfigurationComponent,
     Iso8583ResponseMappingComponent,
     OverlayLoadingComponent,
     TagComponent,
     CreateUpdateDialogTerminalTypeComponent,
-    TerminalTypeTableComponent,
+    ChannelTypeTableComponent,
     ActionButtonGroupTerminalTypeComponent,
     Iso8583DialectTableComponent,
     CreateUpdateIso8583DialectDialogComponent,
@@ -170,6 +171,7 @@ import {
     Iso8583FormatTableComponent,
     ActionButtonGroupIso8583FormatComponent,
     CreateUpdateDialogIso8583FormatComponent,
+    LoginComponent
   ],
   imports: [
     NgxEchartsModule.forRoot({
@@ -221,11 +223,13 @@ import {
     TransactionApiService,
     TransactionTableService,
     DashboardService,
-    TerminalService,
-    TerminalTableService,
+    ChannelService,
+    ChannelTableService,
     ChannelTypeService,
     Iso8583DialectService,
-    TerminalTypeTableService
+    ChannelTypeTableService,
+    AuthenticationService, UserService, AuthenticationGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ]
 })
 export class FeatureModule {

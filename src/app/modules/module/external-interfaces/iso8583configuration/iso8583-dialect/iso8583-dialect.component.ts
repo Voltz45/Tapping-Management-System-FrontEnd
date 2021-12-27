@@ -3,12 +3,8 @@ import {
   CreateUpdateIso8583DialectDialogComponent
 } from "./widget/create-update-iso8583-dialect-dialog/create-update-iso8583-dialect-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {
-  Iso8583DialectService
-} from "../../../../services/external-interfaces/iso8583Configuration/iso8583-dialect/iso8583-dialect.service";
-import {
-  Iso8583DialectTableService
-} from "../../../../services/external-interfaces/iso8583Configuration/iso8583-dialect/iso8583-dialect-table.service";
+import {Iso8583DialectService} from "../../../../../services/module-service/iso8583-dialect.service";
+import {Iso8583DialectTableService} from "../../../../../services/module-service/iso8583-dialect-table.service";
 
 @Component({
   selector: 'app-iso8583-dialect',

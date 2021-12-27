@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {SidebarService} from "../services/sidebar-service/sidebar.service";
+import {SidebarService} from "../../services/shared-service/sidebar.service";
 import {firstSubmenuItem, secondSubmenuItem, sidebarMenuItem} from "../../interface/shared/sidebar.interface";
 
 @Component({
@@ -35,7 +35,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       const chevronIconMsgFormat = childrenChevron?.namedItem('chevron-icon-msgFormat') as HTMLElement;
       const chevronIconExternalInt = childrenChevron?.namedItem('chevron-icon-external-int') as HTMLElement;
       const chevronIconIso8583Config = subChildrenChevron?.querySelector('#chevron-icon-iso8583-config') as HTMLElement;
-      const chevronIconTerminalConfig = childrenChevron?.namedItem('chevron-icon-terminal-config') as HTMLElement;
+      const chevronIconTerminalConfig = childrenChevron?.namedItem('chevron-icon-channel-config') as HTMLElement;
       const chevronIconUser = childrenChevron?.namedItem('chevron-icon-user') as HTMLElement;
       const chevronIconSystem = childrenChevron?.namedItem('chevron-icon-system') as HTMLElement;
 
@@ -95,8 +95,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
           issuer.style.left = right + 'px';
         }
 
-        if (this.children.namedItem('terminal-config-container') != null) {
-          const acquirer = this.children.namedItem('terminal-config-container') as HTMLElement;
+        if (this.children.namedItem('channel-config-container') != null) {
+          const acquirer = this.children.namedItem('channel-config-container') as HTMLElement;
           acquirer.style.top = top + 'px';
           acquirer.style.left = right + 'px';
         }

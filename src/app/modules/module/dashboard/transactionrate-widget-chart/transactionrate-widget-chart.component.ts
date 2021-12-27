@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TransactionRateChartService} from "../../../services/chart-services/transaction-rate-chart.service";
-import {WebsocketService} from "../../../services/websocket-service/websocket.service";
+import {TransactionRateChartService} from "../../../../services/module-service/transaction-rate-chart.service";
+import {WebsocketService} from "../../../../services/module-service/websocket.service";
 
 @Component({
   selector: 'transactionRate-widget-chart',

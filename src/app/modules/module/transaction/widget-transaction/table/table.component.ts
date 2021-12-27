@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {RowClickedEvent} from "ag-grid-community";
-import {maskHPAN, TransactionTableService} from "../../../../services/transaction-service/transaction-table.service";
-import {TransactionMessageModel} from "../../../../model/TransactionMessageModel";
+import {maskHPAN, TransactionTableService} from "../../../../../services/module-service/transaction-table.service";
+import {TransactionMessageModel} from "../../../../../globalModel/modules-model/transaction-message-model";
 import {TransactionMessage} from "../../interface/transaction-message";
-import {TransactionApiService} from "../../../../services/transaction-service/transaction-api.service";
+import {TransactionApiService} from "../../../../../services/module-service/transaction-api.service";
 import {HpanDialogComponent} from "../hpan-dialog/hpan-dialog.component";
-import {NotificationService} from "../../../../../globalServices/notification.service";
+import {NotificationService} from "../../../../../services/notification-service/notification.service";
 import {NotificationTypeEnum} from "../../../../../enum/notification-type.enum";
 
 @Component({

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {TransactionMessageModel} from "../../globalModel/modules-model/transaction-message-model";
+import {TransactionMessageModel} from "../../model/modules-model/transaction-message-model";
 import {environment} from "../../../environments/environment";
 import {map} from "rxjs/operators";
 

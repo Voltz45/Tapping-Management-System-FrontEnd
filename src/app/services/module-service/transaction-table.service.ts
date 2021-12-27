@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ColDef, ColumnApi, GridApi} from "ag-grid-community";
-import {ColumnList} from "../../modules/module/transaction/interface/column-list";
-import {TransactionMessage} from "../../modules/module/transaction/interface/transaction-message";
+import {ColumnListTransactionInterface} from "../../interface/modules/column-list-transaction.interface";
+import {TransactionMessageInterface} from "../../interface/modules/transaction-message.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class TransactionTableService {
   constructor() {
   }
 
-  additionalData: TransactionMessage | undefined;
+  additionalData: TransactionMessageInterface | undefined;
   gridApi!: GridApi;
   gridColumnApi!: ColumnApi;
   headerColHeight: number = 30;
@@ -63,7 +63,7 @@ export class TransactionTableService {
     {field: 'srcAccount', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'transaction-header-color'},
     {field: 'destAccount', sortable: true, minWidth: 150, maxWidth: 200, headerClass: 'transaction-header-color'},
   ];
-  columnLists: ColumnList[] = [
+  columnLists: ColumnListTransactionInterface[] = [
     {value: 'transactionDate', viewValue: 'Transaction Date'},
     {value: 'networkDate', viewValue: 'Network Date'},
     {value: 'MTI', viewValue: 'MTI'},

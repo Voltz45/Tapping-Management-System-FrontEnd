@@ -1,4 +1,4 @@
-export interface TransactionMessage {
+export interface TransactionMessageInterface {
   amount: string;
   currencyCode: string;
   destAccount: string;

@@ -3,7 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
-import {UserModel} from "../../globalModel/user-model/user.model";
+import {UserModel} from "../../model/user-model/user.model";
 
 @Injectable({
   providedIn: 'root'

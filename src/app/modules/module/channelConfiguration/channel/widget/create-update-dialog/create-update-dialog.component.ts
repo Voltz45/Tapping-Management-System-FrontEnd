@@ -3,7 +3,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NotificationService} from "../../../../../../services/notification-service/notification.service";
 import {ChannelService} from "../../../../../../services/module-service/channel.service";
-import {ChannelModel} from "../../../../../../globalModel/modules-model/channel.model";
+import {ChannelModel} from "../../../../../../model/modules-model/channel.model";
 import {ChannelTableService} from "../../../../../../services/module-service/channel-table.service";
 import {TerminalTypeGroupInterface} from "../../../../../../interface/modules/terminal-type-group.interface";
 

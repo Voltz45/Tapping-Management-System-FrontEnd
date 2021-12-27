@@ -6,8 +6,8 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import {maskHPAN, TransactionTableService} from "../../../services/module-service/transaction-table.service";
 import {TransactionApiService} from "../../../services/module-service/transaction-api.service";
-import {TransactionMessage} from "./interface/transaction-message";
-import {TransactionMessageModel} from "../../../globalModel/modules-model/transaction-message-model";
+import {TransactionMessageInterface} from "../../../interface/modules/transaction-message.interface";
+import {TransactionMessageModel} from "../../../model/modules-model/transaction-message-model";
 import {additionalData} from "./widget-transaction/table/table.component";
 
 @Component({
@@ -20,8 +20,8 @@ export class TransactionComponent implements OnInit, AfterViewInit {
   searchFilterForm!: FormGroup;
   columnOption!: FormGroup;
   columnOptionValue: string[] = [];
-  rowData: TransactionMessage[] = [];
-  additionalData: TransactionMessage = additionalData;
+  rowData: TransactionMessageInterface[] = [];
+  additionalData: TransactionMessageInterface = additionalData;
 
   constructor(private dataFb: FormBuilder,
               private papa: Papa,
@@ -69,7 +69,7 @@ export class TransactionComponent implements OnInit, AfterViewInit {
 
   //Api
   responseHandler(response: TransactionMessageModel[]) {
-    let responseData: TransactionMessage[] = [];
+    let responseData: TransactionMessageInterface[] = [];
     if (response.length == 0) {
       this.transactionTableService.gridApi.showNoRowsOverlay();
     }

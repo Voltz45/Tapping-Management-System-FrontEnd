@@ -6,9 +6,9 @@
 /*  !*min-height: unset !important;*!*/
 /*}*/
 
-:host ::ng-deep .terminal-header-color {
+:host ::ng-deep .channel-header-color {
   background-color: #173B5E;
-  transition: all 0.5s ease-in-out 0.5s;
+  /*transition: all 0.5s ease-in-out 0.5s;*/
 }
 
 :host ::ng-deep .ag-header-cell-label {
@@ -37,7 +37,7 @@
 }
 
 :host ::ng-deep .ag-header-cell-resize:after {
-  background-color: white;
+  /*background-color: white;*/
 }
 
 :host ::ng-deep .ag-center-cols-viewport::-webkit-scrollbar {

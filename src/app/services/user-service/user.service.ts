@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {HttpClient, HttpErrorResponse, HttpEvent} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {UserModel} from "../../globalModel/user-model/user.model";
-import {CustomHttpResponseModel} from "../../globalModel/customHttpResponse-model/custom-http-response.model";
+import {UserModel} from "../../model/user-model/user.model";
+import {CustomHttpResponseModel} from "../../model/customHttpResponse-model/custom-http-response.model";
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ChannelTypeService} from "../../../../../../services/module-service/channel-type.service";
-import {ChannelTypeModel} from "../../../../../../globalModel/modules-model/channel-type.model";
+import {ChannelTypeModel} from "../../../../../../model/modules-model/channel-type.model";
 import {
   DialectMsgTemplateGroupInterface
 } from "../../../../../../interface/modules/dialect-msg-template-group.interface";

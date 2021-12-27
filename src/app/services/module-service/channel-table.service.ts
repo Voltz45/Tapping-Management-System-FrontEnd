@@ -18,7 +18,7 @@ export class ChannelTableService {
     flex: 1,
     minWidth: 110,
     editable: false,
-    lockPosition: true
+    lockPosition: true,
   };
   columnDefs: ColDef[] = [
     {field: 'id', hide: true, headerClass: 'channel-header-color'},

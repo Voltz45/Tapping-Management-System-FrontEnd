@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {map} from "rxjs/operators";
-import {ChannelTypeModel} from "../../globalModel/modules-model/channel-type.model";
-import {Iso8583DialectMsgTemplateModel} from "../../globalModel/modules-model/iso8583-dialect-msg-template.model";
+import {ChannelTypeModel} from "../../model/modules-model/channel-type.model";
+import {Iso8583DialectMsgTemplateModel} from "../../model/modules-model/iso8583-dialect-msg-template.model";
 import {ChannelTypeTableService} from "./channel-type-table.service";
 import {NotificationService} from "../notification-service/notification.service";
 import {Iso8583DialectService} from "./iso8583-dialect.service";
 import {DialectMsgTemplateGroupInterface} from "../../interface/modules/dialect-msg-template-group.interface";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {CustomHttpResponseModel} from "../../globalModel/customHttpResponse-model/custom-http-response.model";
+import {CustomHttpResponseModel} from "../../model/customHttpResponse-model/custom-http-response.model";
 import {RowClickedEvent} from "ag-grid-community";
 
 @Injectable({

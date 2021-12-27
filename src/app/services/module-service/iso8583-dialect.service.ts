@@ -2,15 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {map} from "rxjs/operators";
-import {Iso8583DialectMsgTemplateModel} from "../../globalModel/modules-model/iso8583-dialect-msg-template.model";
-import {CustomHttpResponseModel} from "../../globalModel/customHttpResponse-model/custom-http-response.model";
+import {Iso8583DialectMsgTemplateModel} from "../../model/modules-model/iso8583-dialect-msg-template.model";
+import {CustomHttpResponseModel} from "../../model/customHttpResponse-model/custom-http-response.model";
 import {Iso8583DialectTableService} from "./iso8583-dialect-table.service";
 import {NotificationService} from "../notification-service/notification.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {RowClickedEvent} from "ag-grid-community";
 import {MessageFormatGroupInterface} from "../../interface/modules/message-format-group.interface";
 import {Iso8583FormatService} from "./iso8583-format.service";
-import {Iso8583FormatModel} from "../../globalModel/modules-model/iso8583-format.model";
+import {Iso8583FormatModel} from "../../model/modules-model/iso8583-format.model";
 
 @Injectable({
   providedIn: 'root'

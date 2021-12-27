@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {RowClickedEvent} from "ag-grid-community";
 import {maskHPAN, TransactionTableService} from "../../../../../services/module-service/transaction-table.service";
-import {TransactionMessageModel} from "../../../../../globalModel/modules-model/transaction-message-model";
-import {TransactionMessage} from "../../interface/transaction-message";
+import {TransactionMessageModel} from "../../../../../model/modules-model/transaction-message-model";
+import {TransactionMessageInterface} from "../../../../../interface/modules/transaction-message.interface";
 import {TransactionApiService} from "../../../../../services/module-service/transaction-api.service";
 import {HpanDialogComponent} from "../hpan-dialog/hpan-dialog.component";
 import {NotificationService} from "../../../../../services/notification-service/notification.service";
@@ -19,7 +19,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() defaultColDef: any;
   @Input() columnDefs: any;
   @Input() autoHeight: string = '';
-  rowData: TransactionMessage[] = [];
+  rowData: TransactionMessageInterface[] = [];
   frameworkComponents: any;
   sortModel = [
     {
@@ -65,7 +65,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   //Api
   responseHandler(response: TransactionMessageModel[]) {
     const transactionTable = document.querySelector('.ag-theme-alpine') as HTMLElement;
-    let responseData: TransactionMessage[] = [];
+    let responseData: TransactionMessageInterface[] = [];
     if (response.length == 0) {
       this.transactionTableService.gridApi.showNoRowsOverlay();
     }
@@ -112,4 +112,4 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 }
 
-export let additionalData: TransactionMessage;
+export let additionalData: TransactionMessageInterface;

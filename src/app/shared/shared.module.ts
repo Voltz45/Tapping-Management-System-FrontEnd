@@ -7,6 +7,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import {RouterModule} from "@angular/router";
 import {HeaderComponent} from "./header/header/header.component";
 import {HeaderService} from "./services/header-service/header.service";
+import {SidebarService} from "./services/sidebar-service/sidebar.service";
 
 
 @NgModule({
@@ -26,7 +27,10 @@ import {HeaderService} from "./services/header-service/header.service";
     BrowserAnimationsModule,
     MatDividerModule,
   ],
-  providers: [HeaderService]
+  providers: [
+    HeaderService,
+    SidebarService
+  ]
 })
 export class SharedModule {
 }

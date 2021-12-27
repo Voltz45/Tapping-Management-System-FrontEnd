@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Subscription} from "rxjs";
-import {User} from "../model/user";
+import {User} from "./model/user";
 import {AuthenticationService} from "../../globalServices/authentication.service";
 import {HeaderTypeEnum} from "../../enum/header-type.enum";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";

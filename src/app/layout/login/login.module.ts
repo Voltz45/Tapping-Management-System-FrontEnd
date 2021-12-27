@@ -4,10 +4,9 @@ import {LoginComponent} from "./login.component";
 import {AuthenticationService} from "../../globalServices/authentication.service";
 import {AuthenticationGuard} from "../../guard/authentication.guard";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import {UserService} from "../service/user.service";
+import {UserService} from "./service/user.service";
 import {AuthInterceptor} from "../../interceptor/auth.interceptor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NotificationService} from "../../globalServices/notification.service";
 
 @NgModule({
   declarations: [

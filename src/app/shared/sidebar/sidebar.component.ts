@@ -1,4 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {SidebarService} from "../services/sidebar-service/sidebar.service";
+import {firstSubmenuItem, secondSubmenuItem, sidebarMenuItem} from "../../interface/shared/sidebar.interface";
 
 @Component({
   selector: 'tms-sidebar',
@@ -6,8 +8,10 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
+  private sidebarMenuList: sidebarMenuItem[] = [];
 
-  constructor() {
+  constructor(private sidebarService: SidebarService) {
+    this.$sidebarMenuList = sidebarService.sidebarMenu;
   }
 
   ngOnInit(): void {
@@ -174,5 +178,174 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         headerLogo?.classList.remove('show-logo');
       }
     }
+  }
+
+  set $sidebarMenuList(data: sidebarMenuItem[]) {
+    this.sidebarMenuList = data;
+  }
+
+  get $sidebarMenuList() {
+    return this.sidebarMenuList;
+  }
+
+  checkingSidebarIcon(data: sidebarMenuItem) {
+    return this.sidebarItemChevronClass(data) != null && this.sidebarItemChevronId(data) != null;
+  }
+
+  checkingHeaderClass(data: sidebarMenuItem) {
+    return this.firstSubmenuHeaderClass(data) != null;
+  }
+
+  checkingIconClass(data: firstSubmenuItem) {
+    return this.firstSubmenuItemIconClass(data) != null;
+  }
+
+  checkingFirstSubChevron(data: firstSubmenuItem) {
+    return this.firstSubmenuItemChevronClass(data) != null && this.firstSubmenuItemChevronId(data) != null
+  }
+
+  sidebarMenuItemClass(data: sidebarMenuItem) {
+    return data.className;
+  }
+
+  sidebarMenuItemRouterLink(data: sidebarMenuItem) {
+    return data.routerLink;
+  }
+
+  sidebarItemContainerClass(data: sidebarMenuItem) {
+    return data.itemContainer.className;
+  }
+
+  sidebarItemIconClass(data: sidebarMenuItem) {
+    return data.itemContainer.itemIconClass;
+  }
+
+  sidebarItemTextClass(data: sidebarMenuItem) {
+    return data.itemContainer.itemTextClass;
+  }
+
+  sidebarItemText(data: sidebarMenuItem) {
+    return data.itemContainer.itemText
+  }
+
+  sidebarItemChevronClass(data: sidebarMenuItem) {
+    if (data.itemContainer.chevronClass != null) {
+      return data.itemContainer.chevronClass;
+    }
+    return '';
+  }
+
+  sidebarItemChevronId(data: sidebarMenuItem) {
+    return data.itemContainer.chevronId;
+  }
+
+  firstSubmenuContainerClass(data: sidebarMenuItem) {
+    return data.firstSubmenuContainer.className;
+  }
+
+  firstSubmenuContainerId(data: sidebarMenuItem) {
+    return data.firstSubmenuContainer.firstSubmenuId;
+  }
+
+  firstSubmenuHeaderClass(data: sidebarMenuItem) {
+    if (data.firstSubmenuContainer.submenuHeader?.className != undefined) {
+      return data.firstSubmenuContainer.submenuHeader?.className;
+    }
+    return '';
+  }
+
+  firstSubmenuHeaderTextClass(data: sidebarMenuItem) {
+    if (data.firstSubmenuContainer.submenuHeader?.submenuHeaderTextClass != undefined) {
+      return data.firstSubmenuContainer.submenuHeader?.submenuHeaderTextClass;
+    }
+    return '';
+  }
+
+  firstSubmenuHeaderText(data: sidebarMenuItem) {
+    return data.firstSubmenuContainer.submenuHeader?.submenuHeaderText;
+  }
+
+  firstSubmenuListClass(data: sidebarMenuItem) {
+    return data.firstSubmenuContainer.submenuList.className;
+  }
+
+  firstSubmenuContainer(data: sidebarMenuItem) {
+    return data.firstSubmenuContainer.submenuList.subMenuItem;
+  }
+
+  firstSubmenuItemClass(data: firstSubmenuItem) {
+    return data.className;
+  }
+
+  firstSubmenuRouterLink(data: firstSubmenuItem) {
+    return data.routerLink;
+  }
+
+  firstSubmenuItemIconClass(data: firstSubmenuItem) {
+    if (data?.submenuItemIconClass != null){
+      return data?.submenuItemIconClass;
+    }
+    return '';
+  }
+
+  firstSubmenuItemTextClass(data: firstSubmenuItem) {
+    return data.submenuItemTextClass;
+  }
+
+  firstSubmenuItemText(data: firstSubmenuItem) {
+    return data.submenuItemText;
+  }
+
+  firstSubmenuItemChevronClass(data: firstSubmenuItem) {
+    if (data.submenuChevronClass != null){
+      return data.submenuChevronClass;
+    }
+    return '';
+  }
+
+  firstSubmenuItemChevronId(data: firstSubmenuItem) {
+    return data.submenuChevronId;
+  }
+
+  secondSubmenuContainerClass(data: firstSubmenuItem) {
+    if (data.secondSubmenuContainer?.className != undefined){
+      return data.secondSubmenuContainer?.className;
+    }
+    return '';
+  }
+
+  secondSubmenuContainerId(data: firstSubmenuItem) {
+    return data.secondSubmenuContainer?.secondSubmenuId;
+  }
+
+  secondSubmenuListClass(data: firstSubmenuItem) {
+    if (data.secondSubmenuContainer?.submenuList.className != undefined){
+      return data.secondSubmenuContainer?.submenuList.className;
+    }
+    return '';
+  }
+
+  secondSubmenuListItem(data: firstSubmenuItem) {
+    return data.secondSubmenuContainer?.submenuList.submenuItem;
+  }
+
+  secondSubmenuItemClass(data: secondSubmenuItem) {
+    return data.className;
+  }
+
+  secondSubmenuItemRouterLink(data: secondSubmenuItem) {
+    return data.routerLink;
+  }
+
+  secondSubmenuItemIconClass(data: secondSubmenuItem) {
+    return data.submenuItemIconClass;
+  }
+
+  secondSubmenuItemTextClass(data: secondSubmenuItem) {
+    return data.submenuItemTextClass;
+  }
+
+  secondSubmenuItemText(data: secondSubmenuItem) {
+    return data.submenuItemText;
   }
 }

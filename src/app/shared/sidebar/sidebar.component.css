@@ -127,6 +127,10 @@
   tw-cursor-pointer
 }
 
+.second-submenu-container {
+  border-bottom-left-radius: 5px
+}
+
 .first-submenu-list,
 .second-submenu-list {
   @apply

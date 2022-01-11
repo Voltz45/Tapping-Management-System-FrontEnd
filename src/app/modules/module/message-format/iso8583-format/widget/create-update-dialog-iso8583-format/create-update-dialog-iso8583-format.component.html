@@ -1,0 +1,41 @@
+<h2 mat-dialog-title style="display: flex; align-items: center;justify-content: space-between;font-weight: 600">
+  Create ISO8583 Message Format
+  <span class="bx bx-x" mat-dialog-close="true" style="font-size: 2rem; cursor: pointer"></span>
+</h2>
+
+<mat-dialog-content>
+  <div [formGroup]="form" class="m-0">
+    <div class="field">
+      <label class="required-icon">Message Format</label>
+      <div style="width: 100%">
+        <input class="messageFormat" formControlName="messageFormat" pInputText type="text">
+        <p-message *ngIf="messageFormat.touched && !messageFormat.hasError('required')" severity="success"></p-message>
+        <p-message *ngIf="messageFormat.touched && messageFormat.hasError('required')" severity="error"></p-message>
+      </div>
+      <small *ngIf="messageFormat.touched && messageFormat.hasError('required')" class="p-error">Message Format should be
+        fill.</small>
+    </div>
+
+    <div class="field">
+      <label>Description</label>
+      <div style="width: 100%">
+        <input class="description" formControlName="description" pInputText type="text">
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <p-button class="cancel-button"
+            label="Cancel"
+            mat-dialog-close="true"
+            styleClass="p-button-sm"></p-button>
+  <p-button (onClick)="onCreateIso8583Format()" *ngIf="iso8583FormatService.buttonStatus == 'create'"
+            [disabled]="form.invalid"
+            class="create-button" label="Create"
+            styleClass="p-button-sm"></p-button>
+  <p-button (onClick)="onUpdateIso8583Format()" *ngIf="iso8583FormatService.buttonStatus == 'edit'"
+            [disabled]="disableButton" class="create-button"
+            label="Save"
+            styleClass="p-button-sm"></p-button>
+</mat-dialog-actions>

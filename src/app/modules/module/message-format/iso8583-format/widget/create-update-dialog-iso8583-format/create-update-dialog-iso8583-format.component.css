@@ -1,0 +1,39 @@
+.field {
+  @apply tw-flex tw-flex-col tw-flex-nowrap tw-h-[90px]
+}
+
+.messageFormat {
+  @apply tw-p-[.5rem] tw-w-[92%]
+}
+
+.description {
+  @apply tw-p-[.5rem] tw-w-[92%]
+}
+
+.action-button-group {
+  @apply tw-absolute tw-bottom-[25px] tw-right-[25px]
+}
+
+.cancel-button {
+  @apply tw-mr-[10px]
+}
+
+.messageFormat.ng-valid.ng-touched {
+  border-color: #059669 !important;
+}
+
+.messageFormat.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+/*PrimeNg deep styles*/
+:host ::ng-deep .cancel-button .p-button,
+:host ::ng-deep .cancel-button .p-button:enabled:hover {
+  background-color: #EF4444;
+  border-color: #EF4444;
+}
+
+:host ::ng-deep .p-inline-message.p-inline-message-error,
+:host ::ng-deep .p-inline-message.p-inline-message-success {
+  background: none !important;
+}

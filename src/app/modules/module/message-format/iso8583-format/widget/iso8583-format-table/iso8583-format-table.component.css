@@ -1,0 +1,50 @@
+:host ::ng-deep .iso8583Format-header-color {
+  background-color: #173B5E;
+  transition: all 0.5s ease-in-out 0.5s;
+}
+
+:host ::ng-deep .ag-header-cell-label {
+  @apply tw-text-white
+}
+
+:host ::ng-deep .ag-theme-alpine .ag-header-icon {
+  @apply tw-text-white
+}
+
+:host ::ng-deep .ag-theme-alpine .ag-paging-panel {
+  @apply tw-bg-gray-200
+}
+
+:host ::ng-deep .ag-header-cell-resize {
+  width: 10px;
+}
+
+:host ::ng-deep .ag-header-cell-resize:after {
+  background-color: white;
+}
+
+:host ::ng-deep .ag-center-cols-viewport::-webkit-scrollbar {
+  background-color: transparent;
+  height: 0;
+}
+
+:host ::ng-deep .ag-body-horizontal-scroll,
+:host ::ng-deep .ag-body-horizontal-scroll-viewport,
+:host ::ng-deep .ag-body-horizontal-scroll-container {
+  height: 15px !important;
+  min-height: 15px !important;
+  max-height: 15px !important;
+}
+
+:host ::ng-deep .ag-theme-alpine .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+  border: 0 solid #dde2eb;
+}
+
+:host ::ng-deep .ag-theme-alpine .ag-cell {
+  line-height: normal;
+  transition: all 0.5s ease-in-out 0.5s;
+}
+
+:host ::ng-deep .ag-center-cols-container {
+  transition: all 0.5s ease-in-out 0.5s;
+}

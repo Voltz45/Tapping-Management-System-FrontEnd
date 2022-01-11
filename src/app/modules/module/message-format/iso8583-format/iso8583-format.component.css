@@ -1,0 +1,36 @@
+.iso8583-format-container {
+  @apply tw-h-full tw-p-[20px]
+}
+
+.header-group {
+  @apply tw-flex tw-flex-row tw-flex-nowrap tw-justify-between tw-items-center
+  tw-mb-[1rem]
+}
+
+.search-group {
+  @apply tw-w-[300px]
+}
+
+.field {
+  @apply tw-flex tw-flex-col tw-flex-nowrap tw-h-[90px]
+}
+
+.search-input {
+  @apply tw-py-[.5rem] tw-pr-[.5rem] tw-pl-[2.5rem]
+}
+
+.header-button-group {
+  @apply tw-flex tw-flex-row tw-flex-nowrap
+}
+
+.refresh-button {
+  @apply tw-mr-[.5rem]
+}
+
+/*Ng deep styles Prime*/
+:host ::ng-deep .p-button,
+:host ::ng-deep .p-button:enabled:hover {
+  box-shadow: none;
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+}

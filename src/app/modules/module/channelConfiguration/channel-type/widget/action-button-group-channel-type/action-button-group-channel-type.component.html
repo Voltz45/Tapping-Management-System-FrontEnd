@@ -1,0 +1,13 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu" class="button-group">
+  <button class="edit-button" (click)="editButton()">
+    <span class="edit-icon bx bx-edit"></span>
+    <span>Edit</span>
+  </button>
+  <button class="delete-button" (click)="deleteButton($event)">
+    <span class="delete-icon bx bx-trash"></span>
+    <span class="delete-text">Delete</span>
+  </button>
+</mat-menu>

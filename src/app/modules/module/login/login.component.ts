@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {Subscription} from "rxjs";
 import {UserModel} from "../../../model/user-model/user.model";
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private notificationService: NotificationService,
     private fb: FormBuilder
@@ -48,11 +49,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.authenticationService.isLoggedIn()) {
       this.router.navigateByUrl('/TMS-Home/dashboard');
     } else {
-      this.router.navigateByUrl('/TMS/login');
+      // this.router.navigateByUrl('/TMS/login');
     }
   }
 
   public onLogin(user: UserModel): void {
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || 'TMS-Home/dashboard';
     this.showLoading = true;
     this.subscriptions.push(
       this.authenticationService.login(user).subscribe(
@@ -62,7 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.authenticationService.saveToken(token);
           }
           this.authenticationService.addUserToLocalCache(response.body);
-          this.router.navigateByUrl('/TMS-Home/dashboard');
+          this.router.navigateByUrl(returnUrl);
           this.showLoading = false;
         },
         (errorResponse: HttpErrorResponse) => {

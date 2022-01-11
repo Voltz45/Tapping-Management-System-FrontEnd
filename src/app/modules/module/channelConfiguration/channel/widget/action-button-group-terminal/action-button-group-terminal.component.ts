@@ -1,9 +1,8 @@
 import {Component} from '@angular/core';
 import {AgRendererComponent} from "ag-grid-angular";
 import {ICellRendererParams} from "ag-grid-community";
-import {CreateUpdateDialogComponent} from "../create-update-dialog/create-update-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
 import {ChannelService} from "../../../../../../services/module-service/channel.service";
+import {PopupMessageService} from "../../../../../../services/popup-message-service/popup-message.service";
 
 @Component({
   selector: 'app-action-button-group-channel',
@@ -12,33 +11,25 @@ import {ChannelService} from "../../../../../../services/module-service/channel.
 })
 export class ActionButtonGroupTerminalComponent implements AgRendererComponent {
 
-  cellValue: string = '';
-
   constructor(
-    private terminalService: ChannelService,
-    private dialog: MatDialog
+    private channelService: ChannelService,
+    private confirmationService: PopupMessageService
   ) {
   }
 
   agInit(params: ICellRendererParams): void {
-    this.cellValue = this.getValueToDisplay(params);
   }
 
   refresh(params: ICellRendererParams): boolean {
     return false;
   }
 
-  getValueToDisplay(params: ICellRendererParams) {
-    return params.valueFormatted ? params.valueFormatted : params.value;
-  }
-
   editButton() {
-    this.dialog.open(CreateUpdateDialogComponent, {autoFocus: false, disableClose: true, width: '55%'});
-    this.terminalService.buttonStatus = 'edit';
+    this.channelService.openDialog()
+    this.channelService.buttonStatus = 'edit';
   }
 
-  deleteButton() {
-    this.terminalService.onDeleteTerminal();
-    // this.terminalService.onGetAllTerminal();
+  deleteButton(event: Event) {
+    this.confirmationService.channelConfirm(event, this.channelService)
   }
 }

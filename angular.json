@@ -24,7 +24,7 @@
               "sockjs-client",
               "xlsx"
             ],
-            "outputPath": "dist/TMS-Apps-Ui",
+            "outputPath": "dist/TMS-Apps-Ui/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -107,6 +107,64 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/TMS-Apps-Ui/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "TMS-Apps-Ui:build:development",
+              "serverTarget": "TMS-Apps-Ui:server:development"
+            },
+            "production": {
+              "browserTarget": "TMS-Apps-Ui:build:production",
+              "serverTarget": "TMS-Apps-Ui:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "TMS-Apps-Ui:build:production",
+              "serverTarget": "TMS-Apps-Ui:server:production"
+            },
+            "development": {
+              "browserTarget": "TMS-Apps-Ui:build:development",
+              "serverTarget": "TMS-Apps-Ui:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

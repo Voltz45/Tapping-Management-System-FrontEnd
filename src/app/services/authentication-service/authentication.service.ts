@@ -4,6 +4,8 @@ import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http"
 import {Observable} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {UserModel} from "../../model/user-model/user.model";
+import {Router} from "@angular/router";
+import {NotificationService} from "../notification-service/notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class AuthenticationService {
   private loggedInUsername: string = '';
   private jwtHelper = new JwtHelperService();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService) {
   }
 
   public login(user: UserModel): Observable<HttpResponse<any> | HttpErrorResponse> {
@@ -61,7 +63,12 @@ export class AuthenticationService {
     this.loadToken();
     if (this.token != null && this.token != '') {
       if (this.jwtHelper.decodeToken(this.token).sub != null || '') {
-        if (!this.jwtHelper.isTokenExpired(this.token)) {
+        if (this.jwtHelper.isTokenExpired(this.token)) {
+          this.logout();
+          this.router.navigate(['/TMS/login'])
+          window.location.reload();
+          // this.notificationService.errorNotification('Your session time was expired, Please try to login again.', 0);
+        } else {
           this.loggedInUsername = this.jwtHelper.decodeToken(this.token).sub;
           status = true;
         }

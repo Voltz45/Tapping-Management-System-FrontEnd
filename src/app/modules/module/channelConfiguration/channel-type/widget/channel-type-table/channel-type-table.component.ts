@@ -11,59 +11,59 @@ import {ChannelTypeService} from "../../../../../../services/module-service/chan
 export class ChannelTypeTableComponent implements OnInit, OnDestroy {
 
   constructor(
-    private terminalTypeService: ChannelTypeService,
-    private terminalTypeTableService: ChannelTypeTableService
+    private channelTypeService: ChannelTypeService,
+    private channelTypeTableService: ChannelTypeTableService
   ) {
-  }
-
-  ngOnDestroy(): void {
-    this.terminalTypeService.DialectMsgTemplateList.length = 0;
   }
 
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    this.channelTypeTableService.destroyGrid();
+    this.channelTypeService.dialectMsgTemplateList.length = 0;
+  }
+
   onGridReady(params: GridReadyEvent) {
-    this.terminalTypeTableService.gridApi = params.api;
-    this.terminalTypeTableService.gridColumnApi = params.columnApi;
+    this.channelTypeTableService.gridApi = params.api;
+    this.channelTypeTableService.gridColumnApi = params.columnApi;
     this.runService();
   }
 
   onCellClicked(data: RowClickedEvent) {
-    this.terminalTypeService.ExistingData = data.data;
+    this.channelTypeService.ExistingData = data.data;
   }
 
   runService() {
-    this.terminalTypeService.onGetAllDialectMsgTemplate();
-    this.terminalTypeTableService.showTableLoading();
-    this.terminalTypeService.getAllChannelTypeWithDelay();
+    this.channelTypeTableService.showTableLoading();
+    this.channelTypeService.getAllChannelTypeWithDelay();
   }
 
   get animateRow() {
-    return this.terminalTypeTableService.animateRow;
+    return this.channelTypeTableService.animateRow;
   }
 
   get columnDefs() {
-    return this.terminalTypeTableService.columnDefs;
+    return this.channelTypeTableService.columnDefs;
   }
 
   get defaultColDef() {
-    return this.terminalTypeTableService.defaultColDef;
+    return this.channelTypeTableService.defaultColDef;
   }
 
   get rowHeight() {
-    return this.terminalTypeTableService.rowHeight;
+    return this.channelTypeTableService.rowHeight;
   }
 
   get headerHeight() {
-    return this.terminalTypeTableService.headerHeight;
+    return this.channelTypeTableService.headerHeight;
   }
 
   get overlayLoadingTemplate() {
-    return this.terminalTypeTableService.overlayLoadingTemplate;
+    return this.channelTypeTableService.overlayLoadingTemplate;
   }
 
   get frameworkComponents() {
-    return this.terminalTypeTableService.frameworkComponents;
+    return this.channelTypeTableService.frameworkComponents;
   }
 }

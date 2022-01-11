@@ -93,16 +93,16 @@ import {TagComponent} from './module/global-widget/tag/tag.component';
 import {DropdownModule} from "primeng/dropdown";
 import {Iso8583DialectService} from "../services/module-service/iso8583-dialect.service";
 import {
-  CreateUpdateDialogTerminalTypeComponent
-} from "./module/channelConfiguration/channel-type/widget/create-update-dialog/create-update-terminalType-dialog.component";
+  CreateUpdateDialogChannelTypeComponent
+} from "./module/channelConfiguration/channel-type/widget/create-update-dialog/create-update-channelType-dialog.component";
 import {
   ChannelTypeTableComponent
 } from './module/channelConfiguration/channel-type/widget/channel-type-table/channel-type-table.component';
 import {ChannelTypeTableService} from "../services/module-service/channel-type-table.service";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {
-  ActionButtonGroupTerminalTypeComponent
-} from './module/channelConfiguration/channel-type/widget/action-button-group-terminal-type/action-button-group-terminal-type.component';
+  ActionButtonGroupChannelTypeComponent
+} from './module/channelConfiguration/channel-type/widget/action-button-group-channel-type/action-button-group-channel-type.component';
 import {
   Iso8583DialectTableComponent
 } from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/iso8583-dialect-table/iso8583-dialect-table.component';
@@ -127,6 +127,15 @@ import {UserService} from "../services/user-service/user.service";
 import {AuthenticationGuard} from "../guard/authentication.guard";
 import {AuthInterceptor} from "../interceptor/auth.interceptor";
 import {LoginComponent} from "./module/login/login.component";
+import {
+  Iso8583FieldTableComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-field-configuration/widget/iso8583-field-table/iso8583-field-table.component';
+import {
+  CreateUpdateIso8583FieldFormComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-field-configuration/widget/create-update-iso8583-field-form/create-update-iso8583-field-form.component';
+import {RouterModule} from "@angular/router";
+import {Iso8583FieldService} from "../services/module-service/iso8583-field.service";
+import {MatRadioModule} from "@angular/material/radio";
 
 
 @NgModule({
@@ -161,9 +170,9 @@ import {LoginComponent} from "./module/login/login.component";
     Iso8583ResponseMappingComponent,
     OverlayLoadingComponent,
     TagComponent,
-    CreateUpdateDialogTerminalTypeComponent,
+    CreateUpdateDialogChannelTypeComponent,
     ChannelTypeTableComponent,
-    ActionButtonGroupTerminalTypeComponent,
+    ActionButtonGroupChannelTypeComponent,
     Iso8583DialectTableComponent,
     CreateUpdateIso8583DialectDialogComponent,
     ActionButtonGroupIso8583DialectComponent,
@@ -171,7 +180,9 @@ import {LoginComponent} from "./module/login/login.component";
     Iso8583FormatTableComponent,
     ActionButtonGroupIso8583FormatComponent,
     CreateUpdateDialogIso8583FormatComponent,
-    LoginComponent
+    LoginComponent,
+    Iso8583FieldTableComponent,
+    CreateUpdateIso8583FieldFormComponent
   ],
   imports: [
     NgxEchartsModule.forRoot({
@@ -215,7 +226,9 @@ import {LoginComponent} from "./module/login/login.component";
     DialogModule,
     TagModule,
     DropdownModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    RouterModule,
+    MatRadioModule
   ],
   providers: [
     WebsocketService,
@@ -228,6 +241,7 @@ import {LoginComponent} from "./module/login/login.component";
     ChannelTypeService,
     Iso8583DialectService,
     ChannelTypeTableService,
+    Iso8583FieldService,
     AuthenticationService, UserService, AuthenticationGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ]

@@ -1,4 +1,4 @@
-<h2 mat-dialog-title style="display: flex; align-items: center;justify-content: space-between">
+<h2 mat-dialog-title style="display: flex; align-items: center;justify-content: space-between;font-weight: 600">
   Create Channel
   <span class="bx bx-x" mat-dialog-close="true" style="font-size: 2rem; cursor: pointer"></span>
 </h2>
@@ -21,8 +21,9 @@
         <label class="required-icon">IP Address</label>
         <div style="width: 100%">
           <input class="w-10 ipAddress-field" formControlName="ipAddress" pInputText type="text">
-          <p-message *ngIf="ipAddress.touched && !ipAddress.hasError('required')" severity="success"></p-message>
+          <p-message *ngIf="ipAddress.touched && (!ipAddress.hasError('required') && !ipAddress.hasError('pattern'))" severity="success"></p-message>
           <p-message *ngIf="ipAddress.touched && ipAddress.hasError('required')" severity="error"></p-message>
+          <p-message *ngIf="ipAddress.touched && ipAddress.hasError('pattern')" severity="error"></p-message>
         </div>
         <small *ngIf="ipAddress.touched && ipAddress.hasError('required')" class="p-error">IP Address should be
           fill.</small>
@@ -33,11 +34,14 @@
         <label class="required-icon">Port</label>
         <div style="width: 100%">
           <input class="w-10 port-field" formControlName="port" maxlength="6" pInputText type="text">
-          <p-message *ngIf="port.touched && !port.hasError('required')" severity="success"></p-message>
+          <p-message *ngIf="port.touched && (!port.hasError('required') && !port.hasError('pattern'))" severity="success"></p-message>
           <p-message *ngIf="port.touched && port.hasError('required')" severity="error"></p-message>
+          <p-message *ngIf="port.touched && port.hasError('pattern')" severity="error"></p-message>
         </div>
         <small *ngIf="port.touched && port.hasError('required')" class="p-error">Port should be
           fill.</small>
+        <small *ngIf="port.touched && port.hasError('pattern')" class="p-error">Port should be
+          number.</small>
       </div>
     </div>
 
@@ -46,7 +50,7 @@
       <div style="width: 100%;">
         <div class="layer3-input-group">
           <div style="width: 85%">
-            <p-dropdown (onChange)="onChange($event)" [filter]="true" [options]="terminalTypeOptionList"
+            <p-dropdown (onChange)="onChange($event)" [filter]="true" [options]="channelTypeGroupInterfaces"
                         [showClear]="showClear"
                         appendTo="body" class="channel-type" filterBy="name"
                         formControlName="channelType" optionLabel="name" placeholder="Select Message Template"
@@ -75,10 +79,10 @@
 <mat-dialog-actions align="end">
   <p-button class="cancel-button" label="Cancel" mat-dialog-close="true"
             styleClass="p-button-sm"></p-button>
-  <p-button (onClick)="createButton()" *ngIf="buttonStatus == 'create'" [disabled]="disableButton()"
+  <p-button (onClick)="onCreateChannel()" *ngIf="channelService.buttonStatus == 'create'" [disabled]="form.invalid"
             class="create-button" label="Create"
             styleClass="p-button-sm"></p-button>
-  <p-button (onClick)="updateButton()" *ngIf="buttonStatus == 'edit'" [disabled]="disableStatus"
+  <p-button (onClick)="onUpdateChannel()" *ngIf="channelService.buttonStatus == 'edit'" [disabled]="disableStatus"
             class="create-button"
             label="Save"
             styleClass="p-button-sm"></p-button>

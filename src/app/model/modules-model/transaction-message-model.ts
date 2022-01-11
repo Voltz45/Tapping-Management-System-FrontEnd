@@ -19,4 +19,6 @@ export interface TransactionMessageModel {
   trxDate: string;
   terminalId: string;
   merchantId: string;
+  destAccount: string;
+  sourceAccount: string;
 }

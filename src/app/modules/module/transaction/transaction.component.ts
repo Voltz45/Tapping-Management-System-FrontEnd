@@ -9,6 +9,7 @@ import {TransactionApiService} from "../../../services/module-service/transactio
 import {TransactionMessageInterface} from "../../../interface/modules/transaction-message.interface";
 import {TransactionMessageModel} from "../../../model/modules-model/transaction-message-model";
 import {additionalData} from "./widget-transaction/table/table.component";
+import {AuthenticationService} from "../../../services/authentication-service/authentication.service";
 
 @Component({
   selector: 'app-transaction',
@@ -25,6 +26,7 @@ export class TransactionComponent implements OnInit, AfterViewInit {
 
   constructor(private dataFb: FormBuilder,
               private papa: Papa,
+              private auth: AuthenticationService,
               public transactionTableService: TransactionTableService,
               public transactionApiService: TransactionApiService) {
   }

@@ -4,6 +4,7 @@ import {HttpClient, HttpErrorResponse, HttpEvent} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {UserModel} from "../../model/user-model/user.model";
 import {CustomHttpResponseModel} from "../../model/customHttpResponse-model/custom-http-response.model";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,12 @@ export class UserService {
 
   public getUsers(): Observable<UserModel[] | HttpErrorResponse> {
     return this.http.get<UserModel[]>(`${this.host}/user/list`);
+  }
+
+  public getUserById(username: string): Observable<UserModel> {
+    return this.http.get<UserModel>(`${this.host}/user/find/` + username).pipe(map(response => {
+      return response;
+    }));
   }
 
   public addUser(formData: FormData): Observable<UserModel | HttpErrorResponse> {
@@ -46,9 +53,9 @@ export class UserService {
     localStorage.setItem('users', JSON.stringify(users));
   }
 
-  public getUsersFromLocalCache(): UserModel[] | null {
-    if (localStorage.getItem('users')) {
-      return JSON.parse(localStorage.getItem('users') || '');
+  public getUsersFromLocalCache(): UserModel | null {
+    if (localStorage.getItem('user')) {
+      return JSON.parse(localStorage.getItem('user') || '');
     }
     return null;
   }

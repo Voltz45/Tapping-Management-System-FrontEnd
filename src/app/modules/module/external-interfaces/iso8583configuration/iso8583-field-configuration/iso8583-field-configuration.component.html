@@ -1,1 +1,15 @@
-<p>iso8583-field-configuration works!</p>
+<div class="iso8583-field-container">
+  <div class="header-group">
+    <span class="search-group p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Search" class="search-input" id="search-filter">
+    </span>
+    <div class="header-button-group">
+      <p-button icon="pi pi-refresh" class="refresh-button" styleClass="p-button-sm"></p-button>
+      <p-button label="Create" icon="pi pi-plus" styleClass="p-button-sm" routerLink="/TMS-Home/external-interfaces/iso8583-configuration/iso8583Field-Configuration/create"></p-button>
+    </div>
+  </div>
+  <div class="content">
+    <iso8583-field-table></iso8583-field-table>
+  </div>
+</div>

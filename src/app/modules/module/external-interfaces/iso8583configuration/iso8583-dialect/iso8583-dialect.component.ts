@@ -1,7 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  CreateUpdateIso8583DialectDialogComponent
-} from "./widget/create-update-iso8583-dialect-dialog/create-update-iso8583-dialect-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Iso8583DialectService} from "../../../../../services/module-service/iso8583-dialect.service";
 import {Iso8583DialectTableService} from "../../../../../services/module-service/iso8583-dialect-table.service";
@@ -25,7 +22,7 @@ export class Iso8583DialectComponent implements OnInit {
 
   openDialog() {
     this.iso8583DialectService.buttonStatus = 'create';
-    this.dialog.open(CreateUpdateIso8583DialectDialogComponent, this.iso8583DialectService.dialogConfig);
+    this.iso8583DialectService.openDialog();
   }
 
   onFilterTextBoxChanged() {
@@ -33,6 +30,6 @@ export class Iso8583DialectComponent implements OnInit {
   }
 
   refreshTable() {
-    this.iso8583DialectService.getAllIso8583DialectWithDelay();
+    this.iso8583DialectService.onGetAllIso8583Dialect();
   }
 }

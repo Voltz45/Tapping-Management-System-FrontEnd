@@ -4,7 +4,6 @@ import {DefaultComponent} from "./default.component";
 import {SharedModule} from "../../shared/shared.module";
 import {RouterModule} from "@angular/router";
 import {FeatureModule} from "../../modules/feature.module";
-import {NotificationModule} from "../../notification/notification.module";
 
 @NgModule({
   declarations: [
@@ -15,7 +14,6 @@ import {NotificationModule} from "../../notification/notification.module";
     FeatureModule,
     SharedModule,
     RouterModule,
-    NotificationModule
   ]
 })
 export class DefaultModule {

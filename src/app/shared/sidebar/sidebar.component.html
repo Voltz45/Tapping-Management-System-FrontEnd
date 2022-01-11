@@ -9,33 +9,40 @@
 
   <div class="sidebar-menu">
     <ul class="sidebar-menu-list">
-      <li *ngFor="let item of $sidebarMenuList" [ngClass]="sidebarMenuItemClass(item)" [routerLink]="sidebarMenuItemRouterLink(item)">
-        <div [ngClass]="sidebarItemContainerClass(item)">
-          <span [ngClass]="sidebarItemIconClass(item)"></span>
-          <span [ngClass]="sidebarItemTextClass(item)">{{sidebarItemText(item)}}</span>
-          <span *ngIf="checkingSidebarIcon(item)" [ngClass]="sidebarItemChevronClass(item)" [id]="sidebarItemChevronId(item)"></span>
-        </div>
-        <div [ngClass]="firstSubmenuContainerClass(item)" [id]="firstSubmenuContainerId(item)">
-          <div *ngIf="checkingHeaderClass(item)" [ngClass]="firstSubmenuHeaderClass(item)">
-            <span [ngClass]="firstSubmenuHeaderTextClass(item)">{{firstSubmenuHeaderText(item)}}</span>
+      <li *ngFor="let item of $sidebarMenuList" [ngClass]="sidebarMenuItemClass(item)"
+          [routerLink]="sidebarMenuItemRouterLink(item)">
+        <ng-template [ngIf]="userData?.role == 'ROLE_USER'">
+          <div [ngClass]="sidebarItemContainerClass(item)">
+            <span [ngClass]="sidebarItemIconClass(item)"></span>
+            <span [ngClass]="sidebarItemTextClass(item)">{{sidebarItemText(item)}}</span>
+            <span *ngIf="checkingSidebarIcon(item)" [ngClass]="sidebarItemChevronClass(item)"
+                  [id]="sidebarItemChevronId(item)"></span>
           </div>
-          <ul [ngClass]="firstSubmenuListClass(item)">
-            <li *ngFor="let subItem1 of firstSubmenuContainer(item)" [ngClass]="firstSubmenuItemClass(subItem1)" [routerLink]="firstSubmenuRouterLink(subItem1)">
-              <span *ngIf="checkingIconClass(subItem1)" [ngClass]="firstSubmenuItemIconClass(subItem1)"></span>
-              <span [ngClass]="firstSubmenuItemTextClass(subItem1)">{{firstSubmenuItemText(subItem1)}}</span>
-              <span *ngIf="checkingFirstSubChevron(subItem1)" [ngClass]="firstSubmenuItemChevronClass(subItem1)" [id]="firstSubmenuItemChevronId(subItem1)"></span>
-              <div [ngClass]="secondSubmenuContainerClass(subItem1)" [id]="secondSubmenuContainerId(subItem1)">
-                <ul [ngClass]="secondSubmenuListClass(subItem1)">
-                  <li *ngFor="let subItem2 of secondSubmenuListItem(subItem1)" [ngClass]="secondSubmenuItemClass(subItem2)"
-                      [routerLink]="secondSubmenuItemRouterLink(subItem2)">
-                    <span [ngClass]="secondSubmenuItemIconClass(subItem2)"></span>
-                    <span [ngClass]="secondSubmenuItemTextClass(subItem2)">{{secondSubmenuItemText(subItem2)}}</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
+          <div [ngClass]="firstSubmenuContainerClass(item)" [id]="firstSubmenuContainerId(item)">
+            <div *ngIf="checkingHeaderClass(item)" [ngClass]="firstSubmenuHeaderClass(item)">
+              <span [ngClass]="firstSubmenuHeaderTextClass(item)">{{firstSubmenuHeaderText(item)}}</span>
+            </div>
+            <ul [ngClass]="firstSubmenuListClass(item)">
+              <li *ngFor="let subItem1 of firstSubmenuContainer(item)" [ngClass]="firstSubmenuItemClass(subItem1)"
+                  [routerLink]="firstSubmenuRouterLink(subItem1)">
+                <span *ngIf="checkingIconClass(subItem1)" [ngClass]="firstSubmenuItemIconClass(subItem1)"></span>
+                <span [ngClass]="firstSubmenuItemTextClass(subItem1)">{{firstSubmenuItemText(subItem1)}}</span>
+                <span *ngIf="checkingFirstSubChevron(subItem1)" [ngClass]="firstSubmenuItemChevronClass(subItem1)"
+                      [id]="firstSubmenuItemChevronId(subItem1)"></span>
+                <div [ngClass]="secondSubmenuContainerClass(subItem1)" [id]="secondSubmenuContainerId(subItem1)">
+                  <ul [ngClass]="secondSubmenuListClass(subItem1)">
+                    <li *ngFor="let subItem2 of secondSubmenuListItem(subItem1)"
+                        [ngClass]="secondSubmenuItemClass(subItem2)"
+                        [routerLink]="secondSubmenuItemRouterLink(subItem2)">
+                      <span [ngClass]="secondSubmenuItemIconClass(subItem2)"></span>
+                      <span [ngClass]="secondSubmenuItemTextClass(subItem2)">{{secondSubmenuItemText(subItem2)}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </ng-template>
       </li>
     </ul>
   </div>

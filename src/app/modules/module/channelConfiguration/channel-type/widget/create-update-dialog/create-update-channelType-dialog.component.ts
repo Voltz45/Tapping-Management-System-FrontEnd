@@ -1,17 +1,25 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ChannelTypeService} from "../../../../../../services/module-service/channel-type.service";
 import {ChannelTypeModel} from "../../../../../../model/modules-model/channel-type.model";
 import {
   DialectMsgTemplateGroupInterface
 } from "../../../../../../interface/modules/dialect-msg-template-group.interface";
+import {Iso8583DialectMsgTemplateModel} from "../../../../../../model/modules-model/iso8583-dialect-msg-template.model";
+import {Select} from "@ngxs/store";
+import {
+  ChannelTypeState
+} from "../../../../../../state-configuration/modules/channel-configuration/channel-type/channel-type.state";
+import {Observable} from "rxjs";
 
 @Component({
-  selector: 'create-update-terminalType-dialog',
-  templateUrl: './create-update-terminalType-dialog.component.html',
-  styleUrls: ['./create-update-terminalType-dialog.component.css']
+  selector: 'create-update-channelType-dialog',
+  templateUrl: './create-update-channelType-dialog.component.html',
+  styleUrls: ['./create-update-channelType-dialog.component.css']
 })
-export class CreateUpdateDialogTerminalTypeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CreateUpdateDialogChannelTypeComponent implements OnInit, AfterViewInit {
+  @Select(ChannelTypeState.dialects) dialects$!: Observable<DialectMsgTemplateGroupInterface[]>;
+
   formGroup!: FormGroup;
   showClear: boolean = false;
   disableStatus: boolean = false;
@@ -20,25 +28,25 @@ export class CreateUpdateDialogTerminalTypeComponent implements OnInit, AfterVie
 
   constructor(
     private fb: FormBuilder,
-    public terminalTypeService: ChannelTypeService,
+    public channelTypeService: ChannelTypeService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
   }
 
   ngOnInit(): void {
     this.createForm();
-    this.DialectMsgTemplateOptionList = this.DialectMsgTemplateOptionList.sort((a, b) => a.name.localeCompare(b.name));
+    this.channelTypeService.onGetAllDialectMsgTemplate();
+    this.dialects$.subscribe(data => {
+      this.DialectMsgTemplateOptionList = data.sort((a, b) => a.name.localeCompare(b.name));
+    });
   }
 
   ngAfterViewInit(): void {
-    if (this.terminalTypeService.buttonDialogStatus == 'edit') {
+    if (this.channelTypeService.buttonDialogStatus == 'edit') {
       this.setExistingDataToDialog();
-      this.disableStatus = !this.formGroup.dirty;
+      this.oncCheckingFormHasChange()
       this.changeDetectorRef.detectChanges();
     }
-  }
-
-  ngOnDestroy(): void {
   }
 
   createForm() {
@@ -54,6 +62,7 @@ export class CreateUpdateDialogTerminalTypeComponent implements OnInit, AfterVie
   }
 
   oncCheckingFormHasChange() {
+    this.disableStatus = !this.formGroup.dirty;
     this.formGroup.valueChanges.subscribe(value => {
       if (
         this.existingDescription != value.description || this.existingChannelType != value.channelType ||
@@ -72,32 +81,28 @@ export class CreateUpdateDialogTerminalTypeComponent implements OnInit, AfterVie
   }
 
   setExistingDataToDialog() {
-    const data = this.DialectMsgTemplateOptionList.filter(value => {
-      return value.name === String(this.existingDialectMsgTemplate);
-    });
     this.channelType.setValue(this.existingChannelType);
     this.description.setValue(this.existingDescription);
-
-    if (data.length != 0) {
-      this.dialectMsgTemplate.setValue(data[0])
-    }
+    this.dialectMsgTemplate.setValue({
+      name: this.existingDialectMsgTemplate.nameType,
+      code: String(this.existingDialectMsgTemplate.templateId)
+    })
   }
 
   setNewDataToModel(): ChannelTypeModel {
     this.terminalTypeModel.channelType = this.channelType.value;
-    this.terminalTypeModel.dialectMsgTemplateId = this.dialectMsgTemplate.value.code;
+    this.terminalTypeModel.dialectMessageTemplate = new Iso8583DialectMsgTemplateModel(Number(this.dialectMsgTemplate.value.code));
     this.terminalTypeModel.description = this.description.value;
     return this.terminalTypeModel;
   }
 
   onCreateTerminalType() {
-    this.terminalTypeService.onAddChannelType(this.setNewDataToModel());
-    this.formGroup.reset();
+    this.channelTypeService.onAddChannelType(this.setNewDataToModel());
   }
 
   onUpdateTerminalType() {
-    const newData = this.terminalTypeService.createChannelTypeFormData(this.existingChannelType, this.setNewDataToModel());
-    this.terminalTypeService.onUpdateTerminalType(newData);
+    const newData = this.channelTypeService.createChannelTypeFormData(this.existingChannelType, this.setNewDataToModel());
+    this.channelTypeService.onUpdateChannelType(newData, this.setNewDataToModel());
   }
 
   set DialectMsgTemplateOptionList(optionList: DialectMsgTemplateGroupInterface[]) {
@@ -117,14 +122,14 @@ export class CreateUpdateDialogTerminalTypeComponent implements OnInit, AfterVie
   }
 
   get existingDescription() {
-    return this.terminalTypeService.existingData.description;
+    return this.channelTypeService.existingData.description;
   }
 
   get existingChannelType() {
-    return this.terminalTypeService.existingData.channelType;
+    return this.channelTypeService.existingData.channelType;
   }
 
   get existingDialectMsgTemplate() {
-    return this.terminalTypeService.existingData.dialectMsgTemplateId;
+    return this.channelTypeService.existingData.dialectMessageTemplate;
   }
 }

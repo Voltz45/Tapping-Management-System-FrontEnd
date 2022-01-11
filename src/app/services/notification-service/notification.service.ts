@@ -38,4 +38,8 @@ export class NotificationService {
   errorNotification(message: string, statusCode: number) {
     this.notify(NotificationTypeEnum.ERROR, message, statusCode)
   }
+
+  clearNotification() {
+    this.messageService.clear();
+  }
 }

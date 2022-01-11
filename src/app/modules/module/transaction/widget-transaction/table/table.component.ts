@@ -21,12 +21,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() autoHeight: string = '';
   rowData: TransactionMessageInterface[] = [];
   frameworkComponents: any;
-  sortModel = [
-    {
-      colId: 'transactionDate',
-      sort: 'desc'
-    }
-  ]
 
   overlayLoadingTemplate = '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>';
 
@@ -73,7 +67,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       responseData.push({
         amount: x.amount,
         currencyCode: x.countryCode,
-        destAccount: '',
+        destAccount: x.destAccount,
         HPAN: maskHPAN(x.hpan, '*', 6, 4),
         clearHPAN: x.hpan,
         merchantId: x.merchantId,
@@ -83,7 +77,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         networkId: x.networkID,
         responseCode: x.responseCode,
         RRN: x.rrn,
-        srcAccount: '',
+        srcAccount: x.sourceAccount,
         terminalId: x.terminalId,
         transactionDate: x.TrxDate,
         transactionId: x.transactionId,
@@ -91,8 +85,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       this.rowData = responseData;
       transactionTable.style.height = 'auto';
-      this.transactionTableService.gridColumnApi.applyColumnState({state: this.sortModel});
-      this.transactionTableService.gridApi.onSortChanged();
       this.transactionTableService.gridApi.setDomLayout('autoHeight');
       this.transactionTableService.gridApi.hideOverlay();
     })

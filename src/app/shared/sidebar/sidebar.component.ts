@@ -1,6 +1,9 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {SidebarService} from "../../services/shared-service/sidebar.service";
 import {firstSubmenuItem, secondSubmenuItem, sidebarMenuItem} from "../../interface/shared/sidebar.interface";
+import {AuthenticationService} from "../../services/authentication-service/authentication.service";
+import {UserService} from "../../services/user-service/user.service";
+import {UserModel} from "../../model/user-model/user.model";
 
 @Component({
   selector: 'tms-sidebar',
@@ -9,12 +12,18 @@ import {firstSubmenuItem, secondSubmenuItem, sidebarMenuItem} from "../../interf
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
   private sidebarMenuList: sidebarMenuItem[] = [];
+  userData: UserModel | null = new UserModel();
 
-  constructor(private sidebarService: SidebarService) {
-    this.$sidebarMenuList = sidebarService.sidebarMenu;
+  constructor(
+    private sidebarService: SidebarService,
+    private userService: UserService,
+    private authenticationService: AuthenticationService) {
+      this.$sidebarMenuList = sidebarService.sidebarMenu;
+      this.userData = userService.getUsersFromLocalCache();
   }
 
   ngOnInit(): void {
+
   }
 
   ngAfterViewInit(): void {

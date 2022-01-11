@@ -1,16 +1,18 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {map} from "rxjs/operators";
 import {ChannelTypeModel} from "../../model/modules-model/channel-type.model";
-import {Iso8583DialectMsgTemplateModel} from "../../model/modules-model/iso8583-dialect-msg-template.model";
 import {ChannelTypeTableService} from "./channel-type-table.service";
-import {NotificationService} from "../notification-service/notification.service";
 import {Iso8583DialectService} from "./iso8583-dialect.service";
 import {DialectMsgTemplateGroupInterface} from "../../interface/modules/dialect-msg-template-group.interface";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {CustomHttpResponseModel} from "../../model/customHttpResponse-model/custom-http-response.model";
-import {RowClickedEvent} from "ag-grid-community";
+import {
+  CreateUpdateDialogChannelTypeComponent
+} from "../../modules/module/channelConfiguration/channel-type/widget/create-update-dialog/create-update-channelType-dialog.component";
+import {
+  ChannelTypeDispatch
+} from "../../state-configuration/modules/channel-configuration/channel-type/channel-type.dispatch";
 
 @Injectable({
   providedIn: 'root'
@@ -18,54 +20,33 @@ import {RowClickedEvent} from "ag-grid-community";
 export class ChannelTypeService {
   private apiUrl = environment.core236;
   buttonDialogStatus: string = '';
-  private dialectMsgTemplateList: DialectMsgTemplateGroupInterface[] = [];
+  dialectMsgTemplateList: DialectMsgTemplateGroupInterface[] = [];
   existingData: ChannelTypeModel = new ChannelTypeModel();
   dialogConfig: MatDialogConfig = {autoFocus: false, disableClose: true, width: '55%'};
 
   constructor(
     private http: HttpClient,
     private dialog: MatDialog,
-    private notifierService: NotificationService,
+    private channelTypeDispatch: ChannelTypeDispatch,
     private dialectService: Iso8583DialectService,
-    private terminalTypeTableService: ChannelTypeTableService
+    private channelTypeTableService: ChannelTypeTableService
   ) {
   }
 
   getAllChannelType() {
-    return this.http.get<ChannelTypeModel[]>(`${this.apiUrl}/channelType/list`).pipe(map((response) => {
-      return response;
-    }));
+    return this.http.get<ChannelTypeModel[]>(`${this.apiUrl}/channelType/list`);
   }
 
   addChannelType(data: ChannelTypeModel) {
-    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/channelType/register`, data).pipe(map((response) => {
-      return response;
-    }))
+    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/channelType/${data.dialectMessageTemplate.templateId}/register`, data);
   }
 
   updateChannelType(data: FormData) {
-    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/channelType/update`, data).pipe(map((response) => {
-      return response;
-    }))
+    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/channelType/update`, data);
   }
 
   deleteChannelType(id: number) {
-    return this.http.delete<CustomHttpResponseModel>(`${this.apiUrl}/channelType/delete/` + id).pipe(map((response) => {
-      return response;
-    }))
-  }
-
-  createChannelTypeFormData(currentTerminalId: string, newData: ChannelTypeModel) {
-    const formData = new FormData();
-    formData.append('currentTerminalType', currentTerminalId);
-    formData.append('newTerminalType', newData.channelType);
-    formData.append('newDialectTemplateId', String(newData.dialectMsgTemplateId));
-    formData.append('description', newData.description);
-    return formData;
-  }
-
-  closeDialog() {
-    this.dialog.closeAll();
+    return this.http.delete<CustomHttpResponseModel>(`${this.apiUrl}/channelType/delete/` + id);
   }
 
   getAllChannelTypeWithDelay() {
@@ -74,116 +55,49 @@ export class ChannelTypeService {
     }, 500);
   }
 
-  // getAllDialectMsgTemplateWithDelay() {
-  //   setTimeout(() => {
-  //     this.onGetAllDialectMsgTemplate();
-  //   });
-  // }
-
   onGetAllChannelType() {
-    this.terminalTypeTableService.showTableLoading();
-    this.getAllChannelType().subscribe({
-      next: this.responseGetAllChannelType(),
-      error: this.errorGetAllChannelType()
-    })
+    this.channelTypeTableService.showTableLoading();
+    this.channelTypeDispatch._ChannelTypeGetDispatch();
   }
 
-  onAddChannelType(data: ChannelTypeModel) {
-    this.addChannelType(data).subscribe({
-      next: this.responseCreateAndUpdateChannelType(),
-      error: this.errorCreateAndUpdateChannelType()
-    })
+  onAddChannelType(payload: ChannelTypeModel) {
+    this.channelTypeDispatch._ChannelTypeAddDispatch(payload);
   }
 
-  onUpdateTerminalType(data: FormData) {
-    this.updateChannelType(data).subscribe({
-      next: this.responseCreateAndUpdateChannelType(),
-      error: this.errorCreateAndUpdateChannelType()
-    })
+  onUpdateChannelType(payload: FormData, dataState: ChannelTypeModel) {
+    this.channelTypeDispatch._ChannelTypeUpdateDispatch(payload, this.existingData.channelTypeId, dataState);
   }
 
   onDeleteChannelType() {
-    this.deleteChannelType(this.existingData.id).subscribe({
-      next: this.responseDeleteChannelType(),
-      error: this.errorDeleteChannelType()
-    })
-  }
-
-  private responseGetAllChannelType() {
-    return (response: ChannelTypeModel[]) => {
-      if (response.length != 0) {
-        response.forEach(x => {
-          const data = this.dialectMsgTemplateList.filter((value => {
-            return value.code == String(x.dialectMsgTemplateId)
-          }))
-          x.dialectMsgTemplateId = data[0]?.name;
-        })
-        this.terminalTypeTableService.gridApi.onSortChanged();
-        this.terminalTypeTableService.hideTableLoading();
-        this.terminalTypeTableService.gridApi.setRowData(response);
-      } else {
-        this.terminalTypeTableService.showNoRowData();
-      }
-    }
-  }
-
-  private errorGetAllChannelType() {
-    return (error: HttpErrorResponse) => {
-      const errorMessage = 'Something went wrong, Please contact your administrator.';
-      this.notifierService.errorNotification(errorMessage, error.status);
-      this.terminalTypeTableService.showNoRowData();
-    }
-  }
-
-  private responseCreateAndUpdateChannelType() {
-    return (response: CustomHttpResponseModel) => {
-      this.onGetAllChannelType();
-      this.closeDialog();
-      this.notifierService.successNotification(response.message, response.httpStatusCode);
-    }
-  }
-
-  private errorCreateAndUpdateChannelType() {
-    return (error: HttpErrorResponse) => {
-      this.notifierService.errorNotification(error.error.message, error.status);
-    }
-  }
-
-  private responseDeleteChannelType() {
-    return (response: CustomHttpResponseModel) => {
-      this.notifierService.successNotification(response.message, response.httpStatusCode);
-      this.onGetAllChannelType();
-    }
-  }
-
-  private errorDeleteChannelType() {
-    return (error: HttpErrorResponse) => {
-      this.notifierService.errorNotification(error.error.message, error.status);
-    }
+    this.channelTypeDispatch._ChannelTypeDelete(this.existingData.channelTypeId);
   }
 
   onGetAllDialectMsgTemplate() {
-    this.dialectService.getAllIso8583Dialect().subscribe({
-      next: this.responseGetAllDialectMsgTemplate()
-    })
+    this.channelTypeDispatch._ChannelTypeGetDialectDispatch();
   }
 
-  private responseGetAllDialectMsgTemplate() {
-    return (response: Iso8583DialectMsgTemplateModel[]) => {
-      response.forEach(x => {
-        this.dialectMsgTemplateList.push({
-          name: x.nameType,
-          code: String(x.id)
-        })
-      })
-    }
+  createChannelTypeFormData(currentTerminalId: string, newData: ChannelTypeModel) {
+    const formData = new FormData();
+    formData.append('currentTerminalType', currentTerminalId);
+    formData.append('newTerminalType', newData.channelType);
+    formData.append('newDialectTemplateId', String(newData.dialectMessageTemplate.templateId));
+    formData.append('description', newData.description);
+    return formData;
   }
 
-  set ExistingData(data: RowClickedEvent) {
-    this.existingData = data.data;
+  openDialog() {
+    this.dialog.open(CreateUpdateDialogChannelTypeComponent, this.dialogConfig);
   }
 
-  get DialectMsgTemplateList(): DialectMsgTemplateGroupInterface[] {
-    return this.dialectMsgTemplateList;
+  closeDialog() {
+    this.dialog.closeAll();
+  }
+
+  getCurrentStatusDialog() {
+    return this.dialog.openDialogs;
+  }
+
+  set ExistingData(data: ChannelTypeModel) {
+    this.existingData = data;
   }
 }

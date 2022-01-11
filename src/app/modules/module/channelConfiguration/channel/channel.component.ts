@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {CreateUpdateDialogComponent} from "./widget/create-update-dialog/create-update-dialog.component";
 import {ChannelTableService} from "../../../../services/module-service/channel-table.service";
 import {ChannelService} from "../../../../services/module-service/channel.service";
 
@@ -13,8 +12,8 @@ export class ChannelComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public terminalService: ChannelService,
-    public terminalTableService: ChannelTableService
+    public channelService: ChannelService,
+    public channelTableService: ChannelTableService
   ) {
   }
 
@@ -22,16 +21,16 @@ export class ChannelComponent implements OnInit {
   }
 
   openDialog() {
-    this.terminalService.buttonStatus = 'create';
-    this.dialog.open(CreateUpdateDialogComponent, {autoFocus: false, disableClose: true, width: '55%'});
+    this.channelService.buttonStatus = 'create';
+    this.channelService.openDialog();
   }
 
   onFilterTextBoxChanged() {
-    this.terminalTableService.onFilter('search-filter');
+    this.channelTableService.onFilter('search-filter');
   }
 
   refreshTable() {
-    this.terminalService.getAllTerminalWithDelay();
+    this.channelService.getAllChannelWithDelay();
   }
 }
 

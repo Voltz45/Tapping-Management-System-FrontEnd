@@ -1,188 +1,108 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {map} from "rxjs/operators";
 import {ChannelModel} from "../../model/modules-model/channel.model";
 import {CustomHttpResponseModel} from "../../model/customHttpResponse-model/custom-http-response.model";
-import {NotificationTypeEnum} from "../../enum/notification-type.enum";
-import {ChannelTypeModel} from "../../model/modules-model/channel-type.model";
 import {ChannelTableService} from "./channel-table.service";
 import {ChannelTypeService} from "./channel-type.service";
-import {TerminalTypeGroupInterface} from "../../interface/modules/terminal-type-group.interface";
-import {MatDialog} from "@angular/material/dialog";
-import {NotificationService} from "../notification-service/notification.service";
+import {ChannelTypeGroupInterface} from "../../interface/modules/channel-type-group.interface";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {
+  CreateUpdateDialogComponent
+} from "../../modules/module/channelConfiguration/channel/widget/create-update-dialog/create-update-dialog.component";
+import {ChannelDispatch} from "../../state-configuration/modules/channel-configuration/channel/channel.dispatch";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelService {
-  apiUrl = environment.core236;
-  existingData: ChannelModel = new ChannelModel();
+
+  private apiUrl = environment.core236;
   buttonStatus: string = '';
-  terminalTypeList: TerminalTypeGroupInterface[] = [];
+  existingData: ChannelModel = new ChannelModel();
+  channelList: ChannelTypeGroupInterface[] = [];
+  dialogConfig: MatDialogConfig = {autoFocus: false, disableClose: true, width: '55%'};
 
   constructor(
     private http: HttpClient,
-    private terminalTableService: ChannelTableService,
-    private terminalTypeService: ChannelTypeService,
-    private notifierService: NotificationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private channelDispatch: ChannelDispatch,
+    private channelTypeService: ChannelTypeService,
+    private channelTableService: ChannelTableService
   ) {
   }
 
-  getAllTerminal() {
-    return this.http.get<ChannelModel[]>(`${this.apiUrl}/channel/list`).pipe(map((response) => {
-      return response;
-    }))
+  getAllChannel() {
+    return this.http.get<ChannelModel[]>(`${this.apiUrl}/channel/list`);
   }
 
-  addTerminal(data: ChannelModel) {
-    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/channel/register`, data).pipe(map((response) => {
-      return response;
-    }))
+  addChannel(data: ChannelModel) {
+    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/channel/${data.channelType.channelTypeId}/register`, data);
   }
 
-  updateTerminal(data: FormData) {
-    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/channel/update`, data).pipe(map((response) => {
-      return response;
-    }))
+  updateChannel(data: FormData) {
+    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/channel/update`, data);
   }
 
-  deleteTerminal(id: number) {
-    return this.http.delete(`${this.apiUrl}/channel/delete/` + id).pipe(map((response) => {
-      return response;
-    }))
+  deleteChannel(id: number) {
+    return this.http.delete<CustomHttpResponseModel>(`${this.apiUrl}/channel/delete/` + id);
   }
 
-  createTerminalFormData(currentChannelId: string, newData: ChannelModel) {
-    const formData = new FormData();
-    formData.append('currentChannelId', currentChannelId);
-    formData.append('newChannelId', newData.channelId);
-    formData.append('newIpAddress', newData.ipAddress);
-    formData.append('newPort', newData.port);
-    formData.append('newChannelType', String(newData.channelType));
-    formData.append('isOnPremise', String(newData.onPremise));
-    return formData;
+  deleteChannelTest(id: number) {
+    return this.http.delete<CustomHttpResponseModel>(`${this.apiUrl}/channel/delete/` + id);
   }
 
-  getAllTerminalWithDelay() {
+  getAllChannelWithDelay() {
     setTimeout(() => {
-      this.onGetAllTerminal();
-    }, 200);
+      this.onGetAllChannel();
+    }, 500);
   }
 
-  onGetAllTerminal() {
-    this.terminalTableService.showTableLoading();
-    this.getAllTerminal().subscribe({
-      next: this.responseGetAllTerminal(),
-      error: this.errorGetAllTerminal()
-    })
+  onGetAllChannel() {
+    this.channelTableService.showTableLoading();
+    this.channelDispatch._ChannelGetDispatch();
   }
 
-  onCreateTerminal(data: ChannelModel) {
-    this.addTerminal(data).subscribe({
-      next: this.responseCreateAndUpdate('Data added successfully.'),
-      error: this.errorCreateAndUpdate()
-    });
+  onCreateChannel(data: ChannelModel) {
+    this.channelDispatch._ChannelAdd(data);
   }
 
-  onUpdateTerminal(data: FormData) {
-    this.updateTerminal(data).subscribe({
-      next: this.responseCreateAndUpdate('Data edited successfully'),
-      error: this.errorCreateAndUpdate()
-    })
+  onUpdateChannel(data: FormData, dataState: ChannelModel) {
+    this.channelDispatch._ChannelUpdate(data, this.existingData.id ,dataState);
   }
 
-  onDeleteTerminal() {
-    this.deleteTerminal(this.existingData.id).subscribe({
-      next: this.responseDelete(),
-      error: this.errorDelete()
-    });
-  }
-
-  getAllTerminalTypeWithDelay() {
-    setTimeout(() => {
-      this.onGetAllTerminalType();
-    });
+  onDeleteChannel() {
+    this.channelDispatch._ChannelDelete(this.existingData.id);
   }
 
   onGetAllTerminalType() {
-    this.terminalTypeService.getAllChannelType().subscribe({
-      next: this.responseGetAllTerminalType()
-    })
+    this.channelDispatch._ChannelGetChannelTypeDispatch();
   }
 
-  successNotification(message: string, statusCode: number) {
-    this.notifierService.notify(NotificationTypeEnum.SUCCESS, message, statusCode);
+  createChannelFormData(currentChannelId: string, newData: ChannelModel) {
+    const formData = new FormData();
+    formData.append('currentChannelId', currentChannelId);
+    formData.append('newChannelId', String(newData.channelId));
+    formData.append('newIpAddress', newData.ipAddress);
+    formData.append('newPort', newData.port);
+    formData.append('newChannelType', String(newData.channelType.channelTypeId));
+    formData.append('isOnPremise', String(newData.isOnPremise));
+    return formData;
   }
 
-  errorNotification(message: string, statusCode: number) {
-    this.notifierService.notify(NotificationTypeEnum.ERROR, message, statusCode)
+  openDialog() {
+    this.dialog.open(CreateUpdateDialogComponent, this.dialogConfig);
   }
 
-  private responseGetAllTerminal() {
-    return (response: ChannelModel[]) => {
-      if (response.length != 0) {
-        response.forEach(x => {
-          const data = this.terminalTypeList.filter((value => {
-            return value.code == x.channelType
-          }));
-          x.channelType = data[0]?.name;
-        })
-        this.terminalTableService.gridColumnApi.applyColumnState({state: this.terminalTableService.sortModel});
-        this.terminalTableService.gridApi.onSortChanged();
-        this.terminalTableService.hideTableLoading();
-        this.terminalTableService.gridApi.setRowData(response);
-      } else {
-        this.terminalTableService.gridApi.setRowData(response);
-        this.terminalTableService.showNoRowData();
-      }
-    }
+  closeDialog() {
+    this.dialog.closeAll();
   }
 
-  private errorGetAllTerminal() {
-    return (error: HttpErrorResponse) => {
-      const errorMessage = 'Something went wrong, Please contact your administrator.';
-      this.errorNotification(errorMessage, error.status);
-      this.terminalTableService.showNoRowData();
-    }
+  getCurrentStatusDialog() {
+    return this.dialog.openDialogs;
   }
 
-  private responseCreateAndUpdate(message: string) {
-    return (response: any) => {
-      this.onGetAllTerminal();
-      this.dialog.closeAll();
-      this.successNotification(response.message, response.status);
-    }
-  }
-
-  private errorCreateAndUpdate() {
-    return (error: HttpErrorResponse) => {
-      this.errorNotification(error.error.message, error.status)
-    };
-  }
-
-  private responseDelete() {
-    return (response: any) => {
-      this.notifierService.notify(NotificationTypeEnum.SUCCESS, 'Data deleted successfully', 0);
-      this.getAllTerminalWithDelay();
-    }
-  }
-
-  private errorDelete() {
-    return (error: HttpErrorResponse) => {
-      this.notifierService.notify(NotificationTypeEnum.ERROR, error.error.message, error.status)
-    }
-  }
-
-  private responseGetAllTerminalType() {
-    return (response: ChannelTypeModel[]) => {
-      response.forEach(x => {
-        this.terminalTypeList.push({
-          code: String(x.id),
-          name: x.channelType
-        });
-      })
-    }
+  set ExistingData(data: ChannelModel) {
+    this.existingData = data;
   }
 }

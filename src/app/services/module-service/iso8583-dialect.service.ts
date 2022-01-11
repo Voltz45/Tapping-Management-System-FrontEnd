@@ -1,23 +1,26 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {map} from "rxjs/operators";
 import {Iso8583DialectMsgTemplateModel} from "../../model/modules-model/iso8583-dialect-msg-template.model";
 import {CustomHttpResponseModel} from "../../model/customHttpResponse-model/custom-http-response.model";
 import {Iso8583DialectTableService} from "./iso8583-dialect-table.service";
-import {NotificationService} from "../notification-service/notification.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {RowClickedEvent} from "ag-grid-community";
 import {MessageFormatGroupInterface} from "../../interface/modules/message-format-group.interface";
 import {Iso8583FormatService} from "./iso8583-format.service";
-import {Iso8583FormatModel} from "../../model/modules-model/iso8583-format.model";
+import {
+  CreateUpdateIso8583DialectDialogComponent
+} from "../../modules/module/external-interfaces/iso8583configuration/iso8583-dialect/widget/create-update-iso8583-dialect-dialog/create-update-iso8583-dialect-dialog.component";
+import {
+  DialectDispatch
+} from "../../state-configuration/modules/external-interfaces/iso8583configuration/iso8583-dialect/dialect.dispatch";
 
 @Injectable({
   providedIn: 'root'
 })
 export class Iso8583DialectService {
-  apiUrl = environment.core236;
+  private apiUrl = environment.core236;
   buttonStatus: string = '';
+  customHttpResponse!: CustomHttpResponseModel;
   msgFormatIdList: MessageFormatGroupInterface[] = [];
   existingData: Iso8583DialectMsgTemplateModel = new Iso8583DialectMsgTemplateModel();
   dialogConfig: MatDialogConfig = {autoFocus: false, disableClose: true, width: '55%'};
@@ -25,34 +28,47 @@ export class Iso8583DialectService {
   constructor(
     private http: HttpClient,
     private dialog: MatDialog,
-    private notifierService: NotificationService,
+    private dialectDispatch: DialectDispatch,
     private msgFormatService: Iso8583FormatService,
     private iso8583DialectTableService: Iso8583DialectTableService
   ) {
   }
 
   getAllIso8583Dialect() {
-    return this.http.get<Iso8583DialectMsgTemplateModel[]>(`${this.apiUrl}/dialectMsgTemplate/list`).pipe(map(response => {
-      return response;
-    }));
+    return this.http.get<Iso8583DialectMsgTemplateModel[]>(`${this.apiUrl}/dialectMsgTemplate/list`);
   }
 
   addIso8583Dialect(data: Iso8583DialectMsgTemplateModel) {
-    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/dialectMsgTemplate/add`, data).pipe(map(response => {
-      return response;
-    }))
+    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/dialectMsgTemplate/${data.messageFormat.messageFormatId}/add`, data);
   }
 
   updateIso8583Dialect(data: FormData) {
-    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/dialectMsgTemplate/update`, data).pipe(map(response => {
-      return response;
-    }))
+    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/dialectMsgTemplate/update`, data)
   }
 
   deleteIso8583Dialect(id: number) {
-    return this.http.delete<CustomHttpResponseModel>(`${this.apiUrl}/dialectMsgTemplate/delete/` + id).pipe(map(response => {
-      return response;
-    }))
+    return this.http.delete<CustomHttpResponseModel>(`${this.apiUrl}/dialectMsgTemplate/delete/` + id);
+  }
+
+  onGetAllIso8583Dialect() {
+    this.iso8583DialectTableService.showTableLoading();
+    this.dialectDispatch._DialectGetDispatch();
+  }
+
+  onCreateIso8583Dialect(payload: Iso8583DialectMsgTemplateModel) {
+    this.dialectDispatch._DialectAddDispatch(payload);
+  }
+
+  onUpdateIso8583Dialect(payload: FormData, dataState: Iso8583DialectMsgTemplateModel) {
+    this.dialectDispatch._DialectUpdateDispatch(payload, this.existingData.templateId, dataState);
+  }
+
+  onDeleteIso8583Dialect() {
+    this.dialectDispatch._DialectDeleteDispatch(this.existingData.templateId);
+  }
+
+  onGetAllMessageFormat() {
+    this.dialectDispatch._DialectGetMessageFormatDispatch();
   }
 
   createIso8583DialectFormData(currentNameType: string, newData: Iso8583DialectMsgTemplateModel): FormData {
@@ -60,129 +76,23 @@ export class Iso8583DialectService {
     formData.append('currentNameType', currentNameType);
     formData.append('nameType', newData.nameType);
     formData.append('description', newData.description);
-    formData.append('messageFormatId', newData.messageFormatId);
+    formData.append('messageFormatId', String(newData.messageFormat.messageFormatId));
     return formData;
+  }
+
+  openDialog() {
+    this.dialog.open(CreateUpdateIso8583DialectDialogComponent, this.dialogConfig);
   }
 
   closeDialog() {
     this.dialog.closeAll();
   }
 
-  getAllIso8583DialectWithDelay() {
-    setTimeout(() => {
-      this.onGetAllIso8583Dialect();
-    }, 500)
+  getCurrentStatusDialog() {
+    return this.dialog.openDialogs;
   }
 
-  onGetAllIso8583Dialect() {
-    this.iso8583DialectTableService.showTableLoading();
-    this.getAllIso8583Dialect().subscribe({
-      next: this.responseGetAllIso8583Dialect(),
-      error: this.errorGetAllIso8583Dialect()
-    })
-  }
-
-  onCreateIso8583Dialect(data: Iso8583DialectMsgTemplateModel) {
-    this.addIso8583Dialect(data).subscribe({
-      next: this.responseCreateAndUpdateIso8583Dialect(),
-      error: this.errorCreateAndUpdateIso8583Dialect()
-    })
-  }
-
-  onUpdateIso8583Dialect(data: FormData) {
-    this.updateIso8583Dialect(data).subscribe({
-      next: this.responseCreateAndUpdateIso8583Dialect(),
-      error: this.errorCreateAndUpdateIso8583Dialect()
-    })
-  }
-
-  onDeleteIso8583Dialect() {
-    this.deleteIso8583Dialect(this.existingData.id).subscribe({
-      next: this.responseDeleteIso8583Dialect(),
-      error: this.errorDeleteIso8583Dialect()
-    })
-  }
-
-  private responseGetAllIso8583Dialect() {
-    return (response: Iso8583DialectMsgTemplateModel[]) => {
-      if (response.length != 0) {
-        response.forEach(x => {
-          const data = this.msgFormatIdList.filter(value => {
-            return value.code === String(x.messageFormatId)
-          })
-          x.messageFormatId = data[0]?.name;
-        })
-        this.iso8583DialectTableService.applyFirstColSorting();
-        this.iso8583DialectTableService.hideTableLoading();
-        this.iso8583DialectTableService.setRowData(response);
-      } else {
-        this.iso8583DialectTableService.setRowData(response);
-        this.iso8583DialectTableService.showNoRowData();
-      }
-    }
-  }
-
-  private errorGetAllIso8583Dialect() {
-    return (error: HttpErrorResponse) => {
-      const errorMessage = 'Something went wrong, Please contact your administrator.';
-      this.notifierService.errorNotification(errorMessage, error.status);
-      this.iso8583DialectTableService.showNoRowData();
-    }
-  }
-
-  private responseCreateAndUpdateIso8583Dialect() {
-    return (response: CustomHttpResponseModel) => {
-      this.onGetAllIso8583Dialect();
-      this.closeDialog();
-      this.notifierService.successNotification(response.message, response.httpStatusCode);
-    }
-  }
-
-  private errorCreateAndUpdateIso8583Dialect() {
-    return (error: HttpErrorResponse) => {
-      this.notifierService.errorNotification(error.error.message, error.status);
-    }
-  }
-
-  private responseDeleteIso8583Dialect() {
-    return (response: CustomHttpResponseModel) => {
-      this.onGetAllIso8583Dialect();
-      this.notifierService.successNotification(response.message, response.httpStatusCode);
-    }
-  }
-
-  private errorDeleteIso8583Dialect() {
-    return (error: HttpErrorResponse) => {
-      this.notifierService.errorNotification(error.error.message, error.status);
-    }
-  }
-
-  onGetAllMessageFormat() {
-    this.msgFormatService.getAllIso8583Format().subscribe({
-      next: this.responseGetAllMessageFormat()
-    })
-  }
-
-  private responseGetAllMessageFormat() {
-    return (response: Iso8583FormatModel[]) => {
-      response.forEach(x => {
-        this.msgFormatIdList.push({
-          name: x.msgFormat,
-          code: String(x.id)
-        })
-      })
-    }
-  }
-
-  set ExistingData(data: RowClickedEvent) {
-    this.existingData = data.data;
-  }
-
-  get Dialog(): MatDialog {
-    return this.dialog;
-  }
-
-  get MsgFormatIdList(): MessageFormatGroupInterface[] {
-    return this.msgFormatIdList;
+  set ExistingData(data: Iso8583DialectMsgTemplateModel) {
+    this.existingData = data;
   }
 }

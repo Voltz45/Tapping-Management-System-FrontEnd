@@ -111,7 +111,24 @@ p {
   box-shadow: none !important;
 }
 
+.p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover {
+  background: none;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon:focus {
+  box-shadow: none;
+}
+
 .required-icon:after {
   content: " *";
   color: red;
+}
+
+/*Expansion Panel*/
+.right-aligned-header > .mat-content {
+  justify-content: space-between;
+}
+
+.mat-content > mat-panel-title, .mat-content > mat-panel-description {
+  flex: 0 0 auto;
 }

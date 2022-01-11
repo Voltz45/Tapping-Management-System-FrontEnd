@@ -1,10 +1,12 @@
+import {ChannelTypeModel} from "./channel-type.model";
+
 export class ChannelModel {
   id: number = 0;
-  channelId: string = '';
+  channelId: number = 0;
   ipAddress: string = '';
   port: string = '';
-  channelType: string = '';
   timeTrace: string = '';
-  onPremise: boolean = false;
+  isOnPremise: boolean = false;
   channelStatus: string = '';
+  channelType!: ChannelTypeModel;
 }

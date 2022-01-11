@@ -36,7 +36,7 @@ export class TransactionTableService {
     {
       field: 'HPAN',
       sortable: true,
-      minWidth: 170,
+      minWidth: 180,
       maxWidth: 200,
       headerClass: 'transaction-header-color',
       cellRenderer: 'medalCellRenderer'

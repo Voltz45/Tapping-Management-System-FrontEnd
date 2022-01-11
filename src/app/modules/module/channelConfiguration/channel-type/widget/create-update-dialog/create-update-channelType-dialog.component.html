@@ -1,19 +1,9 @@
-<h2 mat-dialog-title style="display: flex; align-items: center;justify-content: space-between">
+<h2 mat-dialog-title style="display: flex; align-items: center;justify-content: space-between;font-weight: 600">
   Create Channel Type
   <span class="bx bx-x" mat-dialog-close="true" style="font-size: 2rem; cursor: pointer"></span>
 </h2>
 <mat-dialog-content>
   <div class="m-0" [formGroup]="formGroup">
-    <div class="field">
-      <label for="Description" class="required-icon">Description</label>
-      <div style="width: 100%">
-        <input id="Description" type="text" pInputText class="terminal-type-description" formControlName="description">
-        <p-message *ngIf="description.touched && !description.hasError('required')" severity="success"></p-message>
-        <p-message *ngIf="description.touched && description.hasError('required')" severity="error"></p-message>
-      </div>
-      <small *ngIf="description.touched && description.hasError('required')" class="p-error">Description should be
-        fill.</small>
-    </div>
     <div class="formgrid grid">
       <div class="field col">
         <label class="required-icon">Channel Type</label>
@@ -43,16 +33,27 @@
           fill.</small>
       </div>
     </div>
+
+    <div class="field">
+      <label for="Description" class="required-icon">Description</label>
+      <div style="width: 100%">
+        <input id="Description" type="text" pInputText class="terminal-type-description" formControlName="description">
+        <p-message *ngIf="description.touched && !description.hasError('required')" severity="success"></p-message>
+        <p-message *ngIf="description.touched && description.hasError('required')" severity="error"></p-message>
+      </div>
+      <small *ngIf="description.touched && description.hasError('required')" class="p-error">Description should be
+        fill.</small>
+    </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <p-button class="cancel-button" label="Cancel" mat-dialog-close="true"
             styleClass="p-button-sm"></p-button>
-  <p-button (onClick)="onCreateTerminalType()" *ngIf="terminalTypeService.buttonDialogStatus == 'create'"
+  <p-button (onClick)="onCreateTerminalType()" *ngIf="channelTypeService.buttonDialogStatus == 'create'"
             [disabled]="formGroup.invalid"
             class="create-button" label="Create"
             styleClass="p-button-sm"></p-button>
-  <p-button (onClick)="onUpdateTerminalType()" *ngIf="terminalTypeService.buttonDialogStatus == 'edit'"
+  <p-button (onClick)="onUpdateTerminalType()" *ngIf="channelTypeService.buttonDialogStatus == 'edit'"
             [disabled]="disableStatus" class="create-button"
             label="Save"
             styleClass="p-button-sm"></p-button>

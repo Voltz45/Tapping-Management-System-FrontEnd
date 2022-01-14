@@ -11,7 +11,7 @@ export class ISO8583FieldGetDialect {
 
 export class ISO8583FieldAdd {
   static readonly type ='[ISO8583-Field] Add';
-  constructor(public payload: Iso8583Model) {}
+  constructor(public dialectId: number, public payload: Iso8583Model) {}
 }
 
 export class ISO8583FieldUpdate {

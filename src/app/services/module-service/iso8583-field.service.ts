@@ -69,16 +69,16 @@ export class Iso8583FieldService {
     return this.http.get<Iso8583Model>(`${this.apiUrl}/`);
   }
 
-  addIso8583Field(data: Iso8583Model) {
-    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/ISO8583CONF/${data.dialectTemplate.templateId}/add`, data);
+  addIso8583Field(dialectId: number, data: Iso8583Model) {
+    return this.http.post<CustomHttpResponseModel>(`${this.apiUrl}/ISO8583CONF/${dialectId}/add`, data);
   }
 
   onGetAllIso8583Field() {
     this.ISO8583FieldDispatch._ISO8583FieldGet();
   }
 
-  onCreateIso8583Field(payload: Iso8583Model) {
-    this.ISO8583FieldDispatch._ISO8583FieldAdd(payload);
+  onCreateIso8583Field(dialectId:number, payload: Iso8583Model) {
+    this.ISO8583FieldDispatch._ISO8583FieldAdd(dialectId, payload);
   }
 
   onUpdateIso8583Field() {

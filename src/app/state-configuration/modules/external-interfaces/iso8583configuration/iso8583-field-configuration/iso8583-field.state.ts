@@ -93,8 +93,8 @@ export class ISO8583FieldState {
   }
 
   @Action(ISO8583FieldAdd, {cancelUncompleted: true})
-  addDataFromState(ctx: StateContext<Iso8583FieldStateModel>, {payload}: ISO8583FieldAdd) {
-    return this.ISO8583FieldService.addIso8583Field(payload).pipe(tap(response => {
+  addDataFromState(ctx: StateContext<Iso8583FieldStateModel>, {dialectId, payload}: ISO8583FieldAdd) {
+    return this.ISO8583FieldService.addIso8583Field(dialectId, payload).pipe(tap(response => {
       ctx.dispatch(new ISO8583FieldSuccessState(response));
       ctx.patchState({
         ...ctx.getState(),

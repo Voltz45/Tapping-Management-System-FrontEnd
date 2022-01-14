@@ -1,9 +1,5 @@
-import {Iso8583DialectMsgTemplateModel} from "./iso8583-dialect-msg-template.model";
-
 export class Iso8583Model {
-  id: number = 0;
-  dialectTemplate!: Iso8583DialectMsgTemplateModel;
-  iso8583Field!: Iso8583FieldModel[];
+  dialectFields!: Iso8583FieldModel[];
 }
 
 export class Iso8583FieldModel {
@@ -11,8 +7,8 @@ export class Iso8583FieldModel {
   fieldFormat: string = '';
   length: string = '';
   description: string = '';
-  userInput: string = '';
-  hasChild: string = '';
+  userInput: boolean = false;
+  hasChild: boolean = false;
   typeChild: string = '';
   subField!: Iso8583SubFieldModel[];
   taggedField!: Iso8583TaggedFieldModel[];

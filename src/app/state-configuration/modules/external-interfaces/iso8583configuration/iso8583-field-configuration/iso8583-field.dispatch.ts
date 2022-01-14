@@ -25,8 +25,8 @@ export class ISO8583FieldDispatch {
   }
 
   @Dispatch()
-  public _ISO8583FieldAdd(payload: Iso8583Model) {
-    return new ISO8583FieldAdd(payload);
+  public _ISO8583FieldAdd(dialectId: number, payload: Iso8583Model) {
+    return new ISO8583FieldAdd(dialectId, payload);
   }
 
   @Dispatch()

@@ -107,8 +107,8 @@ import {
   Iso8583DialectTableComponent
 } from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/iso8583-dialect-table/iso8583-dialect-table.component';
 import {
-  CreateUpdateIso8583DialectDialogComponent
-} from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/create-update-iso8583-dialect-dialog/create-update-iso8583-dialect-dialog.component';
+  CreateUpdateIso8583DialogComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/create-update-iso8583-dialect-dialog/create-update-iso8583-dialog.component';
 import {
   ActionButtonGroupIso8583DialectComponent
 } from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/action-button-group-iso8583-dialect/action-button-group-iso8583-dialect.component';
@@ -174,7 +174,7 @@ import {MatRadioModule} from "@angular/material/radio";
     ChannelTypeTableComponent,
     ActionButtonGroupChannelTypeComponent,
     Iso8583DialectTableComponent,
-    CreateUpdateIso8583DialectDialogComponent,
+    CreateUpdateIso8583DialogComponent,
     ActionButtonGroupIso8583DialectComponent,
     Iso8583FormatComponent,
     Iso8583FormatTableComponent,

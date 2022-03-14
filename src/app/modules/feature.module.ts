@@ -53,8 +53,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {ChannelService} from "../services/module-service/channel.service";
 import {
-  CreateUpdateDialogComponent
-} from './module/channelConfiguration/channel/widget/create-update-dialog/create-update-dialog.component';
+  DialogChannelComponent
+} from './module/channelConfiguration/channel/widget/create-update-dialog/dialog-channel.component';
 import {HpanDialogComponent} from './module/transaction/widget-transaction/hpan-dialog/hpan-dialog.component';
 import {
   ActionButtonGroupTerminalComponent
@@ -107,11 +107,11 @@ import {
   Iso8583DialectTableComponent
 } from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/iso8583-dialect-table/iso8583-dialect-table.component';
 import {
-  CreateUpdateIso8583DialogComponent
-} from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/create-update-iso8583-dialect-dialog/create-update-iso8583-dialog.component';
+  DialogIso8583DialectComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/create-update-iso8583-dialect-dialog/dialog-iso8583-dialect.component';
 import {
-  ActionButtonGroupIso8583DialectComponent
-} from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/action-button-group-iso8583-dialect/action-button-group-iso8583-dialect.component';
+  ButtonIso8583DialectComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-dialect/widget/action-button-group-iso8583-dialect/button-iso8583-dialect.component';
 import {Iso8583FormatComponent} from './module/message-format/iso8583-format/iso8583-format.component';
 import {
   Iso8583FormatTableComponent
@@ -131,8 +131,8 @@ import {
   Iso8583FieldTableComponent
 } from './module/external-interfaces/iso8583configuration/iso8583-field-configuration/widget/iso8583-field-table/iso8583-field-table.component';
 import {
-  CreateUpdateIso8583FieldFormComponent
-} from './module/external-interfaces/iso8583configuration/iso8583-field-configuration/widget/create-update-iso8583-field-form/create-update-iso8583-field-form.component';
+  Iso8583FieldFormComponent
+} from './module/external-interfaces/iso8583configuration/iso8583-field-configuration/widget/create-update-iso8583-field-form/iso8583-field-form.component';
 import {RouterModule} from "@angular/router";
 import {Iso8583FieldService} from "../services/module-service/iso8583-field.service";
 import {MatRadioModule} from "@angular/material/radio";
@@ -160,7 +160,7 @@ import {MatRadioModule} from "@angular/material/radio";
     TableComponent,
     InterfacesListComponent,
     SystemParametersComponent,
-    CreateUpdateDialogComponent,
+    DialogIso8583DialectComponent,
     HpanDialogComponent,
     ActionButtonGroupTerminalComponent,
     ChannelTableComponent,
@@ -172,17 +172,18 @@ import {MatRadioModule} from "@angular/material/radio";
     TagComponent,
     CreateUpdateDialogChannelTypeComponent,
     ChannelTypeTableComponent,
+    DialogChannelComponent,
     ActionButtonGroupChannelTypeComponent,
     Iso8583DialectTableComponent,
-    CreateUpdateIso8583DialogComponent,
-    ActionButtonGroupIso8583DialectComponent,
+    DialogIso8583DialectComponent,
+    ButtonIso8583DialectComponent,
     Iso8583FormatComponent,
     Iso8583FormatTableComponent,
     ActionButtonGroupIso8583FormatComponent,
     CreateUpdateDialogIso8583FormatComponent,
     LoginComponent,
     Iso8583FieldTableComponent,
-    CreateUpdateIso8583FieldFormComponent
+    Iso8583FieldFormComponent
   ],
   imports: [
     NgxEchartsModule.forRoot({

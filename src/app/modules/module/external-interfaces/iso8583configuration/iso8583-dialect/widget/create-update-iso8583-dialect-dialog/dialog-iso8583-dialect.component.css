@@ -1,0 +1,64 @@
+.field {
+  @apply tw-flex tw-flex-col tw-flex-nowrap tw-h-[90px]
+}
+
+.nameType {
+  @apply tw-p-[.5rem] tw-w-[92%]
+}
+
+.description {
+  @apply tw-p-[.5rem]
+
+}
+
+.action-button-group {
+  @apply tw-absolute tw-bottom-[25px] tw-right-[25px]
+}
+
+.cancel-button {
+  @apply tw-mr-[10px]
+}
+
+.nameType.ng-valid.ng-touched,
+.description.ng-valid.ng-touched,
+:host ::ng-deep p-dropdown.ng-touched.ng-valid .p-dropdown {
+  border-color: #059669 !important;
+}
+
+.nameType.ng-invalid.ng-touched,
+.description.ng-invalid.ng-touched,
+:host ::ng-deep p-dropdown.ng-invalid.ng-touched .p-dropdown {
+  border-color: red;
+}
+
+/*PrimeNg deep styles*/
+:host ::ng-deep .cancel-button .p-button,
+:host ::ng-deep .cancel-button .p-button:enabled:hover {
+  background-color: #EF4444;
+  border-color: #EF4444;
+}
+
+:host ::ng-deep .msgFormat > .p-inputtext {
+  padding: .5rem !important;
+}
+
+:host ::ng-deep .p-dropdown {
+  width: 85%;
+}
+
+:host ::ng-deep .p-dropdown-items-wrapper {
+  max-height: 100px !important;
+}
+
+:host ::ng-deep .p-inline-message.p-inline-message-error,
+:host ::ng-deep .p-inline-message.p-inline-message-success {
+  background: none !important;
+}
+
+::ng-deep .p-dropdown-filter.p-inputtext {
+  padding: 0.2rem !important;
+}
+
+::ng-deep .p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
+  padding-right: 1.75rem !important;
+}

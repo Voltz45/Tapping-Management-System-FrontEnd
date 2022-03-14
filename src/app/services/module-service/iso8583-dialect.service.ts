@@ -8,8 +8,8 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {MessageFormatGroupInterface} from "../../interface/modules/message-format-group.interface";
 import {Iso8583FormatService} from "./iso8583-format.service";
 import {
-  CreateUpdateIso8583DialogComponent
-} from "../../modules/module/external-interfaces/iso8583configuration/iso8583-dialect/widget/create-update-iso8583-dialect-dialog/create-update-iso8583-dialog.component";
+  DialogIso8583DialectComponent
+} from "../../modules/module/external-interfaces/iso8583configuration/iso8583-dialect/widget/create-update-iso8583-dialect-dialog/dialog-iso8583-dialect.component";
 import {
   DialectDispatch
 } from "../../state-configuration/modules/external-interfaces/iso8583configuration/iso8583-dialect/dialect.dispatch";
@@ -81,7 +81,7 @@ export class Iso8583DialectService {
   }
 
   openDialog() {
-    this.dialog.open(CreateUpdateIso8583DialogComponent, this.dialogConfig);
+    this.dialog.open(DialogIso8583DialectComponent, this.dialogConfig);
   }
 
   closeDialog() {

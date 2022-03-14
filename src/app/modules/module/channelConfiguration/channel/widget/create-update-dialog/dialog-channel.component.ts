@@ -10,10 +10,10 @@ import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-create-update-dialog',
-  templateUrl: './create-update-dialog.component.html',
-  styleUrls: ['./create-update-dialog.component.css']
+  templateUrl: './dialog-channel.component.html',
+  styleUrls: ['./dialog-channel.component.css']
 })
-export class CreateUpdateDialogComponent implements OnInit, AfterViewInit {
+export class DialogChannelComponent implements OnInit, AfterViewInit {
   @Select(ChannelState.channelTypes) channelTypes$!: Observable<ChannelTypeGroupInterface[]>
 
   form!: FormGroup;

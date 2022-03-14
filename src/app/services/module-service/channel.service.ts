@@ -8,8 +8,8 @@ import {ChannelTypeService} from "./channel-type.service";
 import {ChannelTypeGroupInterface} from "../../interface/modules/channel-type-group.interface";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {
-  CreateUpdateDialogComponent
-} from "../../modules/module/channelConfiguration/channel/widget/create-update-dialog/create-update-dialog.component";
+  DialogChannelComponent
+} from "../../modules/module/channelConfiguration/channel/widget/create-update-dialog/dialog-channel.component";
 import {ChannelDispatch} from "../../state-configuration/modules/channel-configuration/channel/channel.dispatch";
 
 @Injectable({
@@ -91,7 +91,7 @@ export class ChannelService {
   }
 
   openDialog() {
-    this.dialog.open(CreateUpdateDialogComponent, this.dialogConfig);
+    this.dialog.open(DialogChannelComponent, this.dialogConfig);
   }
 
   closeDialog() {

@@ -1,0 +1,234 @@
+<div class="container" style="display: flex; flex-direction: column; flex-wrap: nowrap;">
+  <form [formGroup]="form" class="main-card-container">
+    <mat-card-title class="main-card-title">
+      <div class="main-card-title-content">
+        <div>
+          Create ISO8583 Spec
+        </div>
+        <div style="display: flex; flex-direction: row">
+          <p-button (click)="refresh()" class="refresh-button" icon="pi pi-refresh" styleClass="p-button-sm"></p-button>
+          <p-button label="Add Field" styleClass="p-button-sm p-button-raised" (onClick)="addIso8583Field()"></p-button>
+        </div>
+      </div>
+    </mat-card-title>
+    <div class="main-card-container-content">
+      <div class="main-card-content">
+        <div class="field">
+          <label class="required-icon">Dialect</label>
+          <div style="width: 100%">
+            <p-dropdown [filter]="true"
+                        [options]="dialectOptionList"
+                        appendTo="body"
+                        filterBy="name"
+                        placeholder="Select Dialect"
+                        optionLabel="name"
+                        formControlName="dialectTemplate"
+                        styleClass="dialect"></p-dropdown>
+          </div>
+        </div>
+        <div class="field-iso" formArrayName="iso8583Field">
+          <label class="required-icon iso8583-field-text">ISO8583 field configuration: </label>
+          <mat-accordion *ngFor="let field of iso8583Field.controls; let indexIso8583Field=index"
+                         style="margin-bottom: .5rem; display: flex;">
+            <mat-expansion-panel [formGroupName]="indexIso8583Field"
+                                 #expansionPanel="matExpansionPanel" [id]="indexIso8583Field"
+                                 style="width: 100%; margin-right: 15px">
+              <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                  Field Data {{iso8583FieldId(indexIso8583Field)?.value}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{iso8583Description(indexIso8583Field)?.value}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-form-field appearance="outline" style="margin-right: 20px">
+                <mat-label>Field Id</mat-label>
+                <input matInput class="field-id-input"
+                       type="text"
+                       autocomplete="off"
+                       formControlName="fieldId"
+                       maxlength="3"
+                       required
+                       [id]="indexIso8583Field.toString()">
+                <mat-error *ngIf="iso8583FieldId(indexIso8583Field)?.hasError('required')">Field Id should be fill</mat-error>
+                <mat-error *ngIf="iso8583FieldId(indexIso8583Field)?.hasError('pattern') && !iso8583FieldId(indexIso8583Field)?.hasError('required')">Field Id should be number</mat-error>
+                <mat-error *ngIf="iso8583FieldId(indexIso8583Field)?.hasError('unique') && !iso8583FieldId(indexIso8583Field)?.hasError('required')">Field Id should be unique</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="margin-right: 20px">
+                <mat-label>Field Format</mat-label>
+                <mat-select formControlName="fieldFormat">
+                  <mat-optgroup *ngFor="let formatGroup of iso8583FieldFormatGroups" [label]="formatGroup.name">
+                    <mat-option *ngFor="let isoFormat of formatGroup.isoFormat" [value]="isoFormat.value">
+                      {{isoFormat.viewValue}}
+                    </mat-option>
+                  </mat-optgroup>
+                </mat-select>
+                <mat-error>Field Format should be fill</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="margin-right: 20px">
+                <mat-label>Description</mat-label>
+                <input matInput type="text" autocomplete="off" formControlName="description">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Length</mat-label>
+                <input matInput type="text" autocomplete="off" maxlength="5" formControlName="length">
+                <mat-error>Length should be fill</mat-error>
+              </mat-form-field>
+
+              <div class="has-child-container">
+                <label class="has-child-label">Add Child Field: </label>
+                <div class="option-group">
+                  <mat-radio-group aria-label="Select an option"
+                                   (change)="radioButtonChange($event, indexIso8583Field, field)">
+                    <mat-radio-button value="subField"
+                                      [checked]="mapRadioChangeValue.get(indexIso8583Field) == 'subField'">
+                      Add Sub Field
+                    </mat-radio-button>
+                    <mat-radio-button value="taggedField"
+                                      [checked]="mapRadioChangeValue.get(indexIso8583Field) == 'taggedField'">
+                      Add Tagged Field
+                    </mat-radio-button>
+                    <mat-radio-button value="none"
+                                      [checked]="mapRadioChangeValue.get(indexIso8583Field) == '' || true">
+                      None
+                    </mat-radio-button>
+                  </mat-radio-group>
+                  <div *ngIf="mapRadioChangeValue.get(indexIso8583Field) == 'subField'">
+                    <button pButton class='p-button-raised p-button-sm' type="button"
+                            (click)="addIso8583SubField(field)">
+                      Add Child
+                    </button>
+                  </div>
+                  <div *ngIf="mapRadioChangeValue.get(indexIso8583Field) == 'taggedField'">
+                    <button pButton class='p-button-raised p-button-sm' type="button"
+                            (click)="addIso8583TaggedField(field)">
+                      Add Tagged
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="mapRadioChangeValue.get(indexIso8583Field) == 'subField'">
+                <div formArrayName="subField">
+                  <mat-accordion
+                    *ngFor="let subField of iso8583SubField(field)?.controls; let indexIso8583SubField=index"
+                    style="margin-bottom: .5rem; display: flex;">
+                    <mat-expansion-panel [formGroupName]="indexIso8583SubField"
+                                         #expansionSubChildPanel="matExpansionPanel"
+                                         style="width: 100%; margin-right: 15px">
+                      <mat-expansion-panel-header class="right-aligned-header">
+                        <mat-panel-title>
+                          Sub Field Data {{iso8583SubFieldId(subField)?.value}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          {{iso8583SubFieldDescription(subField)?.value}}
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+
+                      <mat-form-field appearance="outline" style="margin-right: 20px">
+                        <mat-label>Field Id</mat-label>
+                        <input matInput type="text" autocomplete="off" formControlName="fieldId" maxlength="3" [id]="indexIso8583SubField.toString()">
+                        <mat-error *ngIf="iso8583SubFieldId(subField).hasError('required')">Field Id should be fill</mat-error>
+                        <mat-error *ngIf="!iso8583SubFieldId(subField).hasError('required') && iso8583SubFieldId(subField).hasError('pattern')">Field Id should be number</mat-error>
+                        <mat-error *ngIf="!iso8583SubFieldId(subField).hasError('required') && iso8583SubFieldId(subField).hasError('unique')">Field Id should be unique</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" style="margin-right: 20px">
+                        <mat-label>Field Format</mat-label>
+                        <mat-select formControlName="fieldFormat">
+                          <mat-optgroup *ngFor="let formatGroup of iso8583FieldFormatGroups"
+                                        [label]="formatGroup.name">
+                            <mat-option *ngFor="let isoFormat of formatGroup.isoFormat" [value]="isoFormat.value">
+                              {{isoFormat.viewValue}}
+                            </mat-option>
+                          </mat-optgroup>
+                        </mat-select>
+                        <mat-error>Field Format should be fill</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" style="margin-right: 20px">
+                        <mat-label>Description</mat-label>
+                        <input matInput type="text" autocomplete="off" formControlName="description">
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline">
+                        <mat-label>Length</mat-label>
+                        <input matInput type="text" autocomplete="off" maxlength="5" formControlName="length">
+                        <mat-error>Length should be fill</mat-error>
+                      </mat-form-field>
+                    </mat-expansion-panel>
+                    <p-button label="X" styleClass="delete-field-button p-button-raised p-button-danger"
+                              (onClick)="deleteIso8583SubField(field, indexIso8583SubField)"></p-button>
+                  </mat-accordion>
+                </div>
+              </div>
+
+              <div *ngIf="mapRadioChangeValue.get(indexIso8583Field) == 'taggedField'">
+                <div formArrayName="taggedField">
+                  <mat-accordion
+                    *ngFor="let taggedField of iso8583TaggedField(field)?.controls; let indexIso8583TaggedField=index"
+                    style="margin-bottom: .5rem; display: flex;">
+                    <mat-expansion-panel [formGroupName]="indexIso8583TaggedField"
+                                         #expansionTaggedChildPanel="matExpansionPanel"
+                                         style="width: 100%; margin-right: 15px">
+                      <mat-expansion-panel-header class="right-aligned-header">
+                        <mat-panel-title>
+                          Tagged Field Data {{iso8583TaggedFieldId(taggedField)?.value}}
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <mat-form-field appearance="outline" style="margin-right: 20px">
+                        <mat-label>Field Id</mat-label>
+                        <input matInput type="text" autocomplete="off" formControlName="fieldId" maxlength="3" [id]="indexIso8583TaggedField.toString()">
+                        <mat-error *ngIf="iso8583TaggedFieldId(taggedField).hasError('required')">Field Id should be fill</mat-error>
+                        <mat-error *ngIf="!iso8583TaggedFieldId(taggedField).hasError('required') && iso8583TaggedFieldId(taggedField).hasError('pattern')">Field Id should be number</mat-error>
+                        <mat-error *ngIf="!iso8583TaggedFieldId(taggedField).hasError('required') && iso8583TaggedFieldId(taggedField).hasError('unique')">Field Id should be unique</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" style="margin-right: 20px">
+                        <mat-label>Field Format</mat-label>
+                        <mat-select formControlName="fieldFormat">
+                          <mat-optgroup *ngFor="let formatGroup of iso8583FieldFormatGroups"
+                                        [label]="formatGroup.name">
+                            <mat-option *ngFor="let isoFormat of formatGroup.isoFormat" [value]="isoFormat.value">
+                              {{isoFormat.viewValue}}
+                            </mat-option>
+                          </mat-optgroup>
+                        </mat-select>
+                        <mat-error>Field Format should be fill</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline">
+                        <mat-label>Tag & Length Size</mat-label>
+                        <mat-select formControlName="tagLenSize">
+                          <mat-option *ngFor="let tagLen of iso8583TaggedFieldTagLenSize"
+                                      [value]="tagLen.value">
+                            {{tagLen.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error>Tag Length Size should be fill</mat-error>
+                      </mat-form-field>
+                    </mat-expansion-panel>
+                    <p-button label="X" styleClass="delete-field-button p-button-raised p-button-danger"
+                              (onClick)="deleteIso8583TaggedField(field, indexIso8583TaggedField)"></p-button>
+                  </mat-accordion>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <p-button label="X" styleClass="delete-field-button p-button-raised p-button-danger"
+                      (onClick)="deleteIso8583Field(indexIso8583Field)"></p-button>
+          </mat-accordion>
+        </div>
+        <pre style="margin: 20px;">Form values: {{ form?.value | json }}</pre>
+      </div>
+    </div>
+
+    <div class="action-button-group">
+      <button pButton label="Cancel" class="cancel-button p-button-raised p-button-danger p-button-sm"
+              routerLink="/TMS-Home/external-interfaces/iso8583-configuration/iso8583Field-Configuration"></button>
+      <button pButton label="Save" class="save-button p-button-raised p-button-sm" (click)="onSubmit()" [disabled]="dialectMessageTemplate.invalid || iso8583Field.length == 0"></button>
+    </div>
+  </form>
+</div>

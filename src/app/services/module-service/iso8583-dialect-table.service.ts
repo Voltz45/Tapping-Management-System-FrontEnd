@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ColDef, ColumnApi, GridApi, GridReadyEvent} from "ag-grid-community";
 import {
-  ActionButtonGroupIso8583DialectComponent
-} from "../../modules/module/external-interfaces/iso8583configuration/iso8583-dialect/widget/action-button-group-iso8583-dialect/action-button-group-iso8583-dialect.component";
+  ButtonIso8583DialectComponent
+} from "../../modules/module/external-interfaces/iso8583configuration/iso8583-dialect/widget/action-button-group-iso8583-dialect/button-iso8583-dialect.component";
 import {OverlayLoadingComponent} from "../../modules/module/global-widget/overlay-loading/overlay-loading.component";
 
 @Injectable({
@@ -16,7 +16,7 @@ export class Iso8583DialectTableService {
   headerHeight: number = 40;
   overlayLoadingTemplate: string = 'overlayLoading';
   frameworkComponents = {
-    actionButtonGroup: ActionButtonGroupIso8583DialectComponent,
+    actionButtonGroup: ButtonIso8583DialectComponent,
     overlayLoading: OverlayLoadingComponent
   };
   defaultColDef: ColDef = {

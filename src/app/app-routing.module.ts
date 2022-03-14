@@ -34,8 +34,8 @@ import {
 } from "./modules/module/external-interfaces/iso8583configuration/iso8583-response-mapping/iso8583-response-mapping.component";
 import {Iso8583FormatComponent} from "./modules/module/message-format/iso8583-format/iso8583-format.component";
 import {
-  CreateUpdateIso8583FieldFormComponent
-} from "./modules/module/external-interfaces/iso8583configuration/iso8583-field-configuration/widget/create-update-iso8583-field-form/create-update-iso8583-field-form.component";
+  Iso8583FieldFormComponent
+} from "./modules/module/external-interfaces/iso8583configuration/iso8583-field-configuration/widget/create-update-iso8583-field-form/iso8583-field-form.component";
 
 const routes: Routes = [
   {
@@ -109,11 +109,11 @@ const routes: Routes = [
               },
               {
                 path: 'iso8583Field-Configuration/create',
-                component: CreateUpdateIso8583FieldFormComponent
+                component: Iso8583FieldFormComponent
               },
               {
                 path: 'iso8583Field-Configuration/edit/:id',
-                component: CreateUpdateIso8583FieldFormComponent
+                component: Iso8583FieldFormComponent
               },
               {
                 path: 'iso8583-ResponseMapping',
